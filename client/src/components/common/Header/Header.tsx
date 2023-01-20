@@ -2,12 +2,11 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import Button from "../Button/Button";
 import Container from "../Container";
-import "./Header.scss";
 
 const Header = () => {
   return (
     <header className="header">
-      <Container>
+      <Container className={'header__container'}>
         <div className="header__inner">
           <div className="header__logo">
             <h3>Logistic company</h3>
@@ -15,12 +14,12 @@ const Header = () => {
           <div className='header-buttons'>
               <NavLink to='/login/signIn' className='header-buttons-button'>
                 <Button className='button' onClick={''}>
-                  Войти
+                  Sign In
                 </Button>
               </NavLink>
               <NavLink to='/login/signUp' className='header-buttons-button'>
                 <Button className='button' onClick={''}>
-                  Зарегистрироваться
+                  Sign Up
                 </Button>
               </NavLink>
             </div>

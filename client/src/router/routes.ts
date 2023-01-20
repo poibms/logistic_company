@@ -1,6 +1,6 @@
 import React from 'react';
-import Main from '../layouts/Main';
+import MainPage from '../pages/MainPage';
 
 export const publicRoutes = [
-  { path: '/', component: Main},
+  { path: '/', component: MainPage},
 ];

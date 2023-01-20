@@ -23,3 +23,8 @@ $text-xs: 0.714rem; // 10px;
 $text-sm: 0.8571rem; // 12px
 $text-md: 1.357rem; // 19px
 $text-lg: 1.714rem; // 24px
+
+//
+$content-width: 1230px;
+$container-offset: 15px;
+$container-width: calc($content-width) + ($container-offset * 2);
