@@ -1,7 +1,8 @@
 import React from 'react';
 import Container from '../common/Container/Container';
+import ImageSliderItem from '../common/ImageSliderItem/ImageSliderItem';
 import ImageSlider from '../common/Slider/ImageSlider';
-import TransportationType from '../common/TransportationType/TransportationType';
+import TextSliderItem from '../common/TextSliderItem/TextSliderItem';
 
 const MainLayout = () => {
   return (
@@ -16,11 +17,11 @@ const MainLayout = () => {
       </section>
       <Container className={'mg-btm-70'}>
         <ImageSlider className={'main_slider'}>
-          <TransportationType/>
-          <TransportationType/>
-          <TransportationType/>
-          <TransportationType/>
-          <TransportationType/>
+          <ImageSliderItem/>
+          <ImageSliderItem/>
+          <ImageSliderItem/>
+          <ImageSliderItem/>
+          <ImageSliderItem/>
         </ImageSlider>
       </Container>
 
@@ -31,11 +32,11 @@ const MainLayout = () => {
 
       <Container className={'mg-btm-70'}>
         <ImageSlider className={'main_slider'}>
-          <TransportationType/>
-          <TransportationType/>
-          <TransportationType/>
-          <TransportationType/>
-          <TransportationType/>
+          <TextSliderItem/>
+          <TextSliderItem/>
+          <TextSliderItem/>
+          <TextSliderItem/>
+          <TextSliderItem/>
         </ImageSlider>
       </Container>
 

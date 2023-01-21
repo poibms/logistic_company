@@ -9,6 +9,7 @@
   font-family: $fontMontserrat;
   font-size: $text-16-size;
   color: $accent75;
+  box-sizing: border-box;
 }
 
 * {
@@ -44,22 +45,6 @@ img {
 	max-width: 100%;
 	object-fit: cover;
 }
-
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  border: 0;
-  padding: 0;
-  white-space: nowrap;
-  -webkit-clip-path: inset(100%);
-  clip-path: inset(100%);
-  clip: rect(0 0 0 0);
-  overflow: hidden;
-}
-
-
 
 .main {
   display: block;
