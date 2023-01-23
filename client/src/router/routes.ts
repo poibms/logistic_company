@@ -1,6 +1,8 @@
 import React from 'react';
-import MainPage from '../pages/MainPage';
+import MainLayout from '../layouts/Main';
+import Sign from '../layouts/Sign';
 
 export const publicRoutes = [
-  { path: '/', component: MainPage},
+  { path: '/', component: MainLayout},
+  { path: '/login/type?', component: Sign},
 ];

@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import Button from '../common/Button/Button';
+import Button from '../ui/Button/Button';
 import Container from '../common/Container/Container';
 import ImageSliderItem from '../common/ImageSliderItem/ImageSliderItem';
 // import News from '../common/News/News';
@@ -8,7 +8,7 @@ import NewsList from '../common/NewsList/NewsList';
 import ImageSlider from '../common/Slider/ImageSlider';
 import TextSliderItem from '../common/TextSliderItem/TextSliderItem';
 
-const MainLayout = () => {
+const MainPage = () => {
   return (
     <main className='main'>
       {/* <ImageSlider className={'main_wrapper'}>
@@ -95,4 +95,4 @@ const MainLayout = () => {
   )
 }
 
-export default MainLayout;
+export default MainPage;

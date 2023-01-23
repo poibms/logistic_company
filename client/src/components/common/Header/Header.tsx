@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import Button from "../Button/Button";
+import Button from "../../ui/Button/Button";
 import Container from "../Container";
 
 const Header = () => {
