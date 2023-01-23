@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../components/common/Footer/Footer';
 import Header from '../components/common/Header/Header';
 import MainLayout from '../components/layouts/Main';
 // import Footer from '../components/common/Footer';
@@ -10,6 +11,7 @@ const MainPage: React.FC = () => {
     <>
       <Header/>
       <MainLayout/>
+      <Footer/>
     </>
   );
 };

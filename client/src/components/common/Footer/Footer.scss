@@ -1,0 +1,42 @@
+.footer {
+  
+  &_inner {
+    width: 100%;
+    color: $white;
+    min-width: 320px;
+    display: flex;
+    flex-direction: row;
+
+    &-contacts {
+      width: 34%;
+      background-color: $green;
+    }
+
+    &-nav {
+      width: 66%;
+      background-color: $dark-grey;
+    }
+  }
+
+  &_menu {
+    padding: 20px 0;
+    font-size: $text-16-size;
+    line-height: 25px;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .footer {
+    
+    &_inner {
+      flex-direction: column;
+      
+      &-contacts {
+        width: 100%;
+      }
+      &-nav {
+        width: 100%;
+      }
+    }
+  }
+}
