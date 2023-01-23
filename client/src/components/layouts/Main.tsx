@@ -1,6 +1,10 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
+import Button from '../common/Button/Button';
 import Container from '../common/Container/Container';
 import ImageSliderItem from '../common/ImageSliderItem/ImageSliderItem';
+// import News from '../common/News/News';
+import NewsList from '../common/NewsList/NewsList';
 import ImageSlider from '../common/Slider/ImageSlider';
 import TextSliderItem from '../common/TextSliderItem/TextSliderItem';
 
@@ -25,10 +29,12 @@ const MainLayout = () => {
         </ImageSlider>
       </Container>
 
-      <section className='main_wrapper'>
+      <Container>
+      <h1 className='main_title'>Преимущества</h1>
+      </Container>
+      <section className='main_wrapper mg-btm-70'>
         <img className='main_wrapper-img' src="https://www.iveco.com/netherlands/PublishingImages/Jost%20Group_IVECO%20fleet%20(1600x1115)%20-%20kopie.jpg" alt="a" />
       </section>
-      <h1 className='main_title'>Преимущества</h1>
 
       <Container className={'mg-btm-70'}>
         <ImageSlider className={'main_slider'}>
@@ -39,6 +45,51 @@ const MainLayout = () => {
           <TextSliderItem/>
         </ImageSlider>
       </Container>
+      
+      <Container>
+        <h1 className='main_title'>Наш автопарк</h1>
+      </Container>
+      <section className='main_wrapper mg-btm-70'>
+        <img className='main_wrapper-img' src="https://jenty-spedition.ru/wp-content/uploads/2021/04/panorama_bez_nazvaniya-2-scaled.jpg" alt="a" />
+      </section>
+
+      <Container className={'mg-btm-70'}>
+        <ImageSlider className={'main_slider'}>
+          <ImageSliderItem/>
+          <ImageSliderItem/>
+          <ImageSliderItem/>
+          <ImageSliderItem/>
+          <ImageSliderItem/>
+        </ImageSlider>
+      </Container>
+
+
+      <Container>
+        <div className='main_title'>
+          <h1>Новости</h1>
+          <NavLink to='/news' className='header-buttons-button'>
+            <Button className='button'>Все новости</Button>
+          </NavLink>
+        </div>
+      </Container>
+      <div className='news'>
+        <Container className={'mg-btm-70'}>
+          <NewsList/>
+        </Container>
+      </div>
+    
+      <Container className={'mg-btm-70'}>
+        <h1 className='main_title'>Сертификаты</h1>
+
+        <ImageSlider className={'main_slider'}>
+          <ImageSliderItem/>
+          <ImageSliderItem/>
+          <ImageSliderItem/>
+          <ImageSliderItem/>
+          <ImageSliderItem/>
+        </ImageSlider>
+      </Container>
+
 
     </main>
   )
