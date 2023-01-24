@@ -21,7 +21,7 @@ const InputField: React.FC<InputTypes> = ({ label, type = 'text', name, value, o
       onChange={onChange}
       type={type}
       {...rest}
-      {...({ error: true, helperText: error })}
+      {...(error ? { error: true, helperText: error } : {error: false})}
     />
   );
 };

@@ -1,8 +1,5 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
-import Button from '../../ui/Button/Button';
-import Container from '../Container';
-import NewsList from '../NewsList/NewsList';
 
 const News = () => {
   return (

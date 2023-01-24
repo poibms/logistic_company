@@ -8,11 +8,6 @@ export type ValidatorConfigType = {
     [key: string]: any;
     isRequired?: ConfigFieldNameType;
     isEmail?: ConfigFieldNameType;
-    isCapitalSymbol?: ConfigFieldNameType;
-    isContainDigit?: ConfigFieldNameType;
-    min?: ConfigFieldNameType;
-    isValidInterval?: ConfigFieldNameType;
-    isValidDate?: ConfigFieldNameType;
   };
 };
 
