@@ -5,9 +5,11 @@ type ButtonProps = {
   className?: string;
   onClick?: any;
   children: React.ReactNode;
+  type?: string;
+  disabled?: boolean;
 };
 
-const Button: React.FC<ButtonProps> = ({className, onClick, children, ...rest}) => {
+const Button: React.FC<ButtonProps> = ({className, onClick, children, type, ...rest}) => {
   return (
     <button
     className={className}

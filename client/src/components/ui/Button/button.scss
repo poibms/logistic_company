@@ -5,4 +5,24 @@
   border-color: $green;
   color: $white;
   font-size: $text-16-size;
+
+  &_outline {
+    background-color: $white;
+    border-radius: 3px;
+    padding: 5px 10px;
+    border: 1px solid $green;
+    color: $green;
+    font-size: $text-16-size;
+    transition: .3s;
+  }
+
+  &_outline:hover {
+    background-color: $green;
+    color: $white;
+  }
+
+  &_sign {
+    width: 100%;
+    padding: 10px 10px;
+  }
 }
