@@ -8,7 +8,6 @@ type ButtonProps = {
 };
 
 const Button: React.FC<ButtonProps> = ({className, onClick, children, ...rest}) => {
-  console.log(className)
   return (
     <button
     className={className}

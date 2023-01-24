@@ -13,12 +13,12 @@ const Header = () => {
           </div>
           <div className='header-buttons'>
               <NavLink to='/login/signIn' className='header-buttons-button'>
-                <Button className='button' onClick={''}>
+                <Button className='button'>
                   Sign In
                 </Button>
               </NavLink>
               <NavLink to='/login/signUp' className='header-buttons-button'>
-                <Button className='button' onClick={''}>
+                <Button className='button'>
                   Sign Up
                 </Button>
               </NavLink>

@@ -10,7 +10,6 @@ type NavListProps = {
 };
 
 const NavList: React.FC<NavListProps> = ({ label, routes, direction = 'row', ...rest }) => {
-  console.log({rest})
   return (
     <nav {...rest}>
       {label && <h3>{label}</h3>}

@@ -5,7 +5,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 
 const Footer = () => {
   return (
-    <div className='footer'>
+    <footer className='footer'>
       <div className='footer_inner'>
         <div className='footer_inner-contacts'>
           <div className='flex flex_column justify-center'>
@@ -56,7 +56,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </div>
+    </footer>
   )
 }
 

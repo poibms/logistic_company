@@ -1,5 +1,14 @@
+// header,
+// footer {
+//   flex-shrink: 0;
+// }
+
+// footer {
+//   margin-top: auto;
+// }
+
 .footer {
-  
+  // flex-shrink: 0;
   &_inner {
     width: 100%;
     color: $white;

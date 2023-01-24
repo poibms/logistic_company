@@ -9,7 +9,20 @@
   font-family: $fontMontserrat;
   font-size: $text-16-size;
   color: $dark-grey;
-  box-sizing: border-box;
+  // box-sizing: border-box;
+}
+// #root {
+//   display: flex;
+//   min-height: 100vh;
+//   flex-direction: column;
+//   justify-content: space-between;
+//   font-size: $text-base-size;
+//   color: $accent75;
+// }
+
+.App {
+  display: flex;
+  flex-direction: column;
 }
 
 * {
@@ -51,8 +64,11 @@ img {
 	object-fit: cover;
 }
 
+// main {
+//   flex-grow: 1;
+// }
+
 .main {
-  display: block;
 
   &_title {
     display: flex;

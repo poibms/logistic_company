@@ -38,7 +38,6 @@ type ImageSliderProps = {
 };
 
 const ImageSlider: React.FC<ImageSliderProps> = ({children, ...settings}) => {
-  console.log({...settings})
   return (
     <section>
       <Slider {...defaultSettings} {...settings}>
