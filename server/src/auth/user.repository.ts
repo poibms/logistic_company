@@ -14,7 +14,7 @@ export class UserRepository extends Repository<User> {
     super(User, dataSource.createEntityManager());
   }
 
-  async signUp(authSignUpDto: AuthSignUpDto): Promise<void> {
+  async signUp(authSignUpDto: AuthSignUpDto): Promise<User> {
     try {
       const { password } = authSignUpDto;
       const salt = await bcrypt.genSalt();
@@ -25,6 +25,7 @@ export class UserRepository extends Repository<User> {
         password: hashedPassword,
       });
       await this.save(user);
+      return user;
     } catch (error) {
       //duplicate email
       if (error.code === '23505') {

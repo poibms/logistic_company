@@ -9,7 +9,7 @@ import {
 export class AuthSignInDto {
   @IsString()
   @IsEmail()
-  @Matches(/^\S+@\S+\.\S+$/g, {
+  @Matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, {
     message: '"Email" field entered incorrectly',
   })
   email: string;
