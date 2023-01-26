@@ -1,12 +1,16 @@
 import React, { useMemo } from 'react';
 import { Form, useForm } from '../../../hooks/useForm';
-import { SignInDataType } from '../../../types/types';
+import { SignUpDataType } from '../../../types/types';
 import PasswordInput from '../../HOC/WithPassword';
 import Button from '../Button/Button';
 import validatorConfig from './validatorConfig';
 import InputField from '../../common/InputField/InputField'
+import authService from '../../../services/auth.service';
 
-const initialData: SignInDataType = {
+const initialData: SignUpDataType = {
+  name: '',
+  surname: '',
+  phone: '',
   email: '',
   password: '',
 };
@@ -19,9 +23,11 @@ const SignUpForm = () => {
     validatorConfig
   );
 
-  const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (validate(data)) {
+      const res = await authService.signUp(data);
+      console.log(res);
       // const redirect = history.location.state ? history.location.state.from.pathname : '/';
       handleResetForm(e);
     }

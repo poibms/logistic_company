@@ -30,6 +30,17 @@ export function validator(data: { [key: string]: any }, validatorConfig: Validat
         statusValidate = !emailRegExp.test(fieldData);
         break;
       }
+
+      case 'isMin': {
+        console.log(fieldData)
+        statusValidate = fieldData.length >= 7 ? false : true;
+        break;
+      }
+      
+      case 'isMax': {
+        statusValidate = fieldData.length > 32 ? true : false;
+        break;
+      }
       default:
         break;
     }

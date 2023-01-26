@@ -5,6 +5,7 @@ import PasswordInput from '../../HOC/WithPassword';
 import Button from '../Button/Button';
 import validatorConfig from './validatorConfig';
 import InputField from '../../common/InputField/InputField'
+import authService from '../../../services/auth.service';
 
 const initialData: SignInDataType = {
   email: '',
@@ -19,10 +20,11 @@ const SignInForm = () => {
     validatorConfig
   );
 
-  const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (validate(data)) {
-      // const redirect = history.location.state ? history.location.state.from.pathname : '/';
+      const res = await authService.signIn(data);
+      console.log(res);
       handleResetForm(e);
     }
   };

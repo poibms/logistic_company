@@ -90,11 +90,9 @@ function Form({ children, handleChange, data, errors, ...rest }: FormType) {
         value: data[item.props.name],
         error: errors?.[item.props.name],
       };
-      console.log(config)
     }
     return React.cloneElement(item, config);
   });
-  // console.log(clonedElements)
   return (
     <form className='form' {...rest}>
       {clonedElements}
