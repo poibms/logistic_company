@@ -21,10 +21,4 @@ export class AuthController {
   ): Promise<{ accessToken: string }> {
     return await this.authService.signIn(authSignInDto);
   }
-
-  @Post('/test')
-  @UseGuards(AuthGuard())
-  test(@Req() req) {
-    console.log(req);
-  }
 }
