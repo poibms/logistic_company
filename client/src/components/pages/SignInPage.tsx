@@ -14,7 +14,7 @@ const SignInPage = () => {
             <SignInForm />
           <div className='login_form-footer'>
             <span>Нет аккаунта?</span>
-            <Link to='./signUp' className='login_form-link'>
+            <Link to='../login/signUp' className='login_form-link'>
               <Button className='button_outline'>
               Зарегистрироваться
               </Button>
