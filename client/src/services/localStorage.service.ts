@@ -7,6 +7,10 @@ class LocalStorageService {
   removeToken = () => {
     localStorage.removeItem('accessToken')
   }
+
+  getToken = () => {
+    return localStorage.getItem('accessToken');
+  }
 }
 
 export default new LocalStorageService();
