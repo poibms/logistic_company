@@ -5,7 +5,9 @@ import PasswordInput from '../../HOC/WithPassword';
 import Button from '../Button/Button';
 import validatorConfig from './validatorConfig';
 import InputField from '../../common/InputField/InputField'
-import authService from '../../../services/auth.service';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../../store';
+import { signIn } from '../../../store/user';
 
 const initialData: SignInDataType = {
   email: '',
@@ -13,6 +15,9 @@ const initialData: SignInDataType = {
 };
 
 const SignInForm = () => {
+
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const { data, errors, enterError, handleInputChange, validate, handleResetForm } = useForm(
     initialData,
@@ -23,8 +28,7 @@ const SignInForm = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (validate(data)) {
-      const res = await authService.signIn(data);
-      console.log(res);
+      dispatch(signIn(data, () => navigate('/')))
       handleResetForm(e);
     }
   };

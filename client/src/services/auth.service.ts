@@ -1,14 +1,11 @@
 import { SignUpDataType, SignInDataType } from './../types/types';
-import axios from 'axios';
 import { $host } from './intex';
 import localStorageService from './localStorage.service';
-// import localStorageService from './localStorage.service';
 
 
 const authService = {
   signUp: async (payload: SignUpDataType) => {
     const { data } = await $host.post(`/auth/signup`, payload);
-    localStorageService.setToken(data.accessToken);
     return data;
   },
   signIn: async (payload: SignInDataType) => {

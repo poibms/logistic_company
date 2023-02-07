@@ -5,7 +5,9 @@ import PasswordInput from '../../HOC/WithPassword';
 import Button from '../Button/Button';
 import validatorConfig from './validatorConfig';
 import InputField from '../../common/InputField/InputField'
-import authService from '../../../services/auth.service';
+import { useNavigate } from 'react-router-dom';
+import { signUp } from '../../../store/user';
+import { useAppDispatch } from '../../../store';
 
 const initialData: SignUpDataType = {
   name: '',
@@ -17,6 +19,9 @@ const initialData: SignUpDataType = {
 
 const SignUpForm = () => {
 
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  
   const { data, errors, enterError, handleInputChange, validate, handleResetForm } = useForm(
     initialData,
     false,
@@ -26,9 +31,7 @@ const SignUpForm = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (validate(data)) {
-      const res = await authService.signUp(data);
-      console.log(res);
-      // const redirect = history.location.state ? history.location.state.from.pathname : '/';
+      dispatch(signUp(data, () => navigate('/')));
       handleResetForm(e);
     }
   };
