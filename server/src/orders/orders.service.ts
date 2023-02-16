@@ -1,6 +1,7 @@
 import { NewUserOrderDto } from './dto/orders-create.dto';
 import { Injectable } from '@nestjs/common';
 import { OrdersRepository } from './orders.repository';
+import { Orders } from './orders.entity';
 
 @Injectable()
 export class OrdersService {
@@ -11,5 +12,9 @@ export class OrdersService {
     ownerId: string,
   ): Promise<{ message: string }> {
     return await this.ordersRepository.newUserOrder(newUserOrderDto, ownerId);
+  }
+
+  async getAllNotAssigntOrders(): Promise<Orders[]> {
+    return await this.ordersRepository.getAllNotAssigntOrders();
   }
 }
