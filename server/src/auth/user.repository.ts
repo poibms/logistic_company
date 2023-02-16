@@ -1,3 +1,4 @@
+import { UserRole } from './../types/user.types';
 import { DataSource, Repository } from 'typeorm';
 import {
   ConflictException,
@@ -24,6 +25,12 @@ export class UserRepository extends Repository<User> {
         ...authSignUpDto,
         password: hashedPassword,
       });
+
+      const countOfUsers = await this.countUser();
+      if (countOfUsers === 0) {
+        return await this.registerAdmin(user);
+      }
+
       await this.save(user);
       return user;
     } catch (error) {
@@ -34,6 +41,16 @@ export class UserRepository extends Repository<User> {
         throw new InternalServerErrorException();
       }
     }
+  }
+
+  async countUser(): Promise<number> {
+    return await this.count();
+  }
+
+  async registerAdmin(user: User) {
+    const admin = { ...user, role: UserRole.ADMIN };
+    await this.save(admin);
+    return admin;
   }
 
   async getUserByEmail(email: string): Promise<User | undefined> {

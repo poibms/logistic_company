@@ -1,4 +1,5 @@
-// import { Task } from 'src/tasks/tasks.entity';
+import { UserRole } from './../types/user.types';
+import { Orders } from './../orders/orders.entity';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
 @Entity()
@@ -21,6 +22,9 @@ export class User {
   @Column()
   password: string;
 
-  // @OneToMany((_type) => Task, (task) => task.user, { eager: true })
-  // task: Task[];
+  @Column({ default: UserRole.USER })
+  role: string;
+
+  @OneToMany((_type) => Orders, (orders) => orders.ownerId)
+  orders: Orders[];
 }

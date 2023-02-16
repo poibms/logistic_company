@@ -1,3 +1,4 @@
+import { AuthCredsDto } from './dto/auth-creds.dto';
 import { AuthSignInDto } from './dto/auth-signin.dto';
 import { AuthSignUpDto } from './dto/auth-signup.dto';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
@@ -14,25 +15,45 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signUp(authSignUpDto: AuthSignUpDto): Promise<{ accessToken: string }> {
+  async signUp(authSignUpDto: AuthSignUpDto): Promise<AuthCredsDto> {
     const user = await this.userRepository.signUp(authSignUpDto);
-    return await this.genAccesToken(user);
+    const token = await this.genAccesToken(user);
+    return {
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        surname: user.surname,
+        role: user.role,
+      },
+      accessToken: token,
+    };
   }
 
-  async signIn(authSignInDto: AuthSignInDto): Promise<{ accessToken: string }> {
+  async signIn(authSignInDto: AuthSignInDto): Promise<AuthCredsDto> {
     const { email, password } = authSignInDto;
 
     const user = await this.userRepository.getUserByEmail(email);
     if (user && (await bcrypt.compare(password, user.password))) {
-      return await this.genAccesToken(user);
+      const token = await this.genAccesToken(user);
+      return {
+        user: {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          surname: user.surname,
+          role: user.role,
+        },
+        accessToken: token,
+      };
     } else {
       throw new UnauthorizedException('Please check your credentials');
     }
   }
 
-  private async genAccesToken(user: User): Promise<{ accessToken: string }> {
+  private async genAccesToken(user: User): Promise<string> {
     const payload: JwtPayload = { id: user.id, email: user.email };
     const accessToken: string = await this.jwtService.sign(payload);
-    return { accessToken };
+    return accessToken;
   }
 }
