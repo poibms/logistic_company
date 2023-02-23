@@ -10,14 +10,14 @@ export class Drivers {
   name: string;
 
   @Column()
-  surname: number;
+  surname: string;
 
   @Column()
   age: number;
 
   @Column()
-  photo: any;
+  photo: string;
 
-  @OneToOne((_type) => Trucks, (truck) => truck.driverId)
+  @OneToOne((_type) => Trucks, (truck) => truck.driverId, { nullable: true })
   truckId: string;
 }

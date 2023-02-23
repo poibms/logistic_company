@@ -19,8 +19,10 @@ export class Trucks {
   loadCapacity: number;
 
   @Column()
-  photo: any;
+  photo: string;
 
-  @OneToOne((_type) => Drivers, (drivers) => drivers.truckId)
+  @OneToOne((_type) => Drivers, (drivers) => drivers.truckId, {
+    nullable: true,
+  })
   driverId: string;
 }
