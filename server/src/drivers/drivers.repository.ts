@@ -1,11 +1,24 @@
-import { Orders } from 'src/orders/orders.entity';
+import { Drivers } from 'src/drivers/drivers.entity';
 import { DataSource, Repository } from 'typeorm';
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { OrderStasus } from 'src/types/order.types';
+import { Injectable, BadRequestException } from '@nestjs/common';
+import { CreateDriverDto } from './dto/drivers-create.dto';
 
 @Injectable()
-export class DriversRepository extends Repository<Orders> {
+export class DriversRepository extends Repository<Drivers> {
   constructor(private dataSource: DataSource) {
-    super(Orders, dataSource.createEntityManager());
+    super(Drivers, dataSource.createEntityManager());
+  }
+
+  async createDriver(payload: CreateDriverDto): Promise<Drivers> {
+    try {
+      const newDriver = this.create(payload);
+      await this.save(newDriver);
+      return newDriver;
+    } catch (e) {
+      console.log(e);
+      throw new BadRequestException(
+        'error while creating driver. Check ur input data',
+      );
+    }
   }
 }
