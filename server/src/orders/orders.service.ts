@@ -17,4 +17,8 @@ export class OrdersService {
   async getAllNotAssigntOrders(): Promise<Orders[]> {
     return await this.ordersRepository.getAllNotAssigntOrders();
   }
+
+  async assigntOrderStatus(orderId, driverId): Promise<{ message: string }> {
+    return await this.ordersRepository.assigntOrderStatus(orderId, driverId);
+  }
 }

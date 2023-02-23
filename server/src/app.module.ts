@@ -3,6 +3,9 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { OrdersModule } from './orders/orders.module';
+import { DriversModule } from './drivers/drivers.module';
+import { DriversService } from './drivers/drivers.service';
+import { TracksModule } from './tracks/tracks.module';
 
 @Module({
   imports: [
@@ -21,6 +24,8 @@ import { OrdersModule } from './orders/orders.module';
     }),
     AuthModule,
     OrdersModule,
+    DriversModule,
+    TracksModule,
   ],
 })
 export class AppModule {}
