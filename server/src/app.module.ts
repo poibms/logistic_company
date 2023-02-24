@@ -4,8 +4,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { OrdersModule } from './orders/orders.module';
 import { DriversModule } from './drivers/drivers.module';
-import { DriversService } from './drivers/drivers.service';
 import { TracksModule } from './tracks/tracks.module';
+import { FilesModule } from './files/files.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import * as path from 'path';
 
 @Module({
   imports: [
@@ -22,10 +24,14 @@ import { TracksModule } from './tracks/tracks.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    ServeStaticModule.forRoot({
+      rootPath: path.resolve(__dirname, 'static'),
+    }),
     AuthModule,
     OrdersModule,
     DriversModule,
     TracksModule,
+    FilesModule,
   ],
 })
 export class AppModule {}

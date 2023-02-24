@@ -2,12 +2,7 @@ import { Injectable } from '@nestjs/common';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as uuid from 'uuid';
-
-export enum FileType {
-  AUDIO = 'audio',
-  IMAGE = 'image',
-  AVATAR = 'avatar',
-}
+import { FileType } from 'src/types/files.types';
 
 @Injectable()
 export class FilesService {
