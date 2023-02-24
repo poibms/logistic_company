@@ -1,13 +1,24 @@
 import { UserRole } from './../types/user.types';
-import { CanActivate, ExecutionContext, mixin, Type } from '@nestjs/common';
+import {
+  CanActivate,
+  ExecutionContext,
+  ForbiddenException,
+  mixin,
+  NotAcceptableException,
+  Type,
+} from '@nestjs/common';
 
 const RoleGuard = (role: UserRole): Type<CanActivate> => {
   class RoleGuardMixin implements CanActivate {
     canActivate(context: ExecutionContext) {
-      const request = context.switchToHttp().getRequest();
-      const user = request.user;
+      try {
+        const request = context.switchToHttp().getRequest();
+        const user = request.user;
 
-      return user.role.includes(role);
+        return user.role.includes(role);
+      } catch (e) {
+        throw new ForbiddenException('Only admin can do this request');
+      }
     }
   }
 

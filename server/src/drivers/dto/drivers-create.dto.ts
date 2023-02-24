@@ -1,4 +1,4 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsString } from 'class-validator';
 
 export class CreateDriverDto {
   @IsString()
@@ -7,10 +7,10 @@ export class CreateDriverDto {
   @IsString()
   surname: string;
 
-  @IsNumber()
-  age: number;
+  @IsString()
+  age: string;
 
-  photo?: any;
+  photo?: string;
 
   truckId?: string;
 }

@@ -13,7 +13,7 @@ export class Drivers {
   surname: string;
 
   @Column()
-  age: number;
+  age: string;
 
   @Column()
   photo: string;
