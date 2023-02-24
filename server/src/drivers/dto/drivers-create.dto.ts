@@ -10,7 +10,7 @@ export class CreateDriverDto {
   @IsNumber()
   age: number;
 
-  photo: any;
+  photo?: any;
 
   truckId?: string;
 }
