@@ -25,4 +25,13 @@ export class DriversRepository extends Repository<Drivers> {
   async getAllDrivers(): Promise<Drivers[]> {
     return await this.find();
   }
+
+  async deleteDriverById(id: string): Promise<{ message: string }> {
+    try {
+      await this.delete({ id });
+      return { message: 'driver was succesfully deleted ' };
+    } catch (e) {
+      throw new BadRequestException('something was wrong');
+    }
+  }
 }

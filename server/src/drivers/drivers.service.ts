@@ -27,4 +27,8 @@ export class DriversService {
   async getAllDrivers(): Promise<Drivers[]> {
     return await this.dirversRepository.getAllDrivers();
   }
+
+  async deleteDriverById(id: string): Promise<{ message: string }> {
+    return await this.dirversRepository.deleteDriverById(id);
+  }
 }

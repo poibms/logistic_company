@@ -4,7 +4,9 @@ import { Drivers } from 'src/drivers/drivers.entity';
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
   Post,
   UploadedFiles,
   UseGuards,
@@ -35,5 +37,10 @@ export class DriversController {
   @UseGuards(RoleGuard(UserRole.ADMIN))
   async getAllDrivers(): Promise<Drivers[]> {
     return await this.driversService.getAllDrivers();
+  }
+
+  @Delete('/:id')
+  async deleteDriverById(@Param('id') id): Promise<{ message: string }> {
+    return await this.driversService.deleteDriverById(id);
   }
 }
