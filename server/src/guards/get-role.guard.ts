@@ -4,7 +4,6 @@ import {
   ExecutionContext,
   ForbiddenException,
   mixin,
-  NotAcceptableException,
   Type,
 } from '@nestjs/common';
 
@@ -14,9 +13,11 @@ const RoleGuard = (role: UserRole): Type<CanActivate> => {
       try {
         const request = context.switchToHttp().getRequest();
         const user = request.user;
+        console.log(user);
 
         return user.role.includes(role);
       } catch (e) {
+        console.log(e);
         throw new ForbiddenException('Only admin can do this request');
       }
     }

@@ -23,4 +23,8 @@ export class DriversService {
       photo: driverPhoto,
     });
   }
+
+  async getAllDrivers(): Promise<Drivers[]> {
+    return await this.dirversRepository.getAllDrivers();
+  }
 }

@@ -4,8 +4,8 @@ import { Drivers } from 'src/drivers/drivers.entity';
 import {
   Body,
   Controller,
+  Get,
   Post,
-  UploadedFile,
   UploadedFiles,
   UseGuards,
   UseInterceptors,
@@ -29,5 +29,11 @@ export class DriversController {
   ): Promise<Drivers> {
     const { photo } = files;
     return await this.driversService.createDriver(createDriverDto, photo[0]);
+  }
+
+  @Get('/')
+  @UseGuards(RoleGuard(UserRole.ADMIN))
+  async getAllDrivers(): Promise<Drivers[]> {
+    return await this.driversService.getAllDrivers();
   }
 }

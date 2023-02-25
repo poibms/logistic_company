@@ -21,4 +21,8 @@ export class DriversRepository extends Repository<Drivers> {
       );
     }
   }
+
+  async getAllDrivers(): Promise<Drivers[]> {
+    return await this.find();
+  }
 }
