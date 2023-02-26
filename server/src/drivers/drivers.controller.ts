@@ -1,3 +1,4 @@
+import { setTruckType } from './../types/drivers.types';
 import { UserRole } from './../types/user.types';
 import { AuthGuard } from '@nestjs/passport';
 import { Drivers } from 'src/drivers/drivers.entity';
@@ -8,6 +9,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   UploadedFiles,
   UseGuards,
   UseInterceptors,
@@ -43,4 +45,12 @@ export class DriversController {
   async deleteDriverById(@Param('id') id): Promise<{ message: string }> {
     return await this.driversService.deleteDriverById(id);
   }
+
+  @Put('/')
+  @UseGuards(RoleGuard(UserRole.ADMIN))
+  async setTruckToDriver(@Body() payload: setTruckType) {
+    return await this.driversService.setTruckToDriver(payload);
+  }
+
+  // @Put('')
 }

@@ -1,3 +1,4 @@
+import { setTruckType } from './../types/drivers.types';
 import { FilesService } from './../files/files.service';
 import { DriversRepository } from './drivers.repository';
 import { Injectable } from '@nestjs/common';
@@ -30,5 +31,9 @@ export class DriversService {
 
   async deleteDriverById(id: string): Promise<{ message: string }> {
     return await this.dirversRepository.deleteDriverById(id);
+  }
+
+  async setTruckToDriver(payload: setTruckType) {
+    return await this.dirversRepository.setTruckToDriver(payload);
   }
 }
