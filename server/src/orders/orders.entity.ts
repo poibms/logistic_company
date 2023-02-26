@@ -1,13 +1,7 @@
 import { Drivers } from 'src/drivers/drivers.entity';
 import { User } from 'src/auth/user.entity';
 import { OrderStasus } from 'src/types/order.types';
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  OneToMany,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 
 @Entity()
 export class Orders {

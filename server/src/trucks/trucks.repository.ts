@@ -1,6 +1,6 @@
 import { Trucks } from 'src/trucks/trucks.entity';
 import { DataSource, Repository } from 'typeorm';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateTruckDto } from './dto/trucks-create.dto';
 
 @Injectable()

@@ -1,5 +1,4 @@
 import { FilesModule } from './../files/files.module';
-import { FilesService } from './../files/files.service';
 import { DriversRepository } from './drivers.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';

@@ -51,6 +51,4 @@ export class DriversController {
   async setTruckToDriver(@Body() payload: setTruckType) {
     return await this.driversService.setTruckToDriver(payload);
   }
-
-  // @Put('')
 }

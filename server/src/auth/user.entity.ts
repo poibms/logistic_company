@@ -25,7 +25,7 @@ export class User {
   @Column({ default: UserRole.USER })
   role: string;
 
-  @OneToMany((_type) => Orders, (orders) => orders.ownerId, {
+  @OneToMany(() => Orders, (orders) => orders.ownerId, {
     onDelete: 'CASCADE',
   })
   orders: Orders[];

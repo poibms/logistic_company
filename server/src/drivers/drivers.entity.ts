@@ -26,7 +26,7 @@ export class Drivers {
   @Column()
   photo: string;
 
-  @OneToOne((_type) => Trucks, (truck) => truck.id)
+  @OneToOne(() => Trucks, (truck) => truck.id)
   @JoinColumn()
   truckId: string;
 
