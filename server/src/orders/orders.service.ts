@@ -11,7 +11,7 @@ export class OrdersService {
   async newUserOrder(
     newUserOrderDto: NewUserOrderDto,
     ownerId: string,
-  ): Promise<{ message: string }> {
+  ): Promise<Orders> {
     return await this.ordersRepository.newUserOrder(newUserOrderDto, ownerId);
   }
 

@@ -13,12 +13,11 @@ export class OrdersRepository extends Repository<Orders> {
   async newUserOrder(
     newUserOrderDto: NewUserOrderDto,
     ownerId: string,
-  ): Promise<{ message: string }> {
+  ): Promise<Orders> {
     try {
       console.log({ ...newUserOrderDto, ownerId: ownerId });
       const newOreder = this.create({ ...newUserOrderDto, ownerId: ownerId });
-      await this.save(newOreder);
-      return { message: 'success created order' };
+      return await this.save(newOreder);
     } catch (e) {
       console.log(e);
     }

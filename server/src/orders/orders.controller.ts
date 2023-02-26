@@ -18,7 +18,7 @@ export class OrdersController {
   async newUserOrder(
     @Body() newUserOrderDto: NewUserOrderDto,
     @GetUser() user: User,
-  ): Promise<{ message: string }> {
+  ): Promise<Orders> {
     console.log(user);
     return await this.ordersService.newUserOrder(newUserOrderDto, user.id);
   }
