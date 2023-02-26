@@ -3,3 +3,8 @@ export enum OrderStasus {
   IN_PROGRESS = 'in progress',
   DONE = 'done',
 }
+
+export type assignOrderType = {
+  orderId: string;
+  driverId: string;
+};

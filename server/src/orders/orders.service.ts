@@ -2,6 +2,7 @@ import { NewUserOrderDto } from './dto/orders-create.dto';
 import { Injectable } from '@nestjs/common';
 import { OrdersRepository } from './orders.repository';
 import { Orders } from './orders.entity';
+import { assignOrderType } from 'src/types/order.types';
 
 @Injectable()
 export class OrdersService {
@@ -18,7 +19,10 @@ export class OrdersService {
     return await this.ordersRepository.getAllNotAssigntOrders();
   }
 
-  async assigntOrderStatus(orderId, driverId): Promise<{ message: string }> {
+  async assigntOrderStatus(
+    payload: assignOrderType,
+  ): Promise<{ message: string }> {
+    const { orderId, driverId } = payload;
     return await this.ordersRepository.assigntOrderStatus(orderId, driverId);
   }
 }

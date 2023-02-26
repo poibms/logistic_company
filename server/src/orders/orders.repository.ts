@@ -15,7 +15,8 @@ export class OrdersRepository extends Repository<Orders> {
     ownerId: string,
   ): Promise<{ message: string }> {
     try {
-      const newOreder = this.create({ ...newUserOrderDto, ownerId });
+      console.log({ ...newUserOrderDto, ownerId: ownerId });
+      const newOreder = this.create({ ...newUserOrderDto, ownerId: ownerId });
       await this.save(newOreder);
       return { message: 'success created order' };
     } catch (e) {
@@ -25,7 +26,9 @@ export class OrdersRepository extends Repository<Orders> {
 
   async getAllNotAssigntOrders(): Promise<Orders[]> {
     try {
-      return this.findBy({ status: OrderStasus.NOT_ASSIGNED });
+      const orders = await this.findBy({ status: OrderStasus.NOT_ASSIGNED });
+      // console.log(orders);
+      return orders;
     } catch (e) {
       console.log(e);
     }
@@ -33,7 +36,10 @@ export class OrdersRepository extends Repository<Orders> {
 
   async assigntOrderStatus(orderId, driverId): Promise<{ message: string }> {
     try {
-      this.save({ id: orderId, driverId });
+      await this.update(
+        { id: orderId },
+        { driverId: driverId, status: OrderStasus.IN_PROGRESS },
+      );
       return { message: 'order updated successfully' };
     } catch (e) {
       console.log(e);
