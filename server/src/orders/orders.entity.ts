@@ -1,6 +1,13 @@
+import { Drivers } from 'src/drivers/drivers.entity';
 import { User } from 'src/auth/user.entity';
 import { OrderStasus } from 'src/types/order.types';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 
 @Entity()
 export class Orders {
@@ -22,10 +29,11 @@ export class Orders {
   @Column({ default: OrderStasus.NOT_ASSIGNED })
   status: OrderStasus;
 
-  @ManyToOne((_type) => User, (user) => user.orders)
+  @ManyToOne(() => User, (user) => user.orders)
   // @Column()
   ownerId: string;
 
-  @Column({ nullable: true })
+  // @Column({ nullable: true )
+  @ManyToOne(() => Drivers, (drivers) => drivers.orders)
   driverId: string;
 }

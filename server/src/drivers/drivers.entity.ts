@@ -1,5 +1,13 @@
-import { Trucks } from 'src/tracks/trucks.entity';
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
+import { Orders } from 'src/orders/orders.entity';
+import { Trucks } from 'src/trucks/trucks.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToOne,
+  JoinColumn,
+  OneToMany,
+} from 'typeorm';
 
 @Entity()
 export class Drivers {
@@ -18,6 +26,10 @@ export class Drivers {
   @Column()
   photo: string;
 
-  @OneToOne((_type) => Trucks, (truck) => truck.driverId, { nullable: true })
+  @OneToOne((_type) => Trucks, (truck) => truck.id)
+  @JoinColumn()
   truckId: string;
+
+  @OneToMany(() => Orders, (orders) => orders.driverId)
+  orders: Orders[];
 }
