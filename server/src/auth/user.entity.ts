@@ -25,6 +25,9 @@ export class User {
   @Column({ default: UserRole.USER })
   role: string;
 
+  @Column({ name: 'refreshTokenHash' })
+  rthash: string;
+
   @OneToMany(() => Orders, (orders) => orders.ownerId, {
     onDelete: 'CASCADE',
   })
