@@ -11,9 +11,10 @@ import * as path from 'path';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      envFilePath: '.env',
-    }),
+    // ConfigModule.forRoot({
+    //   envFilePath: '.env',
+    // }),
+    ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST,
