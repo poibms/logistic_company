@@ -25,7 +25,7 @@ export class User {
   @Column({ default: UserRole.USER })
   role: string;
 
-  @Column({ name: 'refreshTokenHash' })
+  @Column({ name: 'refreshTokenHash', nullable: true })
   rthash: string;
 
   @OneToMany(() => Orders, (orders) => orders.ownerId, {

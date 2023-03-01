@@ -1,6 +1,7 @@
 import { UserRole } from './../types/user.types';
 import { DataSource, Repository } from 'typeorm';
 import {
+  BadRequestException,
   ConflictException,
   Injectable,
   InternalServerErrorException,
@@ -17,14 +18,7 @@ export class UserRepository extends Repository<User> {
 
   async signUp(authSignUpDto: AuthSignUpDto): Promise<User> {
     try {
-      const { password } = authSignUpDto;
-      const salt = await bcrypt.genSalt();
-      const hashedPassword = await bcrypt.hash(password, salt);
-
-      const user = this.create({
-        ...authSignUpDto,
-        password: hashedPassword,
-      });
+      const user = this.create(authSignUpDto);
 
       const countOfUsers = await this.countUser();
       if (countOfUsers === 0) {
@@ -43,6 +37,32 @@ export class UserRepository extends Repository<User> {
     }
   }
 
+  async logout(userId: string): Promise<boolean> {
+    try {
+      await this.update({ id: userId }, { rthash: null });
+      return true;
+    } catch {
+      throw new BadRequestException('Something was wrong');
+    }
+  }
+
+  async getUserByEmail(email: string): Promise<User | undefined> {
+    return await this.findOneBy({ email });
+  }
+
+  async getUserById(userId: string): Promise<User> {
+    return await this.findOneBy({ id: userId });
+  }
+
+  async updateUserRefreshToken(
+    userId: string,
+    refreshToken: string,
+  ): Promise<void> {
+    const salt = await bcrypt.genSalt();
+    const hashedRefreshToken = await bcrypt.hash(refreshToken, salt);
+    await this.update({ id: userId }, { rthash: hashedRefreshToken });
+  }
+
   async countUser(): Promise<number> {
     return await this.count();
   }
@@ -51,9 +71,5 @@ export class UserRepository extends Repository<User> {
     const admin = { ...user, role: UserRole.ADMIN };
     await this.save(admin);
     return admin;
-  }
-
-  async getUserByEmail(email: string): Promise<User | undefined> {
-    return await this.findOneBy({ email });
   }
 }
