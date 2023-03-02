@@ -8,11 +8,21 @@ import { AuthService } from './auth.service';
 import { Body, Controller, Post, Res, UseGuards } from '@nestjs/common';
 import { GetUser } from 'src/decorators/get-user.decorator';
 import { Response as ResponseType } from 'express';
+import {
+  ApiBearerAuth,
+  ApiCookieAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
 @Controller('auth')
+@ApiTags('Auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  @ApiOperation({ summary: 'Sign up User' })
+  @ApiResponse({ status: 201, type: AccessTokenType })
   @Post('/signup')
   async signUp(
     @Body() authSignUpDto: AuthSignUpDto,
@@ -23,6 +33,8 @@ export class AuthController {
     return { access_token: tokens.access_token };
   }
 
+  @ApiOperation({ summary: 'Sign in user' })
+  @ApiResponse({ status: 201, type: AccessTokenType })
   @Post('/signin')
   async signIn(
     @Body() authSignInDto: AuthSignInDto,
@@ -33,6 +45,9 @@ export class AuthController {
     return { access_token: tokens.access_token };
   }
 
+  @ApiOperation({ summary: 'Logout user' })
+  @ApiResponse({ status: 201 })
+  @ApiBearerAuth('access-token')
   @UseGuards(AuthGuard())
   @Post('/logout')
   async logout(
@@ -43,6 +58,9 @@ export class AuthController {
     return await this.authService.logout(user.id);
   }
 
+  @ApiOperation({ summary: 'Refresh user token' })
+  @ApiResponse({ status: 201 })
+  @ApiCookieAuth()
   @UseGuards(RefreshAuthGuard)
   @Post('/refresh')
   async refreshToken(
