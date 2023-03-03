@@ -17,11 +17,6 @@ export class LoggerMiddleware implements NestMiddleware {
       this.fileService.logFile(
         `${method} ${originalUrl} ${statusCode} ${contentLength} - ${userAgent} ${ip}`,
       );
-      if (statusCode >= 500) {
-        this.logger.log(
-          `${method} ${originalUrl} ${statusCode} ${contentLength} - ${userAgent} ${ip}`,
-        );
-      }
     });
 
     next();
