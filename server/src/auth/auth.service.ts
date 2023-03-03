@@ -79,7 +79,7 @@ export class AuthService {
     return tokens;
   }
 
-  private async genAccesToken(user: User): Promise<TokensType> {
+  async genAccesToken(user: User): Promise<TokensType> {
     const jwtPayload: JwtPayload = {
       id: user.id,
       email: user.email,
