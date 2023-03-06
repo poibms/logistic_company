@@ -1,3 +1,4 @@
+import { UpdateUserDto } from './dto/user-update.dto';
 import { AuthSignUpDto } from '../auth/dto/auth-signup.dto';
 import { UserRole } from '../types/user.types';
 import { DataSource, Repository } from 'typeorm';
@@ -37,6 +38,15 @@ export class UserRepository extends Repository<User> {
     }
   }
 
+  async updateProfile(userId: string, payload: UpdateUserDto): Promise<User> {
+    try {
+      await this.update({ id: userId }, { ...payload });
+      return await this.getUserById(userId, true);
+    } catch (e) {
+      throw new BadRequestException('Something was wrong');
+    }
+  }
+
   async logout(userId: string): Promise<boolean> {
     try {
       await this.update({ id: userId }, { rthash: null });
@@ -59,10 +69,14 @@ export class UserRepository extends Repository<User> {
     return await this.findOneBy({ email });
   }
 
-  async getUserById(userId: string): Promise<User> {
-    return await this.findOne({
-      where: { id: userId },
-    });
+  async getUserById(userId: string, exclude = false): Promise<User> {
+    if (exclude) {
+      return await this.findOne({
+        where: { id: userId },
+        select: ['id', 'name', 'surname', 'phone', 'email', 'orders'],
+      });
+    }
+    return await this.findOneBy({ id: userId });
   }
 
   async updateUserRefreshToken(

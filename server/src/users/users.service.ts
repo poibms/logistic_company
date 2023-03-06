@@ -1,3 +1,4 @@
+import { UpdateUserDto } from './dto/user-update.dto';
 import { UserRepository } from 'src/users/users.repository';
 import { Injectable } from '@nestjs/common';
 import { User } from './users.entity';
@@ -11,8 +12,11 @@ export class UserService {
   }
 
   async getUserById(userId: string): Promise<User> {
-    const user = await this.userRepository.getUserById(userId);
-    delete user.password && delete user.rthash;
+    const user = await this.userRepository.getUserById(userId, true);
     return user;
+  }
+
+  async updateProfile(userId: string, payload: UpdateUserDto): Promise<User> {
+    return await this.userRepository.updateProfile(userId, payload);
   }
 }
