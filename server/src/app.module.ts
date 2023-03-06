@@ -8,6 +8,7 @@ import { DriversModule } from './drivers/drivers.module';
 import { TracksModule } from './trucks/trucks.module';
 import { FilesModule } from './files/files.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { UserModule } from './user/user.module';
 import * as path from 'path';
 
 @Module({
@@ -34,6 +35,7 @@ import * as path from 'path';
     DriversModule,
     TracksModule,
     FilesModule,
+    UserModule,
   ],
 })
 export class AppModule {
