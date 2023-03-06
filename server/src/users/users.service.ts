@@ -9,4 +9,10 @@ export class UserService {
   async getAllUsers(): Promise<User[]> {
     return await this.userRepository.getAllUsers();
   }
+
+  async getUserById(userId: string): Promise<User> {
+    const user = await this.userRepository.getUserById(userId);
+    delete user.password && delete user.rthash;
+    return user;
+  }
 }

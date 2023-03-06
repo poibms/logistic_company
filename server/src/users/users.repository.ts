@@ -60,7 +60,9 @@ export class UserRepository extends Repository<User> {
   }
 
   async getUserById(userId: string): Promise<User> {
-    return await this.findOneBy({ id: userId });
+    return await this.findOne({
+      where: { id: userId },
+    });
   }
 
   async updateUserRefreshToken(
