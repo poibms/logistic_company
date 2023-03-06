@@ -31,9 +31,7 @@ export class FilesService {
       if (!fs.existsSync(filePath)) {
         fs.mkdirSync(filePath, { recursive: true });
       }
-      console.log(path.resolve(filePath, fileName), log);
       fs.appendFileSync(path.resolve(filePath, fileName), `${EOL}${log}`);
-      console.log('a');
     } catch (e) {
       // throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
       console.log(e);
