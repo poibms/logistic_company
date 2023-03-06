@@ -5,8 +5,8 @@ import { User } from './users.entity';
 import RoleGuard from 'src/guards/get-role.guard';
 import { UserRole } from 'src/types/user.types';
 
-@UseGuards(AuthGuard())
 @Controller('users')
+@UseGuards(AuthGuard())
 export class UserController {
   constructor(private userService: UserService) {}
 
