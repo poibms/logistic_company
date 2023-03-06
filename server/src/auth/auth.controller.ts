@@ -14,7 +14,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { User } from 'src/user/user.entity';
+import { User } from 'src/users/users.entity';
 
 @Controller('auth')
 @ApiTags('Auth')

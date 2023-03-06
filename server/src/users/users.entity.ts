@@ -1,5 +1,5 @@
-import { UserRole } from './../types/user.types';
-import { Orders } from './../orders/orders.entity';
+import { UserRole } from '../types/user.types';
+import { Orders } from '../orders/orders.entity';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 

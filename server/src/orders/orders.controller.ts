@@ -7,7 +7,7 @@ import { GetUser } from 'src/decorators/get-user.decorator';
 import { Orders } from './orders.entity';
 import RoleGuard from 'src/guards/get-role.guard';
 import { assignOrderType } from 'src/types/order.types';
-import { User } from 'src/user/user.entity';
+import { User } from 'src/users/users.entity';
 
 @Controller('orders')
 @UseGuards(AuthGuard())

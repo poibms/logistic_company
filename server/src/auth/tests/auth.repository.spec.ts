@@ -1,6 +1,6 @@
 import { Test } from '@nestjs/testing';
-import { User } from 'src/user/user.entity';
-import { UserRepository } from 'src/user/user.repository';
+import { User } from 'src/users/users.entity';
+import { UserRepository } from 'src/users/users.repository';
 import { AuthSignUpDto } from '../dto/auth-signup.dto';
 
 const mockUserRepository = () => ({

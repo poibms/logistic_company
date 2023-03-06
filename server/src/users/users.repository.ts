@@ -1,5 +1,5 @@
-import { AuthSignUpDto } from './../auth/dto/auth-signup.dto';
-import { UserRole } from './../types/user.types';
+import { AuthSignUpDto } from '../auth/dto/auth-signup.dto';
+import { UserRole } from '../types/user.types';
 import { DataSource, Repository } from 'typeorm';
 import {
   BadRequestException,
@@ -7,7 +7,7 @@ import {
   Injectable,
   InternalServerErrorException,
 } from '@nestjs/common';
-import { User } from './user.entity';
+import { User } from './users.entity';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -42,6 +42,15 @@ export class UserRepository extends Repository<User> {
       await this.update({ id: userId }, { rthash: null });
       return true;
     } catch {
+      throw new BadRequestException('Something was wrong');
+    }
+  }
+
+  async getAllUsers(): Promise<User[]> {
+    try {
+      const users = await this.find();
+      return users;
+    } catch (e) {
       throw new BadRequestException('Something was wrong');
     }
   }

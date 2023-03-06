@@ -4,8 +4,8 @@ import { Test } from '@nestjs/testing';
 import { AuthSignUpDto } from '../dto/auth-signup.dto';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { UserRepository } from 'src/user/user.repository';
-import { User } from 'src/user/user.entity';
+import { UserRepository } from 'src/users/users.repository';
+import { User } from 'src/users/users.entity';
 
 const mockUserRepository = () => ({
   signUp: jest.fn(),
