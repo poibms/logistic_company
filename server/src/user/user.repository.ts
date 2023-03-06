@@ -1,3 +1,4 @@
+import { AuthSignUpDto } from './../auth/dto/auth-signup.dto';
 import { UserRole } from './../types/user.types';
 import { DataSource, Repository } from 'typeorm';
 import {
@@ -7,7 +8,6 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { User } from './user.entity';
-import { AuthSignUpDto } from './dto/auth-signup.dto';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()

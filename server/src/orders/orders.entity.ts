@@ -1,6 +1,6 @@
 import { Drivers } from 'src/drivers/drivers.entity';
-import { User } from 'src/auth/user.entity';
 import { OrderStasus } from 'src/types/order.types';
+import { User } from 'src/user/user.entity';
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 
 @Entity()

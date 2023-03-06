@@ -1,11 +1,11 @@
 import { TokensType } from 'src/types/token.types';
-import { UserRepository } from './../user.repository';
 import { AuthService } from './../auth.service';
 import { Test } from '@nestjs/testing';
 import { AuthSignUpDto } from '../dto/auth-signup.dto';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { User } from '../user.entity';
+import { UserRepository } from 'src/user/user.repository';
+import { User } from 'src/user/user.entity';
 
 const mockUserRepository = () => ({
   signUp: jest.fn(),

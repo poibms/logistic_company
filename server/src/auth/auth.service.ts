@@ -1,3 +1,4 @@
+import { UserRepository } from './../user/user.repository';
 import { AuthSignInDto } from './dto/auth-signin.dto';
 import { AuthSignUpDto } from './dto/auth-signup.dto';
 import {
@@ -6,13 +7,12 @@ import {
   BadRequestException,
   ForbiddenException,
 } from '@nestjs/common';
-import { UserRepository } from './user.repository';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { User } from './user.entity';
 import { ConfigService } from '@nestjs/config';
 import { TokensType } from 'src/types/token.types';
 import { JwtPayload } from 'dist/auth/jwt-payload.interface';
+import { User } from 'src/user/user.entity';
 
 @Injectable()
 export class AuthService {

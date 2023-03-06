@@ -4,10 +4,10 @@ import { AuthGuard } from '@nestjs/passport';
 import { OrdersService } from './orders.service';
 import { Body, Controller, Get, Post, Put, UseGuards } from '@nestjs/common';
 import { GetUser } from 'src/decorators/get-user.decorator';
-import { User } from 'src/auth/user.entity';
 import { Orders } from './orders.entity';
 import RoleGuard from 'src/guards/get-role.guard';
 import { assignOrderType } from 'src/types/order.types';
+import { User } from 'src/user/user.entity';
 
 @Controller('orders')
 @UseGuards(AuthGuard())

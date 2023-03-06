@@ -1,6 +1,5 @@
 import { AuthGuard } from '@nestjs/passport';
 import { RefreshAuthGuard } from './../guards/refresh.guard';
-import { User } from 'src/auth/user.entity';
 import { AccessTokenType } from './../types/token.types';
 import { AuthSignInDto } from './dto/auth-signin.dto';
 import { AuthSignUpDto } from './dto/auth-signup.dto';
@@ -15,6 +14,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { User } from 'src/user/user.entity';
 
 @Controller('auth')
 @ApiTags('Auth')
