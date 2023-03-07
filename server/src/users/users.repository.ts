@@ -73,7 +73,7 @@ export class UserRepository extends Repository<User> {
     if (exclude) {
       return await this.findOne({
         where: { id: userId },
-        select: ['id', 'name', 'surname', 'phone', 'email', 'orders'],
+        select: ['id', 'name', 'surname', 'phone', 'email', 'orders', 'role'],
       });
     }
     return await this.findOneBy({ id: userId });
