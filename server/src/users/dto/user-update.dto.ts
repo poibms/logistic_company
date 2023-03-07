@@ -1,23 +1,25 @@
-import { IsOptional, IsString } from 'class-validator';
+import { IsEmail, IsOptional, IsString, Matches } from 'class-validator';
 
 export class UpdateUserDto {
-  @IsOptional()
   @IsString()
-  name?: string;
+  @IsOptional()
+  name: string;
 
-  @IsOptional()
   @IsString()
-  surname?: string;
+  @IsOptional()
+  surname: string;
 
-  @IsOptional()
   @IsString()
-  phone?: string;
+  @IsOptional()
+  @Matches(/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/, {
+    message: '"Phone" field entered incorrectly',
+  })
+  phone: string;
 
+  @IsEmail()
   @IsOptional()
-  @IsString()
-  loadCapacity: number;
-
-  @IsOptional()
-  @IsString()
-  email?: string;
+  @Matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, {
+    message: '"Email" field entered incorrectly',
+  })
+  email: string;
 }

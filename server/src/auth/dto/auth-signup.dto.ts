@@ -18,6 +18,9 @@ export class AuthSignUpDto {
 
   @ApiProperty({ example: '+3752957659921', description: 'User phone number' })
   @IsString()
+  @Matches(/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g, {
+    message: '"Phone" field entered incorrectly',
+  })
   phone: string;
 
   @ApiProperty({ example: 'user@gmail.com', description: 'User email' })
