@@ -16,8 +16,9 @@ export class TrucksService {
       FileType.TRUCKS,
       photo,
     );
-
     return await this.trucksRepository.createTruck({
+      year: +payload.year,
+      loadCapacity: +payload.loadCapacity,
       ...payload,
       photo: truckImage,
     });

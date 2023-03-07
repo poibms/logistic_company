@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsNumberString, IsOptional, IsString } from 'class-validator';
 
 export class CreateTruckDto {
   @IsString()
@@ -7,11 +7,12 @@ export class CreateTruckDto {
   @IsString()
   model: string;
 
+  @IsNumberString()
   year: number;
 
+  @IsNumberString()
   loadCapacity: number;
 
+  @IsOptional()
   photo?: string;
-
-  driverId?: string;
 }
