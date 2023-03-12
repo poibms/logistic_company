@@ -17,15 +17,15 @@ const MainPage = () => {
         <img className='main_wrapper-img' src='https://c4.wallpaperflare.com/wallpaper/39/346/426/digital-art-men-city-futuristic-night-hd-wallpaper-thumb.jpg' alt='a'/>
       </ImageSlider> */}
       <section className='main_wrapper mg-btm-70'>
-        <img className='main_wrapper-img' src="https://c4.wallpaperflare.com/wallpaper/39/346/426/digital-art-men-city-futuristic-night-hd-wallpaper-thumb.jpg" alt="a" />
+        <img className='main_wrapper-img' src="https://jenty-spedition.ru/wp-content/uploads/2020/11/2.jpg" alt="a" />
       </section>
       <Container className={'mg-btm-70'}>
         <ImageSlider className={'main_slider'}>
-          <ImageSliderItem/>
-          <ImageSliderItem/>
-          <ImageSliderItem/>
-          <ImageSliderItem/>
-          <ImageSliderItem/>
+          <ImageSliderItem image={'https://jenty-spedition.ru/wp-content/themes/jenty/img/temp_1.gif'} text={'Перевозки с температурным режимом'}/>
+          <ImageSliderItem image={'https://jenty-spedition.ru/wp-content/themes/jenty/img/temp_1.gif'} text={'Перевозки с температурным режимом'}/>
+          <ImageSliderItem image={'https://jenty-spedition.ru/wp-content/themes/jenty/img/temp_1.gif'} text={'Перевозки с температурным режимом'}/>
+          <ImageSliderItem image={'https://jenty-spedition.ru/wp-content/themes/jenty/img/temp_1.gif'} text={'Перевозки с температурным режимом'}/>
+          <ImageSliderItem image={'https://jenty-spedition.ru/wp-content/themes/jenty/img/temp_1.gif'} text={'Перевозки с температурным режимом'}/>
         </ImageSlider>
       </Container>
 
@@ -55,11 +55,10 @@ const MainPage = () => {
 
       <Container className={'mg-btm-70'}>
         <ImageSlider className={'main_slider'}>
-          <ImageSliderItem/>
-          <ImageSliderItem/>
-          <ImageSliderItem/>
-          <ImageSliderItem/>
-          <ImageSliderItem/>
+          <ImageSliderItem image={'https://jenty-spedition.ru/wp-content/themes/jenty/img/temp_1.gif'} text={'Перевозки с температурным режимом'}/>
+          <ImageSliderItem image={'https://jenty-spedition.ru/wp-content/themes/jenty/img/temp_1.gif'} text={'Перевозки с температурным режимом'}/>
+          <ImageSliderItem image={'https://jenty-spedition.ru/wp-content/themes/jenty/img/temp_1.gif'} text={'Перевозки с температурным режимом'}/>
+          <ImageSliderItem image={'https://jenty-spedition.ru/wp-content/themes/jenty/img/temp_1.gif'} text={'Перевозки с температурным режимом'}/>
         </ImageSlider>
       </Container>
 
@@ -82,11 +81,10 @@ const MainPage = () => {
         <h1 className='main_title'>Сертификаты</h1>
 
         <ImageSlider className={'main_slider'}>
-          <ImageSliderItem/>
-          <ImageSliderItem/>
-          <ImageSliderItem/>
-          <ImageSliderItem/>
-          <ImageSliderItem/>
+          <ImageSliderItem image={'https://jenty-spedition.ru/wp-content/themes/jenty/img/temp_1.gif'} text={'Перевозки с температурным режимом'}/>
+          <ImageSliderItem image={'https://jenty-spedition.ru/wp-content/themes/jenty/img/temp_1.gif'} text={'Перевозки с температурным режимом'}/>
+          <ImageSliderItem image={'https://jenty-spedition.ru/wp-content/themes/jenty/img/temp_1.gif'} text={'Перевозки с температурным режимом'}/>
+          <ImageSliderItem image={'https://jenty-spedition.ru/wp-content/themes/jenty/img/temp_1.gif'} text={'Перевозки с температурным режимом'}/>
         </ImageSlider>
       </Container>
 

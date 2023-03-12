@@ -1,13 +1,18 @@
 import React from 'react';
 
-const ImageSliderItem = () => {
+type ImageSliderProps = {
+  image: string,
+  text: string,
+}
+
+const ImageSliderItem: React.FC<ImageSliderProps> = ({image, text}) => {
   return (
     <div className='slider_item'>
       <div className='slider_item-img'>
-        <img src='https://jenty-spedition.ru/wp-content/themes/jenty/img/temp_1.gif' alt='a'/>
+        <img src={image} alt='a'/>
       </div>
       <div className='slider_item-subtitle'>
-        <p>Перевозки с температурным режимом</p>
+        <p>{text}</p>
       </div>
     </div>
   )
