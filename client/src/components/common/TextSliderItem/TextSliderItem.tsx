@@ -1,6 +1,7 @@
 import React from 'react';
+import { TextSliderProps } from '../../../types/slider';
 
-const TextSliderItem = () => {
+const TextSliderItem: React.FC<TextSliderProps> = ({ title, subtitle }) => {
   return (
     <div className='slider_item'>
       <div className='slider_item-title'>

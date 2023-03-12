@@ -1,9 +1,5 @@
 import React from 'react';
-
-type ImageSliderProps = {
-  image: string,
-  text: string,
-}
+import { ImageSliderProps } from '../../../types/slider';
 
 const ImageSliderItem: React.FC<ImageSliderProps> = ({image, text}) => {
   return (

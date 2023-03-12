@@ -5,10 +5,36 @@ import Container from '../common/Container/Container';
 import ImageSliderItem from '../common/ImageSliderItem/ImageSliderItem';
 // import News from '../common/News/News';
 import NewsList from '../common/NewsList/NewsList';
-import ImageSlider from '../common/Slider/ImageSlider';
+import Slider from '../common/Slider/Slider';
 import TextSliderItem from '../common/TextSliderItem/TextSliderItem';
+import text from '../../assets/text/textSlider.json';
+import cargoType from '../../assets/imageSlider/cargoTypes.json'
+import { SliderType } from '../../types/slider';
 
 const MainPage = () => {
+
+  const SliderGen = (sliderData: any, sliderType: SliderType) => {
+    if (sliderType === 'text') {
+      return (
+        <Slider className={'main_slider'}>
+          {sliderData.data.map((item: any) => (
+            <TextSliderItem title={item.title} subtitle={item.subtitle}/>
+          ))}
+        </Slider>
+      )
+    } else {
+      return (
+        <Slider className={'main_slider'}>
+          {sliderData.data.map((item: any) => (
+            <ImageSliderItem image={item.image} text={item.text}/>
+          ))}
+        </Slider>
+      )
+    }
+  }
+
+  const TextSlider = SliderGen(text, SliderType.TEXT);
+  const ImageSlider = SliderGen(cargoType, SliderType.IMAGE);
   return (
     <main className='main'>
       {/* <ImageSlider className={'main_wrapper'}>
@@ -20,15 +46,8 @@ const MainPage = () => {
         <img className='main_wrapper-img' src="https://jenty-spedition.ru/wp-content/uploads/2020/11/2.jpg" alt="a" />
       </section>
       <Container className={'mg-btm-70'}>
-        <ImageSlider className={'main_slider'}>
-          <ImageSliderItem image={'https://jenty-spedition.ru/wp-content/themes/jenty/img/temp_1.gif'} text={'Перевозки с температурным режимом'}/>
-          <ImageSliderItem image={'https://jenty-spedition.ru/wp-content/themes/jenty/img/temp_1.gif'} text={'Перевозки с температурным режимом'}/>
-          <ImageSliderItem image={'https://jenty-spedition.ru/wp-content/themes/jenty/img/temp_1.gif'} text={'Перевозки с температурным режимом'}/>
-          <ImageSliderItem image={'https://jenty-spedition.ru/wp-content/themes/jenty/img/temp_1.gif'} text={'Перевозки с температурным режимом'}/>
-          <ImageSliderItem image={'https://jenty-spedition.ru/wp-content/themes/jenty/img/temp_1.gif'} text={'Перевозки с температурным режимом'}/>
-        </ImageSlider>
+        {ImageSlider}
       </Container>
-
       <Container>
       <h1 className='main_title'>Преимущества</h1>
       </Container>
@@ -37,13 +56,7 @@ const MainPage = () => {
       </section>
 
       <Container className={'mg-btm-70'}>
-        <ImageSlider className={'main_slider'}>
-          <TextSliderItem/>
-          <TextSliderItem/>
-          <TextSliderItem/>
-          <TextSliderItem/>
-          <TextSliderItem/>
-        </ImageSlider>
+        {TextSlider}
       </Container>
       
       <Container>
@@ -54,12 +67,7 @@ const MainPage = () => {
       </section>
 
       <Container className={'mg-btm-70'}>
-        <ImageSlider className={'main_slider'}>
-          <ImageSliderItem image={'https://jenty-spedition.ru/wp-content/themes/jenty/img/temp_1.gif'} text={'Перевозки с температурным режимом'}/>
-          <ImageSliderItem image={'https://jenty-spedition.ru/wp-content/themes/jenty/img/temp_1.gif'} text={'Перевозки с температурным режимом'}/>
-          <ImageSliderItem image={'https://jenty-spedition.ru/wp-content/themes/jenty/img/temp_1.gif'} text={'Перевозки с температурным режимом'}/>
-          <ImageSliderItem image={'https://jenty-spedition.ru/wp-content/themes/jenty/img/temp_1.gif'} text={'Перевозки с температурным режимом'}/>
-        </ImageSlider>
+        {ImageSlider}
       </Container>
 
 
@@ -80,12 +88,7 @@ const MainPage = () => {
       <Container className={'mg-btm-70'}>
         <h1 className='main_title'>Сертификаты</h1>
 
-        <ImageSlider className={'main_slider'}>
-          <ImageSliderItem image={'https://jenty-spedition.ru/wp-content/themes/jenty/img/temp_1.gif'} text={'Перевозки с температурным режимом'}/>
-          <ImageSliderItem image={'https://jenty-spedition.ru/wp-content/themes/jenty/img/temp_1.gif'} text={'Перевозки с температурным режимом'}/>
-          <ImageSliderItem image={'https://jenty-spedition.ru/wp-content/themes/jenty/img/temp_1.gif'} text={'Перевозки с температурным режимом'}/>
-          <ImageSliderItem image={'https://jenty-spedition.ru/wp-content/themes/jenty/img/temp_1.gif'} text={'Перевозки с температурным режимом'}/>
-        </ImageSlider>
+        {ImageSlider}
       </Container>
 
 
