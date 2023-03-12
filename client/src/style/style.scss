@@ -1,5 +1,5 @@
-@import './variables';
-@import './components/index.scss';
+@import "./variables";
+@import "./components/index.scss";
 
 #root {
   display: flex;
@@ -11,14 +11,6 @@
   color: $dark-grey;
   // box-sizing: border-box;
 }
-// #root {
-//   display: flex;
-//   min-height: 100vh;
-//   flex-direction: column;
-//   justify-content: space-between;
-//   font-size: $text-base-size;
-//   color: $accent75;
-// }
 
 .App {
   display: flex;
@@ -59,9 +51,9 @@ button {
 }
 
 img {
-	height: auto;
-	max-width: 100%;
-	object-fit: cover;
+  height: auto;
+  max-width: 100%;
+  object-fit: cover;
 }
 
 // main {
@@ -69,7 +61,6 @@ img {
 // }
 
 .main {
-
   &_title {
     display: flex;
     justify-content: space-between;
@@ -117,5 +108,4 @@ img {
   &-spacearnd {
     justify-content: space-around;
   }
-  
 }
