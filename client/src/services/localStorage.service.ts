@@ -1,15 +1,27 @@
+import jwt_decode from 'jwt-decode';
+import { UserType } from '../types/types';
 class LocalStorageService {
 
-  setToken = (token: string) => {
+  setToken = (token: string): void => {
     localStorage.setItem('accessToken', token)
   }
 
-  removeToken = () => {
+  removeToken = (): void => {
     localStorage.removeItem('accessToken')
   }
 
-  getToken = () => {
-    return localStorage.getItem('accessToken');
+  getToken = (): string => {
+    return localStorage.getItem('accessToken') || '';
+  }
+
+  getUserData = (): UserType => {
+    const token = this.getToken();
+    return jwt_decode(token)
+  }
+
+  refreshToken = (token: string): void => {
+    this.removeToken();
+    this.setToken(token);
   }
 }
 

@@ -1,6 +1,5 @@
 import { SignUpDataType, SignInDataType } from './../types/types';
-import { $host } from './intex';
-import localStorageService from './localStorage.service';
+import { $authHost, $host } from './intex';
 
 
 const authService = {
@@ -10,16 +9,13 @@ const authService = {
   },
   signIn: async (payload: SignInDataType) => {
     const { data } = await $host.post(`/auth/signin`, payload);
-    localStorageService.setToken(data.accessToken);
     return data;
   },
-  // refresh: async () => {
-  //   const { data } = await httpAuth.post('token', {
-  //     grant_type: 'refresh_token',
-  //     refresh_token: localStorageService.getRefreshToken(),
-  //   });
-  //   return data;
-  // },
+
+  refreshToken: async () => {
+    const { data } = await $authHost.post(`/auth/refresh`);
+    return data;
+  },
 };
 
 export default authService;

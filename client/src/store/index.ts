@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import usersReducer from './user';
 
 const rootReducer = combineReducers({
-  users: usersReducer,
+  user: usersReducer,
 });
 
 export function createStore() {

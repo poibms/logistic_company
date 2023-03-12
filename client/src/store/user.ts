@@ -1,4 +1,5 @@
-import { SignInDataType } from './../types/types';
+import { RootState } from '.';
+import { SignInDataType, UserType } from './../types/types';
 import { createSlice } from '@reduxjs/toolkit';
 import localStorageService from '../services/localStorage.service';
 import { SignUpDataType } from '../types/types';
@@ -8,6 +9,7 @@ import { AppThunk } from '.';
 type UserInitialState = {
   isLoading: boolean;
   error: string | null;
+  auth: UserType | null;
   isLoggedIn: boolean;
 }
 
@@ -15,11 +17,13 @@ const initialState: UserInitialState = localStorageService.getToken()
   ? {
       isLoading: true,
       error: null,
+      auth: { ...localStorageService.getUserData()},
       isLoggedIn: true,
     }
   : {
       isLoading: false,
       error: null,
+      auth: null,
       isLoggedIn: false,
     };
 
@@ -36,12 +40,16 @@ const userSlice = createSlice({
     authRequestFailed: (state, action) => {
       state.error = action.payload;
     },
+
+    setAuthUser: (state) => {
+      state.auth = localStorageService.getUserData()
+    }
   }
 })
 
 const { actions, reducer: usersReducer } = userSlice;
 
-const { authRequested, authRequestSuccess, authRequestFailed } = actions
+const { authRequested, authRequestSuccess, authRequestFailed, setAuthUser } = actions
 
 
 export const signUp = 
@@ -50,11 +58,13 @@ export const signUp =
     dispatch(authRequested());
     try {
       const data = await authService.signUp(payload);
-      localStorageService.setToken(data.accessToken);
-      dispatch(authRequestSuccess())
+      localStorageService.setToken(data.access_token);
+      dispatch(authRequestSuccess());
+      dispatch(setAuthUser());
       callback();
-    } catch (e) {
-      dispatch(authRequestFailed(e));
+    } catch (error: any) {
+      const { message } = error.response.data;
+      dispatch(authRequestFailed(message));
     }
 }
 
@@ -64,13 +74,22 @@ export const signIn =
     dispatch(authRequested());
     try {
       const data = await authService.signIn(payload);
-      localStorageService.setToken(data.accessToken);
+      localStorageService.setToken(data.access_token);
       dispatch(authRequestSuccess())
+      dispatch(setAuthUser());
       callback();
-    } catch (e) {
-      dispatch(authRequestFailed(e));
+    } catch (error: any) {
+      const { message } = error.response.data;
+      dispatch(authRequestFailed(message));
     }
 }
+
+
+export const getIsLoggedIn = () => (state: RootState) => state.user.isLoggedIn;
+
+export const getAuthUser = () => (state: RootState): UserType | null => state.user.auth;
+
+export const getAuthErrors = () => (state: RootState) => state.user.error;
 
 
 export default usersReducer;
