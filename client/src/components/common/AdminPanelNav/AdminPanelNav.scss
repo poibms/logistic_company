@@ -1,0 +1,43 @@
+.navpanel {
+  border-right: 1px solid $light-grey;
+
+  &_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 50px 0 50px;
+  }
+
+  &_img {
+    margin-bottom: 20px;
+    img{
+      height: 60px;
+      width: 90px;
+    }
+  }
+
+  &_menu {
+    height: 70vh;
+  }
+
+  &_items {
+    margin-top: 20px;
+    li {
+      display: flex;
+      align-items: center;
+      margin: 10px;
+      padding: 0 10px;
+      border-radius: 10px;
+
+      svg {
+        margin-right: 5px;
+        color: white;
+        stroke: $green;
+      }
+    }
+  }
+
+  &_submenu {
+    border-top: 1px solid $light-grey;
+  }
+}
