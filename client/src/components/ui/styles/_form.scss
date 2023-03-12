@@ -20,6 +20,12 @@
 
 .form {
   margin-top: 15px;
+
+  &_error {
+    color: $red;
+    margin-top: 15px;
+    text-align: center;
+  }
   
   .MuiFormControl-root {
     width: 100%;

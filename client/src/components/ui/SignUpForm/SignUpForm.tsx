@@ -6,8 +6,9 @@ import Button from '../Button/Button';
 import validatorConfig from './validatorConfig';
 import InputField from '../../common/InputField/InputField'
 import { useNavigate } from 'react-router-dom';
-import { signUp } from '../../../store/user';
+import { getAuthErrors, signUp } from '../../../store/user';
 import { useAppDispatch } from '../../../store';
+import { useSelector } from 'react-redux';
 
 const initialData: SignUpDataType = {
   name: '',
@@ -21,6 +22,7 @@ const SignUpForm = () => {
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const authError = useSelector(getAuthErrors());
   
   const { data, errors, enterError, handleInputChange, validate, handleResetForm } = useForm(
     initialData,
@@ -41,16 +43,19 @@ const SignUpForm = () => {
   
   
   return (
-    <Form data={data} errors={errors} handleChange={handleInputChange}>
-        <InputField name='name' label='Имя' autoFocus />
-        <InputField name='surname' label='Фамилия' autoFocus />
-        <InputField name='phone' label='Номер телефона' autoFocus type='tel' />
-        <InputField name='email' label='Email' autoFocus />
-        <InputWithPassword name='password' label='Пароль' type='password' />
-        <Button className=' button button_sign' type='submit' onClick={handleSubmit} disabled={enterError ? true : false}>
-          Зарегистрироваться
-        </Button>
-    </Form>
+    <>
+      <Form data={data} errors={errors} handleChange={handleInputChange}>
+          <InputField name='name' label='Имя' autoFocus />
+          <InputField name='surname' label='Фамилия' autoFocus />
+          <InputField name='phone' label='Номер телефона' autoFocus type='tel' />
+          <InputField name='email' label='Email' autoFocus />
+          <InputWithPassword name='password' label='Пароль' type='password' />
+          <Button className=' button button_sign' type='submit' onClick={handleSubmit} disabled={enterError ? true : false}>
+            Зарегистрироваться
+          </Button>
+      </Form>
+      {authError && <p className='form_error'>{authError}</p>}
+    </>
   )
 }
 

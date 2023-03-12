@@ -7,7 +7,8 @@ import validatorConfig from './validatorConfig';
 import InputField from '../../common/InputField/InputField'
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../store';
-import { signIn } from '../../../store/user';
+import { getAuthErrors, signIn } from '../../../store/user';
+import { useSelector } from 'react-redux';
 
 const initialData: SignInDataType = {
   email: '',
@@ -18,6 +19,7 @@ const SignInForm = () => {
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const authError = useSelector(getAuthErrors());
 
   const { data, errors, enterError, handleInputChange, validate, handleResetForm } = useForm(
     initialData,
@@ -38,13 +40,16 @@ const SignInForm = () => {
   
   
   return (
-    <Form data={data} errors={errors} handleChange={handleInputChange}>
-        <InputField name='email' label='Email' autoFocus />
-        <InputWithPassword name='password' label='Пароль' type='password' />
-        <Button className=' button button_sign' type='submit' onClick={handleSubmit} disabled={enterError ? true : false}>
-          Войти
-        </Button>
-    </Form>
+    <>
+      <Form data={data} errors={errors} handleChange={handleInputChange}>
+          <InputField name='email' label='Email' autoFocus />
+          <InputWithPassword name='password' label='Пароль' type='password' />
+          <Button className=' button button_sign' type='submit' onClick={handleSubmit} disabled={enterError ? true : false}>
+            Войти
+          </Button>
+      </Form>
+      {authError && <p className='form_error'>{authError}</p>}
+    </>
   )
 }
 
