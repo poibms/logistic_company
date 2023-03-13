@@ -1,7 +1,7 @@
 
 import { Action, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
-import ordersReducer from './order';
+import ordersReducer from './orders';
 import usersReducer from './user';
 
 const rootReducer = combineReducers({

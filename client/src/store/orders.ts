@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { AppThunk, RootState } from ".";
+import ordersService from "../services/orders.service";
 import { OrderType } from "../types/types";
 
 const ordersSlice = createSlice({
@@ -26,6 +28,20 @@ const ordersSlice = createSlice({
 const { actions, reducer: ordersReducer } = ordersSlice;
 
 const { ordersRequested, ordersReceived, ordersRequestFailed } = actions;
+
+export const loadOrders = (): any => async (dispatch: any) => {
+  dispatch(ordersRequested());
+  try {
+    const { data } = await ordersService.loadOrders()
+    console.log(data);
+    dispatch(ordersReceived(data));
+  } catch (error: any) {
+    const { message } = error.response.data;
+    dispatch(ordersRequestFailed(message));
+  }
+};
+
+export const getOrdersLoadingStatus = () => (state: RootState) => state.orders.isLoading;
 
 
 export default ordersReducer;
