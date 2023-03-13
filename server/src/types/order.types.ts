@@ -1,6 +1,6 @@
 export enum OrderStasus {
-  NOT_ASSIGNED = 'not assigned',
-  IN_PROGRESS = 'in progress',
+  NOT_ASSIGNED = 'not_assigned',
+  IN_PROGRESS = 'in_progress',
   DONE = 'done',
 }
 

@@ -2,7 +2,7 @@ import { NewUserOrderDto } from './dto/orders-create.dto';
 import { Injectable } from '@nestjs/common';
 import { OrdersRepository } from './orders.repository';
 import { Orders } from './orders.entity';
-import { assignOrderType } from 'src/types/order.types';
+import { assignOrderType, OrderStasus } from 'src/types/order.types';
 
 @Injectable()
 export class OrdersService {
@@ -15,8 +15,8 @@ export class OrdersService {
     return await this.ordersRepository.newUserOrder(newUserOrderDto, ownerId);
   }
 
-  async getAllNotAssigntOrders(): Promise<Orders[]> {
-    return await this.ordersRepository.getAllNotAssigntOrders();
+  async getAllOrders(status: OrderStasus): Promise<Orders[]> {
+    return await this.ordersRepository.getAllOrders(status);
   }
 
   async assigntOrderStatus(

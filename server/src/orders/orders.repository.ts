@@ -3,6 +3,7 @@ import { Orders } from 'src/orders/orders.entity';
 import { DataSource, Repository } from 'typeorm';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { OrderStasus } from 'src/types/order.types';
+import { stat } from 'fs';
 
 @Injectable()
 export class OrdersRepository extends Repository<Orders> {
@@ -23,13 +24,17 @@ export class OrdersRepository extends Repository<Orders> {
     }
   }
 
-  async getAllNotAssigntOrders(): Promise<Orders[]> {
+  async getAllOrders(status = undefined): Promise<Orders[]> {
     try {
-      const orders = await this.findBy({ status: OrderStasus.NOT_ASSIGNED });
-      // console.log(orders);
-      return orders;
+      if (status) {
+        return await this.findBy({ status: status });
+      }
+      return await this.find();
     } catch (e) {
       console.log(e);
+      throw new BadRequestException(
+        `There is no order with such status: ${status}`,
+      );
     }
   }
 
