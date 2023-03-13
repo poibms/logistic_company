@@ -58,7 +58,9 @@ export class UserRepository extends Repository<User> {
 
   async getAllUsers(): Promise<User[]> {
     try {
-      const users = await this.find();
+      const users = await this.find({
+        select: ['id', 'name', 'surname', 'phone', 'email', 'orders', 'role'],
+      });
       return users;
     } catch (e) {
       throw new BadRequestException('Something was wrong');
