@@ -11,8 +11,8 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { TokensType } from 'src/types/token.types';
-import { JwtPayload } from 'dist/auth/jwt-payload.interface';
 import { User } from 'src/users/users.entity';
+import { JwtPayload } from '../types/jwt-payload.interface';
 
 @Injectable()
 export class AuthService {
@@ -83,6 +83,7 @@ export class AuthService {
     const jwtPayload: JwtPayload = {
       id: user.id,
       email: user.email,
+      role: user.role,
     };
 
     const [accesToken, refreshToken] = await Promise.all([

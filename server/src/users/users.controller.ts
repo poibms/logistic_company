@@ -1,7 +1,7 @@
 import { UpdateUserDto } from './dto/user-update.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { UserService } from './users.service';
-import { Body, Controller, Get, Param, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Put, UseGuards } from '@nestjs/common';
 import { User } from './users.entity';
 import RoleGuard from 'src/guards/get-role.guard';
 import { UserRole } from 'src/types/user.types';
