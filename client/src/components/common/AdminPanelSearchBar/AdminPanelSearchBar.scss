@@ -1,0 +1,31 @@
+.searchbar {
+  border-bottom: 1px solid $light-grey;
+  // width: 100%;
+
+  &_wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 70px;
+  }
+
+  &_title h3 {
+    font-weight: bold;
+  }
+
+  &_input {
+    // border-radius: 20px;
+
+    .MuiFormControl-root {
+      min-width: 40vw;
+      // margin-bottom: 10px;
+    }
+
+    .MuiOutlinedInput-root {
+      border-radius: 15px;
+      background-color: #EFEFEF;
+      border: 0;
+    }
+  }
+  
+}
