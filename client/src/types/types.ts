@@ -16,3 +16,20 @@ export type UserType = {
   email: string;
   role: string;
 }
+
+export enum OrderStatus {
+  NOT_ASSIGNED = 'not_assigned',
+  IN_PROGRESS = 'in_progress',
+  DONE = 'done',
+}
+
+export type OrderType = {
+  id: string,
+  cargo_name: string,
+  weight: string,
+  from: string,
+  to: string,
+  status: OrderStatus,
+  ownerId?: string,
+  driverId?: string
+}
