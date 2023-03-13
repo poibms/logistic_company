@@ -89,6 +89,13 @@ export const getIsLoggedIn = () => (state: RootState) => state.user.isLoggedIn;
 
 export const getAuthUser = () => (state: RootState): UserType | null => state.user.auth;
 
+export const isAdmin = () => (state: RootState): boolean => {
+  if (state.user.auth?.role === 'admin') {
+    return true;
+  }
+  return false;
+}
+
 export const getAuthErrors = () => (state: RootState) => state.user.error;
 
 
