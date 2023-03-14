@@ -43,5 +43,7 @@ export const loadOrders = (): any => async (dispatch: any) => {
 
 export const getOrdersLoadingStatus = () => (state: RootState) => state.orders.isLoading;
 
+export const getAllOrders = () => (state: RootState) => state.orders.orders;
+
 
 export default ordersReducer;
