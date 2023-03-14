@@ -8,7 +8,7 @@ const Footer = () => {
     <footer className='footer'>
       <div className='footer_inner'>
         <div className='footer_inner-contacts'>
-          <div className='flex flex_column justify-center'>
+          <div className='flex flex_column align_center justify-center'>
             <div className='footer_menu'>
               <span>RU </span>
               <span>+7312523141412</span>
@@ -28,8 +28,8 @@ const Footer = () => {
           </div>
         </div>
         <div className='footer_inner-nav'>
-          <div className='flex flex_row justify-spacearnd'>
-            <div className='flex flex_column'>
+          <div className='flex flex_row justify-spacearnd align_center'>
+            <div className='flex flex_column align_center'>
               <div className='footer_menu'>
                 <NavLink to='/news'>
                   <div>Новости</div>
@@ -41,7 +41,7 @@ const Footer = () => {
                 </NavLink>
               </div>
             </div>
-            <div className='flex flex_column'>
+            <div className='flex flex_column align_center'>
               <div className='footer_menu'>
                 <a href='https://www.instagram.com/poibms/'>
                   <InstagramIcon/>
