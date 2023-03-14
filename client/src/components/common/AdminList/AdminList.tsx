@@ -12,6 +12,17 @@ const AdminList: React.FC<AdminListType> = ({ data }) => {
     <div className='adminlist'>
       <div className='adminlist_wrapper'>
         <AdminListItem />
+        <AdminListItem />
+        <AdminListItem />
+        <AdminListItem />
+        <AdminListItem />
+        <AdminListItem />
+        <AdminListItem />
+        <AdminListItem />
+        <AdminListItem />
+        <AdminListItem />
+        <AdminListItem />
+        
       </div>
     </div>
   );

@@ -1,5 +1,7 @@
 .adminlist {
   width: 40%;
+  overflow: scroll;
+  max-height: 100vh;
   &_wrapper {
     padding: 20px 30px;
   }
