@@ -1,8 +1,18 @@
 import * as React from 'react';
+import { OrderType } from '../../../types/types';
+import AdminListItem from '../AdminListItem/AdminListItem';
 
-const AdminList = () => {
+type AdminListType = {
+  data: OrderType[],
+}
+
+const AdminList: React.FC<AdminListType> = ({ data }) => {
+
   return (
-    <div>
+    <div className='adminlist'>
+      <div className='adminlist_wrapper'>
+        <AdminListItem />
+      </div>
     </div>
   );
 }
