@@ -1,0 +1,33 @@
+.listitem {
+  border-radius: 15px;
+  border: 1px solid $light-grey;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  height: 170px;
+
+  &_wrapper {
+    padding: 10px;
+  }
+
+  &_inner {
+    margin: 23px;
+    &-img {
+      border-radius: 15px;
+      border: 1px solid $light-grey;
+      height: 91px;
+      width: 91px;
+      img {
+        object-fit: contain;
+      }
+    }
+    &-content {
+      // align-items: flex-start;
+    }
+
+    .item_title {
+      font-weight: bold;
+    }
+    .item_text {
+    }
+  }
+}
