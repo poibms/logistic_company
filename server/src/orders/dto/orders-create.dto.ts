@@ -1,10 +1,11 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsNumberString, IsOptional, IsString } from 'class-validator';
 
 export class NewUserOrderDto {
   @IsString()
   cargo_name: string;
 
-  @IsNumber()
+  @IsNumberString()
+  // @IsNumber()
   weight: number;
 
   @IsString()
@@ -12,4 +13,8 @@ export class NewUserOrderDto {
 
   @IsString()
   to: string;
+
+  @IsString()
+  @IsOptional()
+  image?: string;
 }

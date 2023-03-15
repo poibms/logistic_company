@@ -3,7 +3,6 @@ import { Orders } from 'src/orders/orders.entity';
 import { DataSource, Repository } from 'typeorm';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { OrderStasus } from 'src/types/order.types';
-import { stat } from 'fs';
 
 @Injectable()
 export class OrdersRepository extends Repository<Orders> {
@@ -16,7 +15,6 @@ export class OrdersRepository extends Repository<Orders> {
     ownerId: string,
   ): Promise<Orders> {
     try {
-      console.log({ ...newUserOrderDto, ownerId: ownerId });
       const newOreder = this.create({ ...newUserOrderDto, ownerId: ownerId });
       return await this.save(newOreder);
     } catch (e) {
