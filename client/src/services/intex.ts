@@ -15,39 +15,29 @@ const authInterceptor = (config: InternalAxiosRequestConfig) => {
   return config;
 }
 
-// $authHost.interceptors.response.use(
-//   (res) => {
-//     return res;
-//   },
-//   async (err) => {
-//     const originalConfig = err.config;
-
-//     if (err.response) {
-//       // Access Token was expired
-//       if (err.response.status === 401 && !originalConfig._retry) {
-//         originalConfig._retry = true;
-
-//         try {
-//           const rs = await authService.refreshToken();
-//           const { access_token } = rs.data;
-//           localStorageService.refreshToken(access_token)
-
-//           return $authHost(originalConfig);
-//         } catch (_error: any) {
-//           if (_error.response && _error.response.data) {
-//             return Promise.reject(_error.response.data);
-//           }
-
-//           return Promise.reject(_error);
-//         }
-//       }
-//     }
-
-//     return Promise.reject(err);
-//   }
-// );
-
 $authHost.interceptors.request.use(authInterceptor);
+
+$authHost.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    if (error.response.status === 401) {
+      await axios
+        .post("http://localhost:3007/api/auth/refresh", {}, {
+          withCredentials: true,
+        })
+        .then((res) => localStorageService.refreshToken(res.data.access_token))
+        .catch((err) => {
+          return Promise.reject(err);
+        });
+      console.log(error.config);
+      return axios(error.config);
+    } else {
+      return Promise.reject(error);
+    }
+  }
+);
 
 
 export {
