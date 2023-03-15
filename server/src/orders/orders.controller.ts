@@ -34,7 +34,6 @@ export class OrdersController {
   @Get('/')
   @UseGuards(RoleGuard(UserRole.ADMIN))
   async getAllOrders(@Query('status') status: OrderStasus): Promise<Orders[]> {
-    console.log(status);
     return this.ordersService.getAllOrders(status);
   }
 
