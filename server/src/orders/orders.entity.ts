@@ -20,6 +20,9 @@ export class Orders {
   @Column()
   to: string;
 
+  @Column()
+  image: string;
+
   @Column({ default: OrderStasus.NOT_ASSIGNED })
   status: OrderStasus;
 
