@@ -10,21 +10,18 @@ type AdminListType = {
 
 const AdminList: React.FC<AdminListType> = ({ data, onClickHandle }) => {
 
+  const genListItem = () => {
+    return data.map((item: OrderType) => (
+      <AdminListItem key={item.id} order={item} onClickHandle={onClickHandle}/>
+    ))
+  }
+
+  const listItem = genListItem();
+
   return (
     <div className='adminlist'>
       <div className='adminlist_wrapper'>
-        <AdminListItem onClickHandle={onClickHandle} />
-        <AdminListItem onClickHandle={onClickHandle} />
-        <AdminListItem onClickHandle={onClickHandle} />
-        <AdminListItem onClickHandle={onClickHandle} />
-        <AdminListItem onClickHandle={onClickHandle} />
-        <AdminListItem onClickHandle={onClickHandle} />
-        <AdminListItem onClickHandle={onClickHandle} />
-        <AdminListItem onClickHandle={onClickHandle} />
-        <AdminListItem onClickHandle={onClickHandle} />
-        <AdminListItem onClickHandle={onClickHandle} />
-        <AdminListItem onClickHandle={onClickHandle} />
-        
+        {listItem}
       </div>
     </div>
   );

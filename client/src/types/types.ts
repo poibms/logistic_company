@@ -29,6 +29,7 @@ export type OrderType = {
   weight: string,
   from: string,
   to: string,
+  image: string,
   status: OrderStatus,
   ownerId?: string,
   driverId?: string

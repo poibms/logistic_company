@@ -1,8 +1,12 @@
 import { YMaps, Map as YandexMap, Placemark } from "@pbe/react-yandex-maps";
 import * as React from "react";
 
-const Map = () => {
-  console.log('loading')
+type MapPropsType = {
+  data: any
+}
+
+const Map: React.FC<MapPropsType> = ({data}) => {
+  console.log(data)
   return (
     <>
       <div className="map_wrapper">
