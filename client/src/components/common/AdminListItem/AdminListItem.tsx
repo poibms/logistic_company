@@ -1,9 +1,15 @@
 import * as React from 'react';
-const AdminListItem = () => {
+
+type ListItemPropsType = {
+  onClickHandle: any
+}
+
+const AdminListItem: React.FC<ListItemPropsType> = ({ onClickHandle }) => {
   return (
     <div className='listitem flex align_center justify_center'>
       <div className="listitem_wrapper ">
-        <div className="flex align_center">
+        <div className="flex align_center"
+        onClick={() => onClickHandle(true)}>
           <div className='listitem_inner flex listitem_inner-img'>
             <img src='http://missyapple.com/ru/wp-content/uploads/sites/5/2015/05/pack3.png' alt='item img'/>
           </div>
