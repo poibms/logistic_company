@@ -1,0 +1,33 @@
+.itemlist {
+  position: absolute;
+  z-index: 100;
+  background-color: $white;
+  width: 90%;
+  margin: 0 auto;
+  bottom: 70px;
+  border-radius: 15px;
+  word-wrap: break-word;
+  left: 0;
+  right: 0;
+  &_wrapper {
+    padding: 30px 38px;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  thead {
+    th {
+      padding-bottom: 10px;
+    }
+    tr {
+      border-bottom: 1px solid $light-grey;
+    }
+  }
+  tbody {
+    td {
+      padding-top: 10px;
+      text-align: center;
+    }
+  }
+}

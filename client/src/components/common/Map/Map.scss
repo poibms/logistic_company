@@ -2,5 +2,11 @@
   &_wrapper {
     width: 60%;
     height: 100%;
+    position: relative;
+    // border-radius: 15px;
   }
+}
+
+.radius {
+  border-radius: 15px;
 }
