@@ -6,13 +6,14 @@ import { useSelector } from 'react-redux';
 import { getAllOrders } from "../../store/orders";
 // const Map = lazy(() => import('../common/Map/Map'))
 import Map from "../common/Map/Map";
+import { OrderType } from "../../types/types";
 
 const AdminPage: React.FC = memo(() => {
   const [load, setLoad] = useState(false)
-  const [order, setOrder] = useState('')
+  const [order, setOrder] = useState({} as OrderType)
   const orders = useSelector(getAllOrders());
 
-  const setMapVissible = (data: any) => {
+  const setMapVissible = (data: OrderType) => {
     setLoad(true);
     setOrder(data)
     // return <Map data={data} />
