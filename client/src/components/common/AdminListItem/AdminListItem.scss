@@ -19,6 +19,7 @@
       width: 91px;
       img {
         object-fit: contain;
+        z-index: -1;
       }
     }
     &-content {

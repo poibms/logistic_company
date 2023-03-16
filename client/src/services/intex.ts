@@ -1,5 +1,4 @@
 import axios, {InternalAxiosRequestConfig } from 'axios';
-import authService from './auth.service';
 import localStorageService from './localStorage.service';
 
 const $host = axios.create({

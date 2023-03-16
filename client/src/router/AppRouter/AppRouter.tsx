@@ -1,9 +1,8 @@
 import React, { Suspense } from 'react';
 import { privateRoutes, publicRoutes } from '../routes';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getIsLoggedIn } from '../../store/user';
-// import Page404 from '../../components/pages/404Page';
 
 
 
