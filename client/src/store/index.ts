@@ -1,12 +1,14 @@
 
 import { Action, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
+import driversReducer from './drivers';
 import ordersReducer from './orders';
 import usersReducer from './user';
 
 const rootReducer = combineReducers({
   user: usersReducer,
   orders: ordersReducer,
+  drivers: driversReducer,
 });
 
 export function createStore() {

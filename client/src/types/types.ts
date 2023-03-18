@@ -34,3 +34,13 @@ export type OrderType = {
   ownerId?: string,
   driverId?: string
 }
+
+export type DriversType = {
+  id: string,
+  name: string,
+  surname: string,
+  age: string,
+  photo: string,
+  truckId: string | null,
+  orders: [] | OrderType
+}
