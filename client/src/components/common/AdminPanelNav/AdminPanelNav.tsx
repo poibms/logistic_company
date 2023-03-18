@@ -1,7 +1,33 @@
 import React from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 
-const AdminPanelNav = () => {
+type NavPropsType = {
+  dataType: string;
+  changeDataType: any;
+}
+
+const AdminPanelNav: React.FC<NavPropsType> = ({dataType, changeDataType}) => {
+  const listItemButtons = [
+    { name: "orders", label: 'Orders' },
+    { name: "drivers", label: 'Drivers' },
+    { name: "trucks", label: 'Trucks' },
+  ];
+
+  const listItem = listItemButtons.map(({ name, label }) => {
+    const active = dataType === name;
+    const activeClass = active ? 'active' : ''
+    return (
+      <li
+        key={name}
+        className={`${activeClass}`}
+        onClick={() => changeDataType(name)}
+      >
+        <DashboardIcon/>
+        <span>{label}</span>
+      </li>
+    );
+  });
+
   return (
     <div className="navpanel">
       <div className="navpanel_wrapper">
@@ -13,18 +39,7 @@ const AdminPanelNav = () => {
         </div>
         <div className="navpanel_menu">
           <ul className="navpanel_items">
-            <li>
-              <DashboardIcon />
-              <span>Orders</span>
-            </li>
-            <li>
-              <DashboardIcon />
-              <span>Drivers</span>
-            </li>
-            <li>
-              <DashboardIcon />
-              <span>Trucks</span>
-            </li>
+            {listItem}
           </ul>
         </div>
       </div>
