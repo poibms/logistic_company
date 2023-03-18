@@ -36,8 +36,7 @@ export const loadOrders = (): any => async (dispatch: any) => {
     console.log(data);
     dispatch(ordersReceived(data));
   } catch (error: any) {
-    const { message } = error.response.data;
-    dispatch(ordersRequestFailed(message));
+    dispatch(ordersRequestFailed(error));
   }
 };
 

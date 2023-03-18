@@ -15,19 +15,15 @@ const AdminPanelNav = () => {
           <ul className="navpanel_items">
             <li>
               <DashboardIcon />
-              <span>Dashboard</span>
+              <span>Orders</span>
             </li>
             <li>
               <DashboardIcon />
-              <span>Dashboard</span>
+              <span>Drivers</span>
             </li>
             <li>
               <DashboardIcon />
-              <span>Dashboard</span>
-            </li>
-            <li>
-              <DashboardIcon />
-              <span>Dashboard</span>
+              <span>Trucks</span>
             </li>
           </ul>
         </div>

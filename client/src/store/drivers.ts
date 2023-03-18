@@ -40,9 +40,7 @@ export const loadDrivers = (): any => async (dispatch: any) => {
   }
 };
 
-export const getOrdersLoadingStatus = () => (state: RootState) => state.orders.isLoading;
-
-export const getAllOrders = () => (state: RootState) => state.orders.orders;
+export const getAllDrivers = () => (state: RootState) => state.drivers.drivers;
 
 
 export default driversReducer;
