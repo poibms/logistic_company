@@ -12,7 +12,7 @@ const AppLoader = ({ children }: any) => {
   useEffect(() => {
     dispatch(loadOrders());
     dispatch(loadDrivers())
-  }, [isAuthAdmin]);
+  }, [dispatch, isAuthAdmin]);
 
   if (!ordersStatusLoading) {
     return children;
