@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { AppThunk, RootState } from ".";
+import { RootState } from ".";
 import ordersService from "../services/orders.service";
 import { OrderType } from "../types/types";
 
