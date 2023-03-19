@@ -12,7 +12,7 @@ export class TrucksService {
     private filesService: FilesService,
   ) {}
 
-  async createTruck(payload: CreateTruckDto, photo: any) {
+  async createTruck(payload: CreateTruckDto, photo: any): Promise<Trucks> {
     const truckImage = await this.filesService.createFile(
       FileType.TRUCKS,
       photo,
