@@ -16,7 +16,6 @@ const AdminPage: React.FC = memo(() => {
   const orders = useSelector(getAllOrders());
   const drivers = useSelector(getAllDrivers())
 
-
   const setMapVissible = (data: OrderType) => {
     setLoad(true);
     setOrder(data)
@@ -26,13 +25,23 @@ const AdminPage: React.FC = memo(() => {
     setDataType(dataType);
   }
 
+  const samplingDataEntity = () => {
+    if (dataType === 'orders') {
+      return orders
+    } else {
+      return drivers
+    }
+} 
+
+  const data = samplingDataEntity()
+
   return (
     <div className="admin_wrapper">
       <AdminPanelNav dataType={dataType} changeDataType={changeDataType}/>
       <div className="admin_content">
         <AdminPanelSearchBar />
         <div className="flex admin_content-wrapper">
-          <AdminList onClickHandle={setMapVissible} data={orders}/>
+          <AdminList onClickHandle={setMapVissible} dataType={dataType} data={data}/>
           {load ? <Map data={order} /> : <div>Waiting</div>}
         </div>
       </div>
