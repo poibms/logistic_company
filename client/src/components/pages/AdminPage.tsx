@@ -33,7 +33,6 @@ const AdminPage: React.FC = memo(() => {
     } else if (dataType === 'drivers') {
       return drivers;
     } else {
-      // console.log('trucks');
       return trucks;
     }
 } 

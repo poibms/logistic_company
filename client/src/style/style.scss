@@ -2,10 +2,7 @@
 @import "./components/index.scss";
 
 #root {
-  display: flex;
   min-height: 100vh;
-  flex-direction: column;
-  justify-content: space-between;
   font-family: $fontMontserrat;
   font-size: $text-16-size;
   color: $dark-grey;
