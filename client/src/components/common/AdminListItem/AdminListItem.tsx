@@ -1,24 +1,27 @@
 import * as React from "react";
-import { DriverType, OrderType } from "../../../types/types";
+import { DriverType, OrderType, TruckType } from "../../../types/types";
 import DriversItem from "./listitems/DriverItem";
 import OrdersItem from "./listitems/OrderItem";
+import TrucksItem from "./listitems/TruckItem";
 
 type ListItemPropsType = {
-  order: OrderType | DriverType;
+  data: OrderType | DriverType | TruckType;
   dataType: string;
   onClickHandle: any;
 };
 
 const AdminListItem: React.FC<ListItemPropsType> = ({
-  order,
+  data,
   dataType,
   onClickHandle,
 }) => {
   const genListItem = () => {
     if (dataType === 'orders') {
-      return <OrdersItem order={(order as OrderType)}/>
+      return <OrdersItem order={(data as OrderType)}/>
+    } else if (dataType === 'drivers') {
+      return <DriversItem driver={(data as DriverType)}/>
     } else {
-      return <DriversItem driver={(order as DriverType)}/>
+      return <TrucksItem trucks={(data as TruckType)}/>
     }
   };
 
@@ -27,7 +30,7 @@ const AdminListItem: React.FC<ListItemPropsType> = ({
   return (
     <div className="listitem flex align_center justify_center">
       <div className="listitem_wrapper ">
-        <div className="flex align_center" onClick={() => onClickHandle(order)}>
+        <div className="flex align_center" onClick={() => onClickHandle(data)}>
           {listItemData}
         </div>
       </div>

@@ -8,6 +8,7 @@ import { getAllOrders } from "../../store/orders";
 import Map from "../common/Map/Map";
 import { OrderType } from "../../types/types";
 import { getAllDrivers } from "../../store/drivers";
+import { getAllTrucks } from "../../store/trucks";
 
 const AdminPage: React.FC = memo(() => {
   const [load, setLoad] = useState(false)
@@ -15,6 +16,7 @@ const AdminPage: React.FC = memo(() => {
   const [dataType, setDataType] = useState('orders');
   const orders = useSelector(getAllOrders());
   const drivers = useSelector(getAllDrivers())
+  const trucks = useSelector(getAllTrucks());
 
   const setMapVissible = (data: OrderType) => {
     setLoad(true);
@@ -27,9 +29,12 @@ const AdminPage: React.FC = memo(() => {
 
   const samplingDataEntity = () => {
     if (dataType === 'orders') {
-      return orders
+      return orders;
+    } else if (dataType === 'drivers') {
+      return drivers;
     } else {
-      return drivers
+      // console.log('trucks');
+      return trucks;
     }
 } 
 
