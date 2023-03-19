@@ -1,18 +1,19 @@
 import * as React from 'react';
-import { OrderType } from '../../../types/types';
+import { DriverType, OrderType } from '../../../types/types';
 import AdminListItem from '../AdminListItem/AdminListItem';
 
 type AdminListType = {
-  data: OrderType[],
+  data: OrderType[] | DriverType[],
+  dataType: string,
   onClickHandle: any
   
 }
 
-const AdminList: React.FC<AdminListType> = ({ data, onClickHandle }) => {
+const AdminList: React.FC<AdminListType> = ({ data, dataType, onClickHandle }) => {
 
   const genListItem = () => {
-    return data.map((item: OrderType) => (
-      <AdminListItem key={item.id} order={item} onClickHandle={onClickHandle}/>
+    return data.map((item: OrderType | DriverType) => (
+      <AdminListItem key={item.id} order={item} dataType={dataType} onClickHandle={onClickHandle}/>
     ))
   }
 

@@ -1,9 +1,9 @@
-import { DriversType } from './../types/types';
+import { DriverType } from './../types/types';
 import { $authHost } from './intex';
 
 
 const driversService = {
-  loadDrivers: async (): Promise<DriversType[]> => {
+  loadDrivers: async (): Promise<DriverType[]> => {
     const { data } = await $authHost.get('/drivers')
     return data;
   }

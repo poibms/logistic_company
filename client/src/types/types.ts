@@ -35,7 +35,7 @@ export type OrderType = {
   driverId?: string
 }
 
-export type DriversType = {
+export type DriverType = {
   id: string,
   name: string,
   surname: string,

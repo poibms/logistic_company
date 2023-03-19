@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from ".";
 import driversService from "../services/drivers.service";
-import { DriversType } from "../types/types";
+import { DriverType } from "../types/types";
 
 const driversSlice = createSlice({
   name: 'orders',
   initialState: {
     isLoading: true as boolean,
-    drivers: [] as DriversType[],
+    drivers: [] as DriverType[],
     error: null as string | null,
   },
   reducers: {
