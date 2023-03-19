@@ -40,7 +40,7 @@ export const loadTrucks = (): any => async (dispatch: any) => {
   }
 };
 
-export const getAlltrucks = () => (state: RootState) => state.trucks.trucks;
+export const getAllTrucks = () => (state: RootState) => state.trucks.trucks;
 
 
 export default trucksReducer;
