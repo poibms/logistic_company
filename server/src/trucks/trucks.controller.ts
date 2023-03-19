@@ -4,6 +4,7 @@ import { TrucksService } from './trucks.service';
 import {
   Body,
   Controller,
+  Get,
   Post,
   UploadedFiles,
   UseGuards,
@@ -28,5 +29,11 @@ export class TrucksController {
   ): Promise<Trucks> {
     const { photo } = files;
     return await this.trucksService.createTruck(createTruckrDto, photo[0]);
+  }
+
+  @Get('/')
+  @UseGuards(RoleGuard(UserRole.ADMIN))
+  async getAllTrucks(): Promise<Trucks[]> {
+    return await this.trucksService.getAllTrucks();
   }
 }

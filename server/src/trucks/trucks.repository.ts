@@ -15,4 +15,8 @@ export class TrucksRepository extends Repository<Trucks> {
     console.log(trucks);
     return newTruck;
   }
+
+  async getAllTrucks(): Promise<Trucks[]> {
+    return await this.find();
+  }
 }

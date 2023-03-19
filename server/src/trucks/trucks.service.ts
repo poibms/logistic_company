@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { TrucksRepository } from './trucks.repository';
 import { FileType } from 'src/types/files.types';
 import { FilesService } from 'src/files/files.service';
+import { Trucks } from './trucks.entity';
 
 @Injectable()
 export class TrucksService {
@@ -22,5 +23,9 @@ export class TrucksService {
       ...payload,
       photo: truckImage,
     });
+  }
+
+  async getAllTrucks(): Promise<Trucks[]> {
+    return await this.trucksRepository.getAllTrucks();
   }
 }
