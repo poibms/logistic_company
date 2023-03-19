@@ -44,3 +44,12 @@ export type DriverType = {
   truckId: string | null,
   orders: [] | OrderType
 }
+
+export type TruckType = {
+  id: string,
+  name: string,
+  model: string,
+  year: string,
+  loadCapacity: string,
+  photo: string
+}
