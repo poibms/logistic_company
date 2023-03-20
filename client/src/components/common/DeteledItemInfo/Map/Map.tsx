@@ -1,7 +1,7 @@
 import { YMaps, Map as YandexMap, Placemark, RoutePanel } from "@pbe/react-yandex-maps";
 import * as React from "react";
-import { OrderType } from "../../../types/types";
-import ItemList from "../ItemInfo/ItemInfo";
+import { OrderType } from "../../../../types/types";
+import ItemList from "../OrderDeteledInfo/OrderDeteledInfo";
 
 type MapPropsType = {
   data: OrderType

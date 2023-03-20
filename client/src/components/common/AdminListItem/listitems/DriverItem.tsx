@@ -20,7 +20,7 @@ const DriversItem: React.FC<DriversItemPropsType> = ({ driver }) => {
         </div>
         {driver.truckId ? 
           <div className="item_text">
-            <p>Truck ${driver.truckId}</p>
+            <p><b>Truck</b> {driver.truckId.name}</p>
           </div>
           : <p><b>Truck</b> is not assign</p>}
       </div>

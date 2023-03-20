@@ -1,12 +1,12 @@
 import { Button } from "@mui/material";
 import * as React from "react";
-import { OrderType } from "../../../types/types";
+import { OrderType } from "../../../../types/types";
 
 type ItemInfoPropsType = {
   order: OrderType;
 };
 
-const ItemList: React.FC<ItemInfoPropsType> = ({ order }) => {
+const OrderDeteledInfo: React.FC<ItemInfoPropsType> = ({ order }) => {
   console.log(order);
   return (
     <div className="itemlist">
@@ -36,4 +36,4 @@ const ItemList: React.FC<ItemInfoPropsType> = ({ order }) => {
   );
 };
 
-export default ItemList;
+export default OrderDeteledInfo;
