@@ -2,51 +2,57 @@ import React, { lazy, memo, useState } from "react";
 import AdminList from "../common/AdminList/AdminList";
 import AdminPanelNav from "../common/AdminPanelNav/AdminPanelNav";
 import AdminPanelSearchBar from "../common/AdminPanelSearchBar/AdminPanelSearchBar";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import { getAllOrders } from "../../store/orders";
-// const Map = lazy(() => import('../common/Map/Map'))
-import Map from "../common/Map/Map";
+import Map from "../common/DeteledItemInfo/Map/Map";
 import { OrderType } from "../../types/types";
 import { getAllDrivers } from "../../store/drivers";
 import { getAllTrucks } from "../../store/trucks";
 
 const AdminPage: React.FC = memo(() => {
-  const [load, setLoad] = useState(false)
-  const [order, setOrder] = useState({} as OrderType)
-  const [dataType, setDataType] = useState('orders');
+  const [load, setLoad] = useState(false);
+  const [order, setOrder] = useState({} as OrderType);
+  const [dataType, setDataType] = useState("orders");
   const orders = useSelector(getAllOrders());
-  const drivers = useSelector(getAllDrivers())
+  const drivers = useSelector(getAllDrivers());
   const trucks = useSelector(getAllTrucks());
 
   const setMapVissible = (data: OrderType) => {
     setLoad(true);
-    setOrder(data)
-  }
-
+    setOrder(data);
+  };
   const changeDataType = (dataType: string) => {
     setDataType(dataType);
-  }
+    setLoad(false)
+  };
 
   const samplingDataEntity = () => {
-    if (dataType === 'orders') {
-      return orders;
-    } else if (dataType === 'drivers') {
-      return drivers;
+    if (dataType === "orders") {
+      const map = <Map data={order}/>
+      return {data: orders, deteledInfo: map};
+    } else if (dataType === "drivers") {
+      const info = <div>Drivers info</div>
+      return {data: drivers, deteledInfo: info};
     } else {
-      return trucks;
+      const info = <div>Trucks info</div>
+      return {data: trucks, deteledInfo: info};
     }
-} 
+  };
 
-  const data = samplingDataEntity()
+  const {data, deteledInfo} = samplingDataEntity();
 
   return (
     <div className="admin_wrapper">
-      <AdminPanelNav dataType={dataType} changeDataType={changeDataType}/>
+      <AdminPanelNav dataType={dataType} changeDataType={changeDataType} />
       <div className="admin_content">
         <AdminPanelSearchBar />
         <div className="flex admin_content-wrapper">
-          <AdminList onClickHandle={setMapVissible} dataType={dataType} data={data}/>
-          {load ? <Map data={order} /> : <div>Waiting</div>}
+          <AdminList
+            onClickHandle={setMapVissible}
+            dataType={dataType}
+            data={data}
+          />
+          {load ? deteledInfo : <div>Waiting</div>}
         </div>
       </div>
     </div>
