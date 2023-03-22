@@ -5,38 +5,60 @@ type FilterPropsType = {
   value: any;
   dataType: string;
   handleChange: any;
+  handleOpenModal: any
 };
 
-const AdminFilter: React.FC<FilterPropsType> = ({ dataType, handleChange, value }) => {
-  
+const AdminFilter: React.FC<FilterPropsType> = ({
+  dataType,
+  handleChange,
+  value,
+  handleOpenModal,
+}) => {
 
-  const mockStatus = {orders: [
-    { label: "Not Assigned", key: 'not_assigned' },
-    { label: "In Progress", key: 'in_progress'  },
-    { label: "Done",  key: 'done'},
-  ],
-  drivers: [
-    { label: "Without Truck", key: 'null' },
-    { label: "With Truck", key: 'truck' },
-  ], 
-  trucks: [
-    { label: "test1", key: 'test1' },
-    { label: "test 2", key: 'test2' },
-  ]
-};
+  const mockStatus = {
+    orders: [
+      { label: "Not Assigned", key: "not_assigned" },
+      { label: "In Progress", key: "in_progress" },
+      { label: "Done", key: "done" },
+    ],
+    drivers: [
+      { label: "Without Truck", key: "null" },
+      { label: "With Truck", key: "truck" },
+    ],
+    trucks: [
+      { label: "test1", key: "test1" },
+      { label: "test 2", key: "test2" },
+    ],
+  };
+
+  const genAddButton = () => {
+    if (dataType === 'drivers') {
+
+      return (<button className="button-68" onClick={handleOpenModal}>Add New Driver</button>)
+    } else {
+      return (<button className="button-68" onClick={handleOpenModal}>Add New Truck</button>)
+    }
+  }
 
   const genTabs = () => {
     switch (dataType) {
       case "orders":
-        return mockStatus.orders.map((item) => <Tab key={item.key} label={item.label} />);
+        return mockStatus.orders.map((item) => (
+          <Tab key={item.key} label={item.label} />
+        ));
       case "drivers":
-        return mockStatus.drivers.map((item) => <Tab key={item.key} label={item.label} />);
+        return mockStatus.drivers.map((item) => (
+          <Tab key={item.key} label={item.label} />
+        ));
       case "trucks":
-        return mockStatus.trucks.map((item) => <Tab key={item.key} label={item.label} />);
+        return mockStatus.trucks.map((item) => (
+          <Tab key={item.key} label={item.label} />
+        ));
     }
   };
 
   const tabs = genTabs();
+  const addButton = genAddButton();
 
   return (
     <div className="adminfilter">
@@ -51,10 +73,13 @@ const AdminFilter: React.FC<FilterPropsType> = ({ dataType, handleChange, value 
             {tabs}
           </Tabs>
         </div>
-        <div className="adminfilter-inner">
-          <button className="button">+</button>
-        </div>
+        {dataType !== "orders" ? (
+          <div className="adminfilter-inner">
+            {addButton}
+          </div>
+        ) : null}
       </div>
+
     </div>
   );
 };
