@@ -45,6 +45,13 @@ export type DriverType = {
   orders: [] | OrderType
 }
 
+export type DriverCreds = {
+  name: string,
+  surname: string,
+  age: string,
+  photo: any,
+}
+
 export type TruckType = {
   id: string,
   name: string,
@@ -52,4 +59,12 @@ export type TruckType = {
   year: string,
   loadCapacity: string,
   photo: string
+}
+
+export type TruckCreds = {
+  name: string;
+  model:string;
+  year: string;
+  loadCapacity: string;
+  photo: string;
 }
