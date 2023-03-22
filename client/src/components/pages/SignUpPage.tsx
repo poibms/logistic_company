@@ -7,7 +7,7 @@ import SignUpForm from "../ui/SignUpForm/SignUpForm";
 
 const SignUpPage = () => {
   return (
-    <>
+    <div className="sign_form">
       <div className="sign_form-wrapper">
         <Paper elevation={3} className='login_form-card form_card'>
           <h2>Зарегистрироваться</h2>
@@ -22,7 +22,7 @@ const SignUpPage = () => {
           </div>
         </Paper>
       </div>
-    </>
+    </div>
   )
 }
 

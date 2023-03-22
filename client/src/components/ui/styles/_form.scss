@@ -1,12 +1,16 @@
 .sign {
-
   &_form {
     &-wrapper {
-      height: 100vh;
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
       display: flex;
       align-items: center;
+      align-content: center;
       justify-content: center;
-      flex-direction: column;
+      overflow: auto;
     }
   }
 }
@@ -26,13 +30,12 @@
     margin-top: 15px;
     text-align: center;
   }
-  
+
   .MuiFormControl-root {
     width: 100%;
     margin-bottom: 10px;
   }
 }
-
 
 .login_form-card {
   padding: 30px;
@@ -49,4 +52,19 @@
 
 .login_form-link {
   text-decoration: none;
+}
+
+input[type="file"]::file-selector-button {
+  margin-right: 20px;
+  border: 1px solid $green;
+  background: $green;
+  padding: 10px 20px;
+  border-radius: 15px;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background: #036563;
 }
