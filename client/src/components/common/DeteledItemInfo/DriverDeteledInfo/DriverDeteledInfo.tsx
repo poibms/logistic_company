@@ -36,7 +36,7 @@ const DriverDeteledInfo: React.FC<DriverInfoPropsType> = ({ driver }) => {
               <>
                 <h2 className="truck_title">Driver's truck info</h2>
                 <div className="truck flex">
-                  <img src={`http://localhost:3007/${driver.truckId.photo}`} />
+                  <img src={`http://localhost:3007/${driver.truckId.photo}`} alt='driver img' />
                   <div className="driverInfo_description flex flex_column justify-center">
                     <h3>
                       Name: {driver.truckId.name} {driver.truckId.model}
