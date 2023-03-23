@@ -5,7 +5,7 @@ export class CreateDriverDto {
   email: string;
 
   @IsString()
-  @MinLength(6)
+  @MinLength(7)
   @MaxLength(32)
   password: string;
 
