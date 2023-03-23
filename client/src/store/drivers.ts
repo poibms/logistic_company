@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { DriverCreds } from './../types/types';
+import { createAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from ".";
 import driversService from "../services/drivers.service";
 import { DriverType } from "../types/types";
@@ -18,6 +19,9 @@ const driversSlice = createSlice({
       state.drivers = action.payload;
       state.isLoading = false;
     },
+    driverCreated: (state, action) => {
+      state.drivers.push(action.payload);
+    },
     driversRequestFailed: (state, action) => {
       state.error = action.payload;
       state.isLoading = false;
@@ -27,7 +31,21 @@ const driversSlice = createSlice({
 
 const { actions, reducer: driversReducer } = driversSlice;
 
-const { driversRequested, driversReceived, driversRequestFailed } = actions;
+const { driversRequested, driversReceived, driversRequestFailed, driverCreated } = actions;
+const reviewCreateRequested = createAction('drivers/driversCreateRequested');
+const reviewCreateRequestedFailed = createAction('drivers/driversCreateRequestedFailed');
+
+export const createDriver = (payload: any): any => async (dispatch: any) => {
+  dispatch(reviewCreateRequested());
+  try {
+    console.log(payload)
+    const driver = await driversService.createDriver(payload);
+    dispatch(driverCreated(driver));
+  } catch (error: any) {
+    const { message } = error.response.data;
+    dispatch(reviewCreateRequestedFailed(message));
+  }
+};
 
 export const loadDrivers = (): any => async (dispatch: any) => {
   dispatch(driversRequested());

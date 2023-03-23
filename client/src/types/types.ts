@@ -37,6 +37,8 @@ export type OrderType = {
 
 export type DriverType = {
   id: string,
+  email: string,
+  password: string,
   name: string,
   surname: string,
   age: string,
@@ -46,10 +48,12 @@ export type DriverType = {
 }
 
 export type DriverCreds = {
+  email: string,
+  password: string,
   name: string,
   surname: string,
   age: string,
-  photo: any,
+  photo?: any
 }
 
 export type TruckType = {
