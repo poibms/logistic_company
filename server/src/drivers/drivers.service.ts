@@ -5,6 +5,7 @@ import { Injectable } from '@nestjs/common';
 import { Drivers } from './drivers.entity';
 import { CreateDriverDto } from './dto/drivers-create.dto';
 import { FileType } from 'src/types/files.types';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class DriversService {
@@ -14,6 +15,10 @@ export class DriversService {
   ) {}
 
   async createDriver(payload: CreateDriverDto, photo: any): Promise<Drivers> {
+    const { password } = payload;
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(password, salt);
+
     const driverPhoto = await this.filesService.createFile(
       FileType.DRIVERS,
       photo,
@@ -21,6 +26,7 @@ export class DriversService {
 
     return await this.dirversRepository.createDriver({
       ...payload,
+      password: hashedPassword,
       photo: driverPhoto,
     });
   }

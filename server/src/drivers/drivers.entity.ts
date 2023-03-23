@@ -14,6 +14,12 @@ export class Drivers {
   @PrimaryGeneratedColumn()
   id: string;
 
+  @Column({ unique: true })
+  email: string;
+
+  @Column()
+  password: string;
+
   @Column()
   name: string;
 

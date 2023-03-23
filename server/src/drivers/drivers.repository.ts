@@ -1,7 +1,11 @@
 import { setTruckType } from './../types/drivers.types';
 import { Drivers } from 'src/drivers/drivers.entity';
 import { DataSource, Repository } from 'typeorm';
-import { Injectable, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  ConflictException,
+} from '@nestjs/common';
 import { CreateDriverDto } from './dto/drivers-create.dto';
 
 @Injectable()
@@ -16,10 +20,13 @@ export class DriversRepository extends Repository<Drivers> {
       await this.save(newDriver);
       return newDriver;
     } catch (e) {
-      console.log(e);
-      throw new BadRequestException(
-        'error while creating driver. Check ur input data',
-      );
+      if (e.code === '23505') {
+        throw new ConflictException('Driver with such Email already exist');
+      } else {
+        throw new BadRequestException(
+          'error while creating driver. Check ur input data',
+        );
+      }
     }
   }
 
@@ -44,6 +51,14 @@ export class DriversRepository extends Repository<Drivers> {
       throw new BadRequestException(
         'something was wrong while updating driver',
       );
+    }
+  }
+
+  async getDriverByEmail(email: string): Promise<Drivers> {
+    try {
+      return this.findOneBy({ email });
+    } catch (e) {
+      throw new BadRequestException('something was wrong');
     }
   }
 }

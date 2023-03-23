@@ -1,6 +1,14 @@
-import { IsString } from 'class-validator';
+import { IsString, IsEmail, MinLength, MaxLength } from 'class-validator';
 
 export class CreateDriverDto {
+  @IsEmail()
+  email: string;
+
+  @IsString()
+  @MinLength(6)
+  @MaxLength(32)
+  password: string;
+
   @IsString()
   name: string;
 
