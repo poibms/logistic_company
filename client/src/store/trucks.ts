@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from ".";
+import { createAction, createSlice } from "@reduxjs/toolkit";
+import { AppThunk, RootState } from ".";
 import trucksService from "../services/trucks.service";
 import { TruckType } from "../types/types";
 
@@ -18,6 +18,9 @@ const trucksSlice = createSlice({
       state.trucks = action.payload;
       state.isLoading = false;
     },
+    driverCreated: (state, action) => {
+      state.trucks.push(action.payload);
+    },
     trucksRequestFailed: (state, action) => {
       state.error = action.payload;
       state.isLoading = false;
@@ -27,7 +30,21 @@ const trucksSlice = createSlice({
 
 const { actions, reducer: trucksReducer } = trucksSlice;
 
-const { trucksRequested, trucksReceived, trucksRequestFailed } = actions;
+const { trucksRequested, trucksReceived, trucksRequestFailed, driverCreated } = actions;
+
+const truckCreateRequested = createAction('trucks/trucksCreateRequested');
+
+export const createTruck = (payload: any, callback: any): AppThunk => async (dispatch: any) => {
+  dispatch(truckCreateRequested());
+  try {
+    const driver = await trucksService.createTruck(payload);
+    dispatch(driverCreated(driver));
+    callback()
+  } catch (error: any) {
+    dispatch(trucksRequestFailed(error.response.data.message));
+
+  }
+};
 
 export const loadTrucks = (): any => async (dispatch: any) => {
   dispatch(trucksRequested());
@@ -41,6 +58,12 @@ export const loadTrucks = (): any => async (dispatch: any) => {
 };
 
 export const getAllTrucks = () => (state: RootState) => state.trucks.trucks;
+
+export const getTruckErrors = () => (state: RootState) => state.trucks.error;
+
+export const clearTrucksErrors = (): AppThunk => async (dispatch: any) => {
+  dispatch(trucksRequestFailed(null))
+}
 
 
 export default trucksReducer;
