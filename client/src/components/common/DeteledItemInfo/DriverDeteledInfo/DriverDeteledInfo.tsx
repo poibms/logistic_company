@@ -20,6 +20,9 @@ const DriverDeteledInfo: React.FC<DriverInfoPropsType> = ({ driver }) => {
                 {driver.name} {driver.surname}
               </h3>
               <p>
+                <b>Email</b>: {driver.email}
+              </p>
+              <p>
                 <b>Age</b>: {driver.age} years old
               </p>
             </div>
