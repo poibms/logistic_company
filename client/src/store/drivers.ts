@@ -1,3 +1,4 @@
+import { AppThunk } from './index';
 import { DriverCreds } from './../types/types';
 import { createAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from ".";
@@ -9,7 +10,7 @@ const driversSlice = createSlice({
   initialState: {
     isLoading: true as boolean,
     drivers: [] as DriverType[],
-    error: null as string | null,
+    error: null,
   },
   reducers: {
     driversRequested: state => {
@@ -24,7 +25,6 @@ const driversSlice = createSlice({
     },
     driversRequestFailed: (state, action) => {
       state.error = action.payload;
-      state.isLoading = false;
     },
   },
 });
@@ -32,18 +32,17 @@ const driversSlice = createSlice({
 const { actions, reducer: driversReducer } = driversSlice;
 
 const { driversRequested, driversReceived, driversRequestFailed, driverCreated } = actions;
-const reviewCreateRequested = createAction('drivers/driversCreateRequested');
-const reviewCreateRequestedFailed = createAction('drivers/driversCreateRequestedFailed');
+const driverCreateRequested = createAction('drivers/driversCreateRequested');
 
-export const createDriver = (payload: any): any => async (dispatch: any) => {
-  dispatch(reviewCreateRequested());
+export const createDriver = (payload: any, callback: any): AppThunk => async (dispatch: any) => {
+  dispatch(driverCreateRequested());
   try {
-    console.log(payload)
     const driver = await driversService.createDriver(payload);
     dispatch(driverCreated(driver));
+    callback()
   } catch (error: any) {
-    const { message } = error.response.data;
-    dispatch(reviewCreateRequestedFailed(message));
+    dispatch(driversRequestFailed(error.response.data.message));
+
   }
 };
 
@@ -53,12 +52,17 @@ export const loadDrivers = (): any => async (dispatch: any) => {
     const drivers = await driversService.loadDrivers()
     dispatch(driversReceived(drivers));
   } catch (error: any) {
-    const { message } = error.response.data;
-    dispatch(driversRequestFailed(message));
+    dispatch(driversRequestFailed(error.messag));
   }
 };
 
+export const clearDriverErrors = (): AppThunk => async (dispatch: any) => {
+  dispatch(driversRequestFailed(null))
+}
+
 export const getAllDrivers = () => (state: RootState) => state.drivers.drivers;
+
+export const getDriverErrors = () => (state: RootState) => state.drivers.error;
 
 
 export default driversReducer;

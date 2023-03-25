@@ -1,4 +1,4 @@
-import { DriverType, DriverCreds } from './../types/types';
+import { DriverType } from './../types/types';
 import { $authHost } from './intex';
 
 
