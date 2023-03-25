@@ -1,6 +1,9 @@
 import { Paper } from "@mui/material";
 import * as React from "react";
+import { useSelector } from "react-redux";
 import { Form, useForm } from "../../../hooks/useForm";
+import { useAppDispatch } from "../../../store";
+import { createTruck, getTruckErrors } from "../../../store/trucks";
 import { TruckCreds } from "../../../types/types";
 import InputField from "../../common/InputField/InputField";
 import validatorConfig from "./ValidatorConfig";
@@ -13,7 +16,17 @@ const initialData: TruckCreds = {
   photo: "",
 };
 
-const AddTuckForm = () => {
+type AddTcuckPropsType = {
+  handleClose: any
+}
+
+const AddTuckForm: React.FC<AddTcuckPropsType> = ({handleClose}) => {
+  const [selectedFile, setSelectedFile] = React.useState(null);
+  const [fileError, setFileError] = React.useState(false);
+
+  const dispatch = useAppDispatch();
+  const truckError = useSelector(getTruckErrors());
+
   const {
     data,
     errors,
@@ -23,11 +36,26 @@ const AddTuckForm = () => {
     handleResetForm,
   } = useForm(initialData, false, validatorConfig);
 
+  const handleFileSelect = (event: any) => {
+    setSelectedFile(event.target.files[0]);
+    setFileError(false)
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (validate(data)) {
-      // dispatch(updateUserData(data));
-      handleResetForm(e);
+      const formData = new FormData();
+      formData.append("name", data.name);
+      formData.append("model", data.model);
+      formData.append("year", data.year);
+      formData.append("loadCapacity", data.loadCapacity);
+      formData.append("photo", selectedFile!);
+      if(selectedFile) {
+        dispatch(createTruck(formData, () => handleClose()));
+        handleResetForm(e);
+      } else {
+        setFileError(true)
+      }
     }
   };
 
@@ -40,7 +68,7 @@ const AddTuckForm = () => {
           <InputField name="model" label="model" />
           <InputField name="year" label="year"/>
           <InputField name="loadCapacity" label="Load Capacity"/>
-          <input className="mt-10" name="photo" type="file" />
+          <input className="mt-10" type="file" onInput={handleFileSelect} />
           <button
             className="button_outline button_modal"
             type="submit"
@@ -50,7 +78,8 @@ const AddTuckForm = () => {
             Add new Truck
           </button>
         </Form>
-        {/* {loginError && <p className='form__enter-error'>{loginError}</p>} */}
+        {truckError && <p className='form_error'>{truckError}</p>}
+        {fileError && <p className='form_error'>File is required</p>}
       </Paper>
     </div>
   );
