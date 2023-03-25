@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useState } from "react";
+import React, { memo, useState } from "react";
 import AdminList from "../common/AdminList/AdminList";
 import AdminPanelNav from "../common/AdminPanelNav/AdminPanelNav";
 import AdminPanelSearchBar from "../common/AdminPanelSearchBar/AdminPanelSearchBar";
@@ -89,7 +89,7 @@ const AdminPage: React.FC = memo(() => {
       return { entity: filteredDrivers, deteledInfo: info, modal: driverModal };
     } else {
       const info = <TruckDeteledInfo truck={data as TruckType} />;
-      const truckModal = <AddTuckForm />;
+      const truckModal = <AddTuckForm handleClose={handleClose} />;
       return { entity: trucks, deteledInfo: info, modal: truckModal };
     }
   };
