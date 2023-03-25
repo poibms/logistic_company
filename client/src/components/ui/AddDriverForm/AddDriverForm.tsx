@@ -1,12 +1,13 @@
 import { Paper } from "@mui/material";
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
 import { Form, useForm } from "../../../hooks/useForm";
 import { DriverCreds } from "../../../types/types";
 import InputField from "../../common/InputField/InputField";
 import validatorConfig from "./ValidatorConfig";
 import PasswordInput from "../../HOC/WithPassword";
 import { useAppDispatch } from "../../../store";
-import { createDriver } from "../../../store/drivers";
+import { createDriver, getDriverErrors } from "../../../store/drivers";
+import { useSelector } from "react-redux";
 
 const initialData: DriverCreds = {
   email: "",
@@ -16,13 +17,18 @@ const initialData: DriverCreds = {
   age: "",
 };
 
-const AddDriverForm: React.FC = () => {
-  // const [selectedPhoto, setSelectedPhoto] = React.useState(null);
-  const [selectedFile, setSelectedFile] = React.useState(null);
+type AddDriverPropsType = {
+  handleClose: any
+}
+
+const AddDriverForm: React.FC<AddDriverPropsType> = ({handleClose}) => {
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [fileError, setFileError] = useState(false);
+  const driverError = useSelector(getDriverErrors());
 
   const handleFileSelect = (event: any) => {
-    console.log(event);
     setSelectedFile(event.target.files[0]);
+    setFileError(false)
   };
 
   const {
@@ -37,7 +43,6 @@ const AddDriverForm: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
-    console.log(selectedFile);
     e.preventDefault();
     if (validate(data)) {
       const formData = new FormData();
@@ -47,8 +52,12 @@ const AddDriverForm: React.FC = () => {
       formData.append("surname", data.surname);
       formData.append("age", data.age);
       formData.append("photo", selectedFile!);
-      dispatch(createDriver(formData));
-      handleResetForm(e);
+      if(selectedFile) {
+        dispatch(createDriver(formData, () => handleClose()));
+        handleResetForm(e);
+      } else {
+        setFileError(true)
+      }
     }
   };
 
@@ -75,7 +84,8 @@ const AddDriverForm: React.FC = () => {
             Create Driver
           </button>
         </Form>
-        {/* {loginError && <p className='form__enter-error'>{loginError}</p>} */}
+        {driverError && <p className='form_error'>{driverError}</p>}
+        {fileError && <p className='form_error'>File is required</p>}
       </Paper>
     </div>
   );
