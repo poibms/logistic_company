@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import AdminList from "../common/AdminList/AdminList";
 import AdminPanelNav from "../common/AdminPanelNav/AdminPanelNav";
 import AdminPanelSearchBar from "../common/AdminPanelSearchBar/AdminPanelSearchBar";
@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { getAllOrders } from "../../store/orders";
 import Map from "../common/DeteledItemInfo/Map/Map";
 import { DriverType, OrderType, TruckType } from "../../types/types";
-import { getAllDrivers } from "../../store/drivers";
+import { clearDriverErrors, getAllDrivers } from "../../store/drivers";
 import { getAllTrucks } from "../../store/trucks";
 import DriverDeteledInfo from "../common/DeteledItemInfo/DriverDeteledInfo/DriverDeteledInfo";
 import TruckDeteledInfo from "../common/DeteledItemInfo/TruckdeteledInfo/TruckDeteledInfo";
@@ -14,13 +14,20 @@ import AdminFilter from "../common/AdminFilter/AdminFilter";
 import BasicModal from "../ui/Modal/Modal";
 import AddDriverForm from "../ui/AddDriverForm/AddDriverForm";
 import AddTuckForm from "../ui/AddTruckForm/AddTruckForm";
+import { useAppDispatch } from "../../store";
 
 const AdminPage: React.FC = memo(() => {
   const [load, setLoad] = useState(false);
   const [data, setData] = useState({} as OrderType | DriverType | TruckType);
   const [filterIndex, setFilterIndex] = useState(0);
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+
+  const dispatch = useAppDispatch();
+
+  const handleOpen = () => {
+    dispatch(clearDriverErrors());
+    setOpen(true);
+  };
   const handleClose = () => {
     setOpen(false);
   };
@@ -78,7 +85,7 @@ const AdminPage: React.FC = memo(() => {
     } else if (dataType === "drivers") {
       const info = <DriverDeteledInfo driver={data as DriverType} />;
       const filteredDrivers = genDriversEntityByFilter();
-      const driverModal = <AddDriverForm />;
+      const driverModal = <AddDriverForm handleClose={handleClose} />;
       return { entity: filteredDrivers, deteledInfo: info, modal: driverModal };
     } else {
       const info = <TruckDeteledInfo truck={data as TruckType} />;
