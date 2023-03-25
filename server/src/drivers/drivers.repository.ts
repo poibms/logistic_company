@@ -18,7 +18,7 @@ export class DriversRepository extends Repository<Drivers> {
     try {
       const newDriver = this.create(payload);
       await this.save(newDriver);
-      return newDriver;
+      return await this.getDriverByEmail(newDriver.email);
     } catch (e) {
       if (e.code === '23505') {
         throw new ConflictException('Driver with such Email already exist');
@@ -56,7 +56,12 @@ export class DriversRepository extends Repository<Drivers> {
 
   async getDriverByEmail(email: string): Promise<Drivers> {
     try {
-      return this.findOneBy({ email });
+      return this.findOne({
+        where: {
+          email,
+        },
+        relations: ['truckId', 'orders'],
+      });
     } catch (e) {
       throw new BadRequestException('something was wrong');
     }
