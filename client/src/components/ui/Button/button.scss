@@ -44,7 +44,8 @@
   box-sizing: border-box;
   color: #fff;
   cursor: pointer;
-  display: inline-block;
+  display: flex;
+  align-items: center;
   font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
   font-size: 16px;
   font-weight: 600;
@@ -52,7 +53,7 @@
   line-height: 1.5;
   outline: none;
   overflow: hidden;
-  padding: 13px 20px;
+  padding: 5px 15px;
   position: relative;
   text-align: center;
   text-decoration: none;

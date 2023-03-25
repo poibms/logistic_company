@@ -1,11 +1,13 @@
-import { Tab, Tabs } from "@mui/material";
 import * as React from "react";
+import { Tab, Tabs } from "@mui/material";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 
 type FilterPropsType = {
   value: any;
   dataType: string;
   handleChange: any;
-  handleOpenModal: any
+  handleOpenModal: any;
 };
 
 const AdminFilter: React.FC<FilterPropsType> = ({
@@ -14,7 +16,6 @@ const AdminFilter: React.FC<FilterPropsType> = ({
   value,
   handleOpenModal,
 }) => {
-
   const mockStatus = {
     orders: [
       { label: "Not Assigned", key: "not_assigned" },
@@ -32,13 +33,22 @@ const AdminFilter: React.FC<FilterPropsType> = ({
   };
 
   const genAddButton = () => {
-    if (dataType === 'drivers') {
-
-      return (<button className="button-68" onClick={handleOpenModal}>Add New Driver</button>)
+    if (dataType === "drivers") {
+      return (
+        <button className="button-68" onClick={handleOpenModal}>
+          <PersonAddIcon className="button_icon"/>
+          Add New Driver
+        </button>
+      );
     } else {
-      return (<button className="button-68" onClick={handleOpenModal}>Add New Truck</button>)
+      return (
+        <button className="button-68" onClick={handleOpenModal}>
+          <LocalShippingIcon className="button_icon" />
+          Add New Truck
+        </button>
+      );
     }
-  }
+  };
 
   const genTabs = () => {
     switch (dataType) {
@@ -74,12 +84,9 @@ const AdminFilter: React.FC<FilterPropsType> = ({
           </Tabs>
         </div>
         {dataType !== "orders" ? (
-          <div className="adminfilter-inner">
-            {addButton}
-          </div>
+          <div className="adminfilter-inner">{addButton}</div>
         ) : null}
       </div>
-
     </div>
   );
 };
