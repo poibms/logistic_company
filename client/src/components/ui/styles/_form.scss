@@ -68,3 +68,21 @@ input[type="file"]::file-selector-button {
 input[type="file"]::file-selector-button:hover {
   background: #036563;
 }
+
+.MuiSelect-select {
+  display: flex !important;
+  align-items: center;
+  img {
+    margin-right: 10px;
+    height: 50px;
+    width: 50px;
+  }
+}
+
+.MuiMenuItem-root {
+  img {
+    height: 50px;
+    width: 50px;
+    margin-right: 10px;
+  }
+}

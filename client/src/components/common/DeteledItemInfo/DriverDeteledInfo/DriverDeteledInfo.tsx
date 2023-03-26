@@ -3,9 +3,10 @@ import { DriverType } from "../../../../types/types";
 
 type DriverInfoPropsType = {
   driver: DriverType;
+  handleOpenModal: any
 };
 
-const DriverDeteledInfo: React.FC<DriverInfoPropsType> = ({ driver }) => {
+const DriverDeteledInfo: React.FC<DriverInfoPropsType> = ({ driver, handleOpenModal }) => {
   return (
     <div className="deteledInfo">
       <div className="deteledInfo_wrapper flex flex_column">
@@ -33,7 +34,7 @@ const DriverDeteledInfo: React.FC<DriverInfoPropsType> = ({ driver }) => {
                 <p>
                   <b> Truck </b> is not assign for {driver.name}
                 </p>
-                <button className="button">Assign truck</button>
+                <button className="button" onClick={() =>handleOpenModal(driver.id)}>Assign truck</button>
               </div>
             ) : (
               <>

@@ -7,7 +7,7 @@ import { getAllOrders } from "../../store/orders";
 import Map from "../common/DeteledItemInfo/Map/Map";
 import { DriverType, OrderType, TruckType } from "../../types/types";
 import { clearDriverErrors, getAllDrivers } from "../../store/drivers";
-import { getAllTrucks } from "../../store/trucks";
+import { clearTrucksErrors, getAllTrucks } from "../../store/trucks";
 import DriverDeteledInfo from "../common/DeteledItemInfo/DriverDeteledInfo/DriverDeteledInfo";
 import TruckDeteledInfo from "../common/DeteledItemInfo/TruckdeteledInfo/TruckDeteledInfo";
 import AdminFilter from "../common/AdminFilter/AdminFilter";
@@ -15,6 +15,7 @@ import BasicModal from "../ui/Modal/Modal";
 import AddDriverForm from "../ui/AddDriverForm/AddDriverForm";
 import AddTuckForm from "../ui/AddTruckForm/AddTruckForm";
 import { useAppDispatch } from "../../store";
+import DeteledInfo from "../common/DeteledItemInfo/DeteledInfo";
 
 const AdminPage: React.FC = memo(() => {
   const [load, setLoad] = useState(false);
@@ -26,6 +27,7 @@ const AdminPage: React.FC = memo(() => {
 
   const handleOpen = () => {
     dispatch(clearDriverErrors());
+    dispatch(clearTrucksErrors());
     setOpen(true);
   };
   const handleClose = () => {
@@ -79,22 +81,19 @@ const AdminPage: React.FC = memo(() => {
 
   const samplingDataEntity = () => {
     if (dataType === "orders") {
-      const map = <Map data={data as OrderType} />;
       const filteredOrders = genOrdersEntityByFilter();
-      return { entity: filteredOrders, deteledInfo: map, modal: null };
+      return { entity: filteredOrders, modal: null };
     } else if (dataType === "drivers") {
-      const info = <DriverDeteledInfo driver={data as DriverType} />;
       const filteredDrivers = genDriversEntityByFilter();
       const driverModal = <AddDriverForm handleClose={handleClose} />;
-      return { entity: filteredDrivers, deteledInfo: info, modal: driverModal };
+      return { entity: filteredDrivers, modal: driverModal };
     } else {
-      const info = <TruckDeteledInfo truck={data as TruckType} />;
       const truckModal = <AddTuckForm handleClose={handleClose} />;
-      return { entity: trucks, deteledInfo: info, modal: truckModal };
+      return { entity: trucks, modal: truckModal };
     }
   };
 
-  const { entity, deteledInfo, modal } = samplingDataEntity();
+  const { entity, modal } = samplingDataEntity();
 
   return (
     <div className="admin_wrapper">
@@ -113,7 +112,7 @@ const AdminPage: React.FC = memo(() => {
             dataType={dataType}
             data={entity}
           />
-          {load ? deteledInfo : <div>waiting</div>}
+          {load ? <DeteledInfo data={data} dataType={dataType} /> : <div>waiting</div>}
         </div>
       </div>
       <BasicModal open={open} handleClose={handleClose}>
