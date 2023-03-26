@@ -1,5 +1,5 @@
 import { AppThunk } from './index';
-import { DriverCreds } from './../types/types';
+import { DriverCreds, AssignTruckType } from './../types/types';
 import { createAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from ".";
 import driversService from "../services/drivers.service";
@@ -26,12 +26,16 @@ const driversSlice = createSlice({
     driversRequestFailed: (state, action) => {
       state.error = action.payload;
     },
+    driverUpdated: (state, action) => {
+      const driverIndex = state.drivers.findIndex(room => room.id === action.payload.id);
+      state.drivers[driverIndex] = action.payload;
+    },
   },
 });
 
 const { actions, reducer: driversReducer } = driversSlice;
 
-const { driversRequested, driversReceived, driversRequestFailed, driverCreated } = actions;
+const { driversRequested, driversReceived, driversRequestFailed, driverCreated, driverUpdated } = actions;
 const driverCreateRequested = createAction('drivers/driversCreateRequested');
 
 export const createDriver = (payload: any, callback: any): AppThunk => async (dispatch: any) => {
@@ -52,7 +56,18 @@ export const loadDrivers = (): any => async (dispatch: any) => {
     const drivers = await driversService.loadDrivers()
     dispatch(driversReceived(drivers));
   } catch (error: any) {
-    dispatch(driversRequestFailed(error.messag));
+    dispatch(driversRequestFailed(error.response.data.message));
+  }
+};
+
+export const setDriverToTruck = (payload: AssignTruckType, callback: any): any => async (dispatch: any) => {
+  dispatch(driversRequested());
+  try {
+    const drivers = await driversService.setDriver(payload)
+    dispatch(driverUpdated(drivers));
+    callback();
+  } catch (error: any) {
+    dispatch(driversRequestFailed(error.response.data.message));
   }
 };
 
