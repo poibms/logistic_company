@@ -43,7 +43,7 @@ export class DriversRepository extends Repository<Drivers> {
     }
   }
 
-  async setTruckToDriver(payload: setTruckType) {
+  async setDriverToTruck(payload: setTruckType) {
     try {
       const { driverId, truckId } = payload;
       return this.update({ id: driverId }, { truckId: truckId });

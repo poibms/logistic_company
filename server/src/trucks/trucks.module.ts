@@ -11,5 +11,6 @@ import { TrucksRepository } from './trucks.repository';
   imports: [TypeOrmModule.forFeature([Trucks]), FilesModule, AuthModule],
   providers: [TrucksService, TrucksRepository],
   controllers: [TrucksController],
+  exports: [TrucksRepository],
 })
-export class TracksModule {}
+export class TrucksModule {}

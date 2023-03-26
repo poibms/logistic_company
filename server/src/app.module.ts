@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { OrdersModule } from './orders/orders.module';
 import { DriversModule } from './drivers/drivers.module';
-import { TracksModule } from './trucks/trucks.module';
+import { TrucksModule } from './trucks/trucks.module';
 import { FilesModule } from './files/files.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { UserModule } from './users/users.module';
@@ -33,7 +33,7 @@ import * as path from 'path';
     AuthModule,
     OrdersModule,
     DriversModule,
-    TracksModule,
+    TrucksModule,
     FilesModule,
     UserModule,
   ],

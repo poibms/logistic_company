@@ -6,11 +6,13 @@ import { Drivers } from './drivers.entity';
 import { CreateDriverDto } from './dto/drivers-create.dto';
 import { FileType } from 'src/types/files.types';
 import * as bcrypt from 'bcrypt';
+import { TrucksRepository } from 'src/trucks/trucks.repository';
 
 @Injectable()
 export class DriversService {
   constructor(
     private dirversRepository: DriversRepository,
+    private trucksRepository: TrucksRepository,
     private filesService: FilesService,
   ) {}
 
@@ -39,7 +41,9 @@ export class DriversService {
     return await this.dirversRepository.deleteDriverById(id);
   }
 
-  async setTruckToDriver(payload: setTruckType) {
-    return await this.dirversRepository.setTruckToDriver(payload);
+  async setDriverToTruck(payload: setTruckType) {
+    const driver = await this.dirversRepository.setDriverToTruck(payload);
+    await this.trucksRepository.setTruckToDriver(payload);
+    return driver;
   }
 }
