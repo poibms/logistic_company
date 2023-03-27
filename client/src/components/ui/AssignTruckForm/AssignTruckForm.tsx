@@ -14,10 +14,13 @@ import { getAllTrucks } from "../../../store/trucks";
 
 type AssihnTruckPropsType = {
   driverId: string;
-  handleClose: any,
+  handleClose: any;
 };
 
-const AssignTruckForm: React.FC<AssihnTruckPropsType> = ({ driverId, handleClose }) => {
+const AssignTruckForm: React.FC<AssihnTruckPropsType> = ({
+  driverId,
+  handleClose,
+}) => {
   const [truck, setTruck] = React.useState("");
   const [enterError, setEnterError] = React.useState("");
   const trucks = useSelector(getAllTrucks());
@@ -46,7 +49,11 @@ const AssignTruckForm: React.FC<AssihnTruckPropsType> = ({ driverId, handleClose
     console.log("handleSubmit");
     if (truck !== "") {
       console.log("true");
-      dispatch(setDriverToTruck({ driverId: driverId, truckId: truck }, () => handleClose()));
+      dispatch(
+        setDriverToTruck({ driverId: driverId, truckId: truck }, () =>
+          handleClose()
+        )
+      );
     } else {
       setEnterError("Choose the truck");
     }
@@ -59,18 +66,25 @@ const AssignTruckForm: React.FC<AssihnTruckPropsType> = ({ driverId, handleClose
       <Paper elevation={3} className="login_form-card form_card">
         <h2>Assign Truck to Driver</h2>
         <Form data={{ truck: truck }}>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Truck</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={truck}
-              label="truck"
-              onChange={handleChange}
-            >
-              {TruckMenuItem}
-            </Select>
-          </FormControl>
+          {TruckMenuItem.length > 0 ? (
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Truck</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={truck}
+                label="truck"
+                onChange={handleChange}
+              >
+                {TruckMenuItem}
+              </Select>
+            </FormControl>
+          ) : (
+            <p className="flex alig-center" style={{'color': 'red'}}>
+              There is no free truck right now. Please try it later
+            </p>
+          )}
+
           <button
             className="button_outline button_modal"
             type="submit"
@@ -80,8 +94,8 @@ const AssignTruckForm: React.FC<AssihnTruckPropsType> = ({ driverId, handleClose
             Assign
           </button>
         </Form>
-        {enterError && <p className='form_error'>{enterError}</p>}
-        {driverError && <p className='form_error'>{driverError}</p>}
+        {enterError && <p className="form_error">{enterError}</p>}
+        {driverError && <p className="form_error">{driverError}</p>}
       </Paper>
     </div>
   );
