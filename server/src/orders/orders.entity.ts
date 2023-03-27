@@ -9,7 +9,7 @@ export class Orders {
   id: string;
 
   @Column()
-  cargo_name: string;
+  name: string;
 
   @Column()
   weight: number;

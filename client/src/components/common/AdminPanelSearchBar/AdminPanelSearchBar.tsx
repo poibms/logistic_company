@@ -1,5 +1,4 @@
 import * as React from "react";
-import InputField from "../InputField/InputField";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SearchInput from "../../ui/SearchInput/SearchInput";
 
@@ -12,7 +11,6 @@ const AdminPanelSearchBar = () => {
         </div>
         <div className="searchbar_input">
           <SearchInput />
-          {/* <InputField name='search' placeholder='Search orders, drivers, trucks' /> */}
         </div>
         <div>
           <AccountCircleIcon />

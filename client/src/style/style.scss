@@ -108,6 +108,9 @@ img {
     align-items: flex-start;
   }
 }
+.br-rght {
+  border-right: 1px solid $light-grey;
+}
 
 .justify {
   &-center {

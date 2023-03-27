@@ -25,7 +25,7 @@ export enum OrderStatus {
 
 export type OrderType = {
   id: string,
-  cargo_name: string,
+  name: string,
   weight: string,
   from: string,
   to: string,

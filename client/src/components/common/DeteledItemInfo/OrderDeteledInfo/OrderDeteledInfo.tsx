@@ -22,7 +22,7 @@ const OrderDeteledInfo: React.FC<ItemInfoPropsType> = ({ order }) => {
           </thead>
           <tbody>
             <tr>
-              <td>{order.cargo_name}</td>
+              <td>{order.name}</td>
               <td>
                 {order.driverId ? order.driverId : <Button>Assign driver</Button>}
               </td>

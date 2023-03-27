@@ -13,7 +13,7 @@ const OrdersItem: React.FC<OrderItemPropsType> = ({ order }) => {
       </div>
       <div className="listitem_inner flex flex_column align_left">
         <div className="item_title">
-          <p>{order.cargo_name}</p>
+          <p>{order.name}</p>
         </div>
         <div className="item_text">
           <p>Откуда: {order.from}</p>
