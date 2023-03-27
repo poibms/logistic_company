@@ -12,9 +12,8 @@ export class TrucksRepository extends Repository<Trucks> {
 
   async createTruck(payload: CreateTruckDto): Promise<Trucks> {
     const newTruck = this.create(payload);
-    const trucks = await this.save(newTruck);
-    console.log(trucks);
-    return newTruck;
+    await this.save(newTruck);
+    return await this.getTruckById(newTruck.id);
   }
 
   async getAllTrucks(): Promise<Trucks[]> {
@@ -29,6 +28,19 @@ export class TrucksRepository extends Repository<Trucks> {
       throw new BadRequestException(
         'something was wrong while updating driver',
       );
+    }
+  }
+
+  async getTruckById(id: string): Promise<Trucks> {
+    try {
+      return this.findOne({
+        where: {
+          id,
+        },
+        relations: ['driverId'],
+      });
+    } catch (e) {
+      throw new BadRequestException('something was wrong');
     }
   }
 }
