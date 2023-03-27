@@ -27,8 +27,8 @@ const AdminFilter: React.FC<FilterPropsType> = ({
       { label: "With Truck", key: "truck" },
     ],
     trucks: [
-      { label: "test1", key: "test1" },
-      { label: "test 2", key: "test2" },
+      { label: "Without driver", key: "no driver" },
+      { label: "Assigned Trucks", key: "with driver" },
     ],
   };
 

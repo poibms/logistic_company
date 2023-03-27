@@ -79,6 +79,17 @@ const AdminPage: React.FC = memo(() => {
     }
   };
 
+  const genTrucksEntityByFilter = () => {
+    switch (filterIndex) {
+      case 0:
+        return trucks.filter((truck) => truck.driverId === null);
+      case 1:
+        return trucks.filter((truck) => truck.driverId !== null);
+      default:
+        return trucks.filter((truck) => truck.driverId === null);
+    }
+  };
+
   const samplingDataEntity = () => {
     if (dataType === "orders") {
       const filteredOrders = genOrdersEntityByFilter();
@@ -88,8 +99,9 @@ const AdminPage: React.FC = memo(() => {
       const driverModal = <AddDriverForm handleClose={handleClose} />;
       return { entity: filteredDrivers, modal: driverModal };
     } else {
+      const filteredTrucks = genTrucksEntityByFilter();
       const truckModal = <AddTuckForm handleClose={handleClose} />;
-      return { entity: trucks, modal: truckModal };
+      return { entity: filteredTrucks, modal: truckModal };
     }
   };
 
@@ -106,15 +118,21 @@ const AdminPage: React.FC = memo(() => {
           value={filterIndex}
           handleOpenModal={handleOpen}
         />
-        <div className="flex admin_content-wrapper">
-          <AdminList
-            onClickHandle={setMapVissible}
-            dataType={dataType}
-            data={entity}
-          />
-          {load ? <DeteledInfo data={data} dataType={dataType} /> : <div>waiting</div>}
+        {/* <div className="br-rght"> */}
+          <div className="flex admin_content-wrapper">
+            <AdminList
+              onClickHandle={setMapVissible}
+              dataType={dataType}
+              data={entity}
+            />
+            {load ? (
+              <DeteledInfo data={data} dataType={dataType} />
+            ) : (
+              <div>waiting</div>
+            )}
+          </div>
         </div>
-      </div>
+      {/* </div> */}
       <BasicModal open={open} handleClose={handleClose}>
         <div>{!modal ? <></> : modal}</div>
       </BasicModal>
