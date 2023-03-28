@@ -31,6 +31,7 @@ export type OrderType = {
   to: string,
   image: string,
   status: OrderStatus,
+  track_code: string,
   ownerId?: string,
   driverId?: string
 }

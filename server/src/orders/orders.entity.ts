@@ -1,11 +1,17 @@
 import { Drivers } from 'src/drivers/drivers.entity';
 import { OrderStasus } from 'src/types/order.types';
 import { User } from 'src/users/users.entity';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  Generated,
+} from 'typeorm';
 
 @Entity()
 export class Orders {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: string;
 
   @Column()
@@ -25,6 +31,10 @@ export class Orders {
 
   @Column({ default: OrderStasus.NOT_ASSIGNED })
   status: OrderStasus;
+
+  @Column()
+  @Generated('uuid')
+  track_code: string;
 
   @ManyToOne(() => User, (user) => user.orders)
   // @Column()
