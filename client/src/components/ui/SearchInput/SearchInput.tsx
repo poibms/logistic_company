@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { getAllOrders } from "../../../store/orders";
 import { getAllDrivers } from "../../../store/drivers";
 import { getAllTrucks } from "../../../store/trucks";
+import { Box } from "@mui/material";
 
 export default function SearchInput() {
   const [inputValue, setInputValue] = React.useState("");
@@ -19,15 +20,28 @@ export default function SearchInput() {
     setInputValue(e.target.value);
   };
 
+  const searchRes = (event:React.SyntheticEvent, value:any) => {
+    console.log(value)
+  }
+
+
   return (
     <Stack spacing={2} sx={{ minWidth: '40vw' }}>
       <Autocomplete
-        freeSolo
-        inputValue={inputValue}
+        // freeSolo
+        autoComplete={inputValue.length >= 1 ? true : false}
         onInputChange={setinputValue}
-        id="combo-box-demo"
-        options={autoCompleteOption.map((option) => option.name)}
+        id="free-solo-demo"
+        // freeSolo
+        getOptionLabel={(option) => option.name}
+        options={autoCompleteOption}
+        onChange={searchRes}
         style={{ width: 300 }}
+        renderOption={(props, option) => (
+          <Box component="li" {...props} key={option.id}>
+            {option.name}
+          </Box>
+        )}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -38,7 +52,6 @@ export default function SearchInput() {
             }}
           />
         )}
-        open={inputValue.length > 1}
       />
     </Stack>
   );
