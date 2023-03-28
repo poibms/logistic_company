@@ -6,7 +6,7 @@ import driversService from "../services/drivers.service";
 import { DriverType } from "../types/types";
 
 const driversSlice = createSlice({
-  name: 'orders',
+  name: 'drivers',
   initialState: {
     isLoading: true as boolean,
     drivers: [] as DriverType[],
@@ -79,5 +79,12 @@ export const getAllDrivers = () => (state: RootState) => state.drivers.drivers;
 
 export const getDriverErrors = () => (state: RootState) => state.drivers.error;
 
+export const getDriverById = (driverId: number) => (state: RootState) =>{
+  if (state.drivers.drivers.length > 0) {
+    return state.drivers.drivers.find((driver: DriverType) => driver.id === driverId);
+  }
+}
+
+export const getDriversLoadingStatus = () => (state: RootState) => state.drivers.isLoading;
 
 export default driversReducer;

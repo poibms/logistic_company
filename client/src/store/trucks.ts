@@ -65,5 +65,7 @@ export const clearTrucksErrors = (): AppThunk => async (dispatch: any) => {
   dispatch(trucksRequestFailed(null))
 }
 
+export const getTrucksLoadingStatus = () => (state: RootState) => state.trucks.isLoading;
+
 
 export default trucksReducer;
