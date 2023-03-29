@@ -1,7 +1,7 @@
 import { setTruckType } from './../types/drivers.types';
 import { FilesService } from './../files/files.service';
 import { DriversRepository } from './drivers.repository';
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { Drivers } from './drivers.entity';
 import { CreateDriverDto } from './dto/drivers-create.dto';
 import { FileType } from 'src/types/files.types';
@@ -44,6 +44,16 @@ export class DriversService {
   async setDriverToTruck(payload: setTruckType) {
     const driver = await this.dirversRepository.setDriverToTruck(payload);
     await this.trucksRepository.setTruckToDriver(payload);
+    return driver;
+  }
+
+  async setOrderToDriver(driverId: string) {
+    const driver = await this.dirversRepository.getDriverById(driverId);
+    if (!driver.truckId) {
+      throw new BadRequestException(
+        'You cannot assign order on this driver, because he does not have a truck',
+      );
+    }
     return driver;
   }
 }

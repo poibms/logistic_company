@@ -5,11 +5,13 @@ import { Injectable } from '@nestjs/common';
 import { OrdersRepository } from './orders.repository';
 import { Orders } from './orders.entity';
 import { assignOrderType, OrderStasus } from 'src/types/order.types';
+import { DriversService } from 'src/drivers/drivers.service';
 
 @Injectable()
 export class OrdersService {
   constructor(
     private ordersRepository: OrdersRepository,
+    private driversService: DriversService,
     private filesService: FilesService,
   ) {}
 
@@ -32,10 +34,13 @@ export class OrdersService {
     return await this.ordersRepository.getAllOrders(status);
   }
 
-  async assigntOrderStatus(
-    payload: assignOrderType,
-  ): Promise<{ message: string }> {
+  async assigntOrderStatus(payload: assignOrderType): Promise<Orders> {
     const { orderId, driverId } = payload;
-    return await this.ordersRepository.assigntOrderStatus(orderId, driverId);
+    await this.driversService.setOrderToDriver(orderId);
+    const order = await this.ordersRepository.assigntOrderStatus(
+      orderId,
+      driverId,
+    );
+    return order;
   }
 }

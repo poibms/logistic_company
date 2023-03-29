@@ -17,5 +17,6 @@ import { TrucksModule } from 'src/trucks/trucks.module';
   ],
   providers: [DriversService, DriversRepository],
   controllers: [DriversController],
+  exports: [DriversService],
 })
 export class DriversModule {}

@@ -46,11 +46,9 @@ export class OrdersController {
     return this.ordersService.getAllOrders(status);
   }
 
-  @Put('?')
+  @Put('/')
   @UseGuards(RoleGuard(UserRole.ADMIN))
-  async assigntOrderStatus(
-    @Body() payload: assignOrderType,
-  ): Promise<{ message: string }> {
+  async assigntOrderStatus(@Body() payload: assignOrderType): Promise<Orders> {
     return this.ordersService.assigntOrderStatus(payload);
   }
 }
