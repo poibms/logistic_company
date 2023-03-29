@@ -6,7 +6,7 @@ import TrucksItem from "./listitems/TruckItem";
 
 type ListItemPropsType = {
   data: OrderType | DriverType | TruckType;
-  dataType: string;
+  dataType: URLSearchParams;
   onClickHandle: any;
 };
 
@@ -16,9 +16,9 @@ const AdminListItem: React.FC<ListItemPropsType> = ({
   onClickHandle,
 }) => {
   const genListItem = () => {
-    if (dataType === 'orders') {
+    if (dataType.get('filter') === 'orders') {
       return <OrdersItem order={(data as OrderType)}/>
-    } else if (dataType === 'drivers') {
+    } else if (dataType.get('filter') === 'drivers') {
       return <DriversItem driver={(data as DriverType)}/>
     } else {
       return <TrucksItem trucks={(data as TruckType)}/>

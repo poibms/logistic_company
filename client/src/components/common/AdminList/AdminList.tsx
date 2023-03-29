@@ -4,7 +4,7 @@ import AdminListItem from '../AdminListItem/AdminListItem';
 
 type AdminListType = {
   data: OrderType[] | DriverType[] | TruckType[],
-  dataType: string,
+  dataType: URLSearchParams,
   onClickHandle: any
   
 }

@@ -5,7 +5,7 @@ import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 
 type FilterPropsType = {
   value: any;
-  dataType: string;
+  dataType: URLSearchParams;
   handleChange: any;
   handleOpenModal: any;
 };
@@ -33,7 +33,7 @@ const AdminFilter: React.FC<FilterPropsType> = ({
   };
 
   const genAddButton = () => {
-    if (dataType === "drivers") {
+    if (dataType.get('filter') === "drivers") {
       return (
         <button className="button-68" onClick={handleOpenModal}>
           <PersonAddIcon className="button_icon"/>
@@ -51,7 +51,7 @@ const AdminFilter: React.FC<FilterPropsType> = ({
   };
 
   const genTabs = () => {
-    switch (dataType) {
+    switch (dataType.get('filter')) {
       case "orders":
         return mockStatus.orders.map((item) => (
           <Tab key={item.key} label={item.label} />
@@ -62,7 +62,7 @@ const AdminFilter: React.FC<FilterPropsType> = ({
         ));
       case "trucks":
         return mockStatus.trucks.map((item) => (
-          <Tab key={item.key} label={item.label} />
+          <Tab key={item.key} label={item.label} />  
         ));
     }
   };
@@ -83,7 +83,7 @@ const AdminFilter: React.FC<FilterPropsType> = ({
             {tabs}
           </Tabs>
         </div>
-        {dataType !== "orders" ? (
+        {dataType.get('filter') !== "orders" ? (
           <div className="adminfilter-inner">{addButton}</div>
         ) : null}
       </div>

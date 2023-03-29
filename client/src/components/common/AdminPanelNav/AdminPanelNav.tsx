@@ -2,11 +2,11 @@ import React from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 
 type NavPropsType = {
-  dataType: string;
   changeDataType: any;
+  queryParams: URLSearchParams;
 }
 
-const AdminPanelNav: React.FC<NavPropsType> = ({dataType, changeDataType}) => {
+const AdminPanelNav: React.FC<NavPropsType> = ({changeDataType, queryParams}) => {
   const listItemButtons = [
     { name: "orders", label: 'Orders' },
     { name: "drivers", label: 'Drivers' },
@@ -14,7 +14,7 @@ const AdminPanelNav: React.FC<NavPropsType> = ({dataType, changeDataType}) => {
   ];
 
   const listItem = listItemButtons.map(({ name, label }) => {
-    const active = dataType === name;
+    const active = queryParams.get('filter') === name;
     const activeClass = active ? 'active' : ''
     return (
       <li
