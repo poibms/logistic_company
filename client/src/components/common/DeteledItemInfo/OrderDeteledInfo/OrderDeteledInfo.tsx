@@ -7,7 +7,7 @@ type ItemInfoPropsType = {
 };
 
 const OrderDeteledInfo: React.FC<ItemInfoPropsType> = ({ order }) => {
-  console.log(order);
+
   return (
     <div className="itemlist">
       <div className="itemlist_wrapper">
