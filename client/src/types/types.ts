@@ -24,7 +24,7 @@ export enum OrderStatus {
 }
 
 export type OrderType = {
-  id: string,
+  id: number,
   name: string,
   weight: string,
   from: string,
@@ -37,7 +37,7 @@ export type OrderType = {
 }
 
 export type DriverType = {
-  id: string,
+  id: number,
   email: string,
   password: string,
   name: string,
@@ -63,7 +63,7 @@ export type AssignTruckType = {
 }
 
 export type TruckType = {
-  id: string,
+  id: number,
   name: string,
   model: string,
   year: string,
