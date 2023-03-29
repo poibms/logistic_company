@@ -44,5 +44,10 @@ export const getOrdersLoadingStatus = () => (state: RootState) => state.orders.i
 
 export const getAllOrders = () => (state: RootState) => state.orders.orders;
 
+export const getOrderrById = (orderId: number) => (state: RootState) =>{
+  if (state.drivers.drivers.length > 0) {
+    return state.orders.orders.find((order: OrderType) => order.id === orderId);
+  }
+}
 
 export default ordersReducer;

@@ -67,5 +67,10 @@ export const clearTrucksErrors = (): AppThunk => async (dispatch: any) => {
 
 export const getTrucksLoadingStatus = () => (state: RootState) => state.trucks.isLoading;
 
+export const getTruckById = (truckId: number) => (state: RootState) =>{
+  if (state.drivers.drivers.length > 0) {
+    return state.trucks.trucks.find((truck: TruckType) => truck.id === truckId);
+  }
+}
 
 export default trucksReducer;
