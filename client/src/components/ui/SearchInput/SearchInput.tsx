@@ -8,7 +8,11 @@ import { getAllDrivers } from "../../../store/drivers";
 import { getAllTrucks } from "../../../store/trucks";
 import { Box } from "@mui/material";
 
-export default function SearchInput() {
+type SearchInputType = {
+  searchHandler: any;
+};
+
+const SearchInput: React.FC<SearchInputType> = ({ searchHandler }) => {
   const [inputValue, setInputValue] = React.useState("");
   const orders = useSelector(getAllOrders());
   const drivers = useSelector(getAllDrivers());
@@ -20,22 +24,15 @@ export default function SearchInput() {
     setInputValue(e.target.value);
   };
 
-  const searchRes = (event:React.SyntheticEvent, value:any) => {
-    console.log(value)
-  }
-
-
   return (
-    <Stack spacing={2} sx={{ minWidth: '40vw' }}>
+    <Stack spacing={2} sx={{ minWidth: "40vw" }}>
       <Autocomplete
-        // freeSolo
         autoComplete={inputValue.length >= 1 ? true : false}
         onInputChange={setinputValue}
         id="free-solo-demo"
-        // freeSolo
         getOptionLabel={(option) => option.name}
         options={autoCompleteOption}
-        onChange={searchRes}
+        onChange={searchHandler}
         style={{ width: 300 }}
         renderOption={(props, option) => (
           <Box component="li" {...props} key={option.id}>
@@ -55,4 +52,6 @@ export default function SearchInput() {
       />
     </Stack>
   );
-}
+};
+
+export default SearchInput;
