@@ -112,6 +112,10 @@ img {
   border-right: 1px solid $light-grey;
 }
 
+.ovrfl-y {
+  overflow-y: scroll;
+}
+
 .justify {
   &-center {
     justify-content: center;
