@@ -4,9 +4,10 @@ import { OrderType } from "../../../../types/types";
 
 type ItemInfoPropsType = {
   order: OrderType;
+  handleOpenModal: any
 };
 
-const OrderDeteledInfo: React.FC<ItemInfoPropsType> = ({ order }) => {
+const OrderDeteledInfo: React.FC<ItemInfoPropsType> = ({ order, handleOpenModal }) => {
 
   return (
     <div className="itemlist">
@@ -24,7 +25,8 @@ const OrderDeteledInfo: React.FC<ItemInfoPropsType> = ({ order }) => {
             <tr>
               <td>{order.name}</td>
               <td>
-                {order.driverId ? order.driverId : <Button>Assign driver</Button>}
+                {order.driverId ? order.driverId.name : <Button className="button"
+                onClick={() => handleOpenModal(order.id)}>Assign driver</Button>}
               </td>
               <td>{order.status}</td>
               <td>{order.to}</td>

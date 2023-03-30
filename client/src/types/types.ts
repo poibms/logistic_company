@@ -32,8 +32,13 @@ export type OrderType = {
   image: string,
   status: OrderStatus,
   track_code: string,
-  ownerId?: string,
-  driverId?: string
+  ownerId?: UserType,
+  driverId?: DriverType
+}
+
+export type AssignOrderToDriver = {
+  orderId: string,
+  driverId: string,
 }
 
 export type DriverType = {
@@ -45,7 +50,7 @@ export type DriverType = {
   age: string,
   photo: string,
   truckId?: null | TruckType,
-  orders?: [] | OrderType
+  orders: [] | OrderType[]
 }
 
 export type DriverCreds = {

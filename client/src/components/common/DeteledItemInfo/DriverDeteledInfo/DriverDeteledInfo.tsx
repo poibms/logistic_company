@@ -9,7 +9,7 @@ type DriverInfoPropsType = {
 };
 
 const DriverDeteledInfo: React.FC<DriverInfoPropsType> = ({
-  handleOpenModal,
+  handleOpenModal
 }) => {
   const [searchParams] = useSearchParams();
   const driverId = searchParams.get("id");

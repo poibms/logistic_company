@@ -3,7 +3,7 @@ import AdminList from "../common/AdminList/AdminList";
 import AdminPanelNav from "../common/AdminPanelNav/AdminPanelNav";
 import AdminPanelSearchBar from "../common/AdminPanelSearchBar/AdminPanelSearchBar";
 import { useSelector } from "react-redux";
-import { getAllOrders, loadOrders } from "../../store/orders";
+import { getAllOrders } from "../../store/orders";
 import { DriverType, OrderType, TruckType } from "../../types/types";
 import { clearDriverErrors, getAllDrivers } from "../../store/drivers";
 import { clearTrucksErrors, getAllTrucks } from "../../store/trucks";
@@ -21,6 +21,7 @@ const AdminPage: React.FC = memo(() => {
   const [filterIndex, setFilterIndex] = useState(0);
   const [open, setOpen] = React.useState(false);
   const [queryParams, setQueryParams] = useSearchParams('orders')
+  // const [dataType, setDataType] = useState("orders");
   const id = queryParams.get('id');
   useEffect(() => {
     if (!id) setLoad(false)
@@ -143,7 +144,7 @@ const AdminPage: React.FC = memo(() => {
             dataType={queryParams}
             data={entity}
           />
-          {load || queryParams.get('id') ? (
+          {load? (
             <DeteledInfo data={data} dataType={queryParams} />
           ) : (
             <div>waiting</div>

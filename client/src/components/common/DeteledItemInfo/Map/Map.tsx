@@ -5,8 +5,11 @@ import { useSearchParams } from "react-router-dom";
 import { getOrderrById } from "../../../../store/orders";
 import ItemList from "../OrderDeteledInfo/OrderDeteledInfo";
 
+type MapPropsType = {
+  handleOpenModal: any
+}
 
-const Map: React.FC = () => {
+const Map: React.FC<MapPropsType> = ({handleOpenModal}) => {
   const [searchParams] = useSearchParams();
   const orderId = searchParams.get("id");
   const order = useSelector(getOrderrById(+orderId!));
@@ -36,7 +39,7 @@ const Map: React.FC = () => {
             }
           }}/>
             <Placemark defaultGeometry={[55.751574, 37.573856]} />
-            <ItemList order={order}/>
+            <ItemList handleOpenModal={handleOpenModal} order={order}/>
           </YandexMap>
         </YMaps>
       </div>
