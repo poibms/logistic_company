@@ -1,4 +1,4 @@
-import { OrderStatus } from './../types/types';
+import { OrderStatus, AssignOrderToDriver } from './../types/types';
 import { $authHost } from './intex';
 
 
@@ -11,6 +11,11 @@ const ordersService = {
       response = await $authHost.get('/orders')
     }
     return response;
+  },
+
+  assignOrderToDriver: async (payload: AssignOrderToDriver) => {
+    const { data } = await $authHost.put('/orders', payload)
+    return data
   }
 }
 
