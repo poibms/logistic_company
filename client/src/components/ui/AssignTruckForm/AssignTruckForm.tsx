@@ -8,17 +8,19 @@ import {
 } from "@mui/material";
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Form } from "../../../hooks/useForm";
+import { useAppDispatch } from "../../../store";
 import { getDriverErrors, setDriverToTruck } from "../../../store/drivers";
 import { getAllTrucks } from "../../../store/trucks";
 
 type AssihnTruckPropsType = {
-  driverId: string;
+  dataId: string;
   handleClose: any;
 };
 
 const AssignTruckForm: React.FC<AssihnTruckPropsType> = ({
-  driverId,
+  dataId,
   handleClose,
 }) => {
   const [truck, setTruck] = React.useState("");
@@ -26,7 +28,7 @@ const AssignTruckForm: React.FC<AssihnTruckPropsType> = ({
   const trucks = useSelector(getAllTrucks());
   const driverError = useSelector(getDriverErrors());
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleChange = (event: SelectChangeEvent) => {
     setTruck(event.target.value);
@@ -50,8 +52,9 @@ const AssignTruckForm: React.FC<AssihnTruckPropsType> = ({
     if (truck !== "") {
       console.log("true");
       dispatch(
-        setDriverToTruck({ driverId: driverId, truckId: truck }, () =>
-          handleClose()
+        setDriverToTruck(
+          { driverId: dataId, truckId: truck },
+          () => handleClose()
         )
       );
     } else {
@@ -80,8 +83,8 @@ const AssignTruckForm: React.FC<AssihnTruckPropsType> = ({
               </Select>
             </FormControl>
           ) : (
-            <p className="flex alig-center" style={{'color': 'red'}}>
-              There is no free truck right now. Please try it later
+            <p className="flex alig-center" style={{ color: "red" }}>
+              There is no free drivers right now. Please try it later
             </p>
           )}
 

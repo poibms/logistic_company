@@ -1,5 +1,6 @@
 import * as React from "react";
 import { DriverType, OrderType, TruckType } from "../../../types/types";
+import AssignDriverForm from "../../ui/AssignDriverForm /AssignDriverForm";
 import AssignTruckForm from "../../ui/AssignTruckForm/AssignTruckForm";
 import BasicModal from "../../ui/Modal/Modal";
 import DriverDeteledInfo from "./DriverDeteledInfo/DriverDeteledInfo";
@@ -13,10 +14,11 @@ type DeteledPropsType = {
 
 const DeteledInfo: React.FC<DeteledPropsType> = ({ dataType, data }) => {
   const [open, setOpen] = React.useState(false);
-  const [driverId, setDriverId] = React.useState("");
+  const [dataId, setDataId] = React.useState("");
+  console.log('a')
 
   const handleOpen = (id: string) => {
-    setDriverId(id);
+    setDataId(id);
     setOpen(true);
   };
   const handleClose = () => {
@@ -27,13 +29,16 @@ const DeteledInfo: React.FC<DeteledPropsType> = ({ dataType, data }) => {
     if (dataType.get("filter") === "drivers") {
       const info = <DriverDeteledInfo handleOpenModal={handleOpen} />;
       const modal = (
-        <AssignTruckForm driverId={driverId} handleClose={handleClose} />
+        <AssignTruckForm dataId={dataId} handleClose={handleClose} />
       );
 
       return { deteledInfo: info, modal };
     } else if (dataType.get("filter") === "orders") {
-      const map = <Map />;
-      return { deteledInfo: map, modal: null };
+      const map = <Map handleOpenModal={handleOpen} />;
+      const modal = (
+        <AssignDriverForm dataId={dataId} handleClose={handleClose} />
+      );
+      return { deteledInfo: map, modal: modal };
     } else {
       const info = <TruckDeteledInfo/>;
       return { deteledInfo: info, modal: null };
