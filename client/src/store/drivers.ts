@@ -1,5 +1,5 @@
 import { AppThunk } from './index';
-import { DriverCreds, AssignTruckType } from './../types/types';
+import { AssignTruckType } from './../types/types';
 import { createAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from ".";
 import driversService from "../services/drivers.service";
@@ -29,6 +29,7 @@ const driversSlice = createSlice({
     driverUpdated: (state, action) => {
       const driverIndex = state.drivers.findIndex(room => room.id === action.payload.id);
       state.drivers[driverIndex] = action.payload;
+      state.isLoading=false;
     },
   },
 });
@@ -60,13 +61,15 @@ export const loadDrivers = (): any => async (dispatch: any) => {
   }
 };
 
-export const setDriverToTruck = (payload: AssignTruckType, callback: any): any => async (dispatch: any) => {
+export const setDriverToTruck = (payload: AssignTruckType, callback: any): AppThunk => async (dispatch: any) => {
   dispatch(driversRequested());
   try {
     const drivers = await driversService.setDriver(payload)
     dispatch(driverUpdated(drivers));
     callback();
+    // callback2();
   } catch (error: any) {
+    console.log(error)
     dispatch(driversRequestFailed(error.response.data.message));
   }
 };
