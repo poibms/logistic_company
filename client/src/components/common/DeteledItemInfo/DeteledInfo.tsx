@@ -15,7 +15,6 @@ type DeteledPropsType = {
 const DeteledInfo: React.FC<DeteledPropsType> = ({ dataType, data }) => {
   const [open, setOpen] = React.useState(false);
   const [dataId, setDataId] = React.useState("");
-  console.log('a')
 
   const handleOpen = (id: string) => {
     setDataId(id);

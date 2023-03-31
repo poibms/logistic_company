@@ -20,12 +20,12 @@ const AdminPage: React.FC = memo(() => {
   const [data, setData] = useState({} as OrderType | DriverType | TruckType);
   const [filterIndex, setFilterIndex] = useState(0);
   const [open, setOpen] = React.useState(false);
-  const [queryParams, setQueryParams] = useSearchParams('orders')
+  const [queryParams, setQueryParams] = useSearchParams("orders");
   // const [dataType, setDataType] = useState("orders");
-  const id = queryParams.get('id');
+  const id = queryParams.get("id");
   useEffect(() => {
-    if (!id) setLoad(false)
-  }, [id])
+    if (!id) setLoad(false);
+  }, [id]);
 
   const dispatch = useAppDispatch();
 
@@ -49,14 +49,17 @@ const AdminPage: React.FC = memo(() => {
   };
 
   const setDeteledInfoVissible = (data: OrderType) => {
-    setQueryParams({filter: String(queryParams.get('filter')), id: String(data.id)});
+    setQueryParams({
+      filter: String(queryParams.get("filter")),
+      id: String(data.id),
+    });
     setLoad(true);
     setData(data);
   };
   const changeDataType = (dataType: string) => {
     setLoad(false);
     setFilterIndex(0);
-    setQueryParams({filter: dataType});
+    setQueryParams({ filter: dataType });
   };
 
   const genOrdersEntityByFilter = () => {
@@ -95,10 +98,10 @@ const AdminPage: React.FC = memo(() => {
   };
 
   const samplingDataEntity = () => {
-    if (queryParams.get('filter') === "orders") {
+    if (queryParams.get("filter") === "orders") {
       const filteredOrders = genOrdersEntityByFilter();
       return { entity: filteredOrders, modal: null };
-    } else if (queryParams.get('filter') === "drivers") {
+    } else if (queryParams.get("filter") === "drivers") {
       const filteredDrivers = genDriversEntityByFilter();
       const driverModal = <AddDriverForm handleClose={handleClose} />;
       return { entity: filteredDrivers, modal: driverModal };
@@ -109,27 +112,35 @@ const AdminPage: React.FC = memo(() => {
     }
   };
 
-  const searchHandler = (event:React.SyntheticEvent, value:any) => {
-    if(orders.includes(value)) {
-      const filter = value.status === "not_assigned" ? 0 : value.status === "in_progress" ? 1 : 2
-      setQueryParams({filter: 'orders', id: value.id})
-      setFilterIndex(filter)
+  const searchHandler = (event: React.SyntheticEvent, value: any) => {
+    if (orders.includes(value)) {
+      const filter =
+        value.status === "not_assigned"
+          ? 0
+          : value.status === "in_progress"
+          ? 1
+          : 2;
+      setQueryParams({ filter: "orders", id: value.id });
+      setFilterIndex(filter);
     } else if (drivers.includes(value)) {
-      const filter = !value.truckId ? 0 : 1
-      setQueryParams({filter: 'drivers', id: value.id})
-      setFilterIndex(filter)
+      const filter = !value.truckId ? 0 : 1;
+      setQueryParams({ filter: "drivers", id: value.id });
+      setFilterIndex(filter);
     } else {
-      const filter = !value.driverId ? 0 : 1
-      setQueryParams({filter: 'trucks', id: value.id})
-      setFilterIndex(filter)
+      const filter = !value.driverId ? 0 : 1;
+      setQueryParams({ filter: "trucks", id: value.id });
+      setFilterIndex(filter);
     }
-  }
+  };
 
   const { entity, modal } = samplingDataEntity();
 
   return (
     <div className="admin_wrapper">
-      <AdminPanelNav queryParams={queryParams} changeDataType={changeDataType} />
+      <AdminPanelNav
+        queryParams={queryParams}
+        changeDataType={changeDataType}
+      />
       <div className="admin_content">
         <AdminPanelSearchBar searchHandler={searchHandler} />
         <AdminFilter
@@ -144,10 +155,18 @@ const AdminPage: React.FC = memo(() => {
             dataType={queryParams}
             data={entity}
           />
-          {load? (
+          {load ? (
             <DeteledInfo data={data} dataType={queryParams} />
           ) : (
-            <div>waiting</div>
+            <>
+              <div className="deteledInfo">
+                <div className="holder">
+                  <h2>
+                    There are no {queryParams.get("filter")} of this type yet{" "}
+                  </h2>
+                </div>
+              </div>
+            </>
           )}
         </div>
       </div>
@@ -159,4 +178,3 @@ const AdminPage: React.FC = memo(() => {
 });
 
 export default AdminPage;
-
