@@ -1,3 +1,4 @@
+import { MailModule } from './../mail/mail.module';
 import { FilesModule } from './../files/files.module';
 import { DriversRepository } from './drivers.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -14,6 +15,7 @@ import { TrucksModule } from 'src/trucks/trucks.module';
     AuthModule,
     FilesModule,
     TrucksModule,
+    MailModule,
   ],
   providers: [DriversService, DriversRepository],
   controllers: [DriversController],

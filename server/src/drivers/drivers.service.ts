@@ -1,3 +1,4 @@
+import { MailService } from './../mail/mail.service';
 import { setTruckType } from './../types/drivers.types';
 import { FilesService } from './../files/files.service';
 import { DriversRepository } from './drivers.repository';
@@ -14,6 +15,7 @@ export class DriversService {
     private dirversRepository: DriversRepository,
     private trucksRepository: TrucksRepository,
     private filesService: FilesService,
+    private mailService: MailService,
   ) {}
 
   async createDriver(payload: CreateDriverDto, photo: any): Promise<Drivers> {
@@ -26,11 +28,15 @@ export class DriversService {
       photo,
     );
 
-    return await this.dirversRepository.createDriver({
+    const driver = await this.dirversRepository.createDriver({
       ...payload,
       password: hashedPassword,
       photo: driverPhoto,
     });
+    console.log(
+      await this.mailService.driverCredsNotification(driver, password),
+    );
+    return driver;
   }
 
   async getAllDrivers(): Promise<Drivers[]> {
