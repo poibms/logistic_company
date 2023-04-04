@@ -14,6 +14,7 @@ import AddTuckForm from "../ui/AddTruckForm/AddTruckForm";
 import { useAppDispatch } from "../../store";
 import DeteledInfo from "../common/DeteledItemInfo/DeteledInfo";
 import { useSearchParams } from "react-router-dom";
+import AdminProfile from "../common/AdminProfile/AdminProfile";
 
 const AdminPage: React.FC = memo(() => {
   const [load, setLoad] = useState(true);
@@ -21,10 +22,14 @@ const AdminPage: React.FC = memo(() => {
   const [filterIndex, setFilterIndex] = useState(0);
   const [open, setOpen] = React.useState(false);
   const [queryParams, setQueryParams] = useSearchParams("orders");
-  // const [dataType, setDataType] = useState("orders");
   const id = queryParams.get("id");
+
   useEffect(() => {
-    if (!id) setLoad(false);
+    if (id) {
+      setLoad(true);
+    } else {
+      setLoad(false)
+    }
   }, [id]);
 
   const dispatch = useAppDispatch();
@@ -113,6 +118,8 @@ const AdminPage: React.FC = memo(() => {
   };
 
   const searchHandler = (event: React.SyntheticEvent, value: any) => {
+    console.log(event);
+    console.log(value);
     if (orders.includes(value)) {
       const filter =
         value.status === "not_assigned"
@@ -143,32 +150,39 @@ const AdminPage: React.FC = memo(() => {
       />
       <div className="admin_content">
         <AdminPanelSearchBar searchHandler={searchHandler} />
-        <AdminFilter
-          dataType={queryParams}
-          handleChange={handleChangeFilterIndex}
-          value={filterIndex}
-          handleOpenModal={handleOpen}
-        />
-        <div className="flex admin_content-wrapper">
-          <AdminList
-            onClickHandle={setDeteledInfoVissible}
-            dataType={queryParams}
-            data={entity}
-          />
-          {load ? (
-            <DeteledInfo data={data} dataType={queryParams} />
-          ) : (
-            <>
-              <div className="deteledInfo">
-                <div className="holder">
-                  <h2>
-                    There are no {queryParams.get("filter")} of this type yet{" "}
-                  </h2>
-                </div>
-              </div>
-            </>
-          )}
-        </div>
+        {!queryParams.get("filter") ? (
+          <AdminProfile searchHandler={searchHandler} />
+        ) : (
+          <>
+            <AdminFilter
+              dataType={queryParams}
+              handleChange={handleChangeFilterIndex}
+              value={filterIndex}
+              handleOpenModal={handleOpen}
+            />
+            <div className="flex admin_content-wrapper">
+              <AdminList
+                onClickHandle={setDeteledInfoVissible}
+                dataType={queryParams}
+                data={entity}
+              />
+              {load ? (
+                <DeteledInfo data={data} dataType={queryParams} />
+              ) : (
+                <>
+                  <div className="deteledInfo">
+                    <div className="holder">
+                      <h2>
+                        There are no {queryParams.get("filter")} of this type
+                        yet{" "}
+                      </h2>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          </>
+        )}
       </div>
       <BasicModal open={open} handleClose={handleClose}>
         <div>{!modal ? <></> : modal}</div>
