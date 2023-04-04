@@ -1,4 +1,4 @@
-import { SignUpDataType, SignInDataType } from './../types/types';
+import { SignUpDataType, SignInDataType, UserType } from './../types/types';
 import { $authHost, $host } from './intex';
 
 const authService = {
@@ -22,6 +22,11 @@ const authService = {
     });
     return data;
   },
+
+  getCurrentUser: async (): Promise<UserType> => {
+    const { data } = await $authHost.get('/users/profile');
+    return data;
+  }
 };
 
 export default authService;
