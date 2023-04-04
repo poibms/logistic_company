@@ -1,12 +1,13 @@
 import * as React from "react";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SearchInput from "../../ui/SearchInput/SearchInput";
+import { NavLink } from "react-router-dom";
 
 type SearchBarType = {
-  searchHandler: any
-}
+  searchHandler: any;
+};
 
-const AdminPanelSearchBar: React.FC<SearchBarType> = ({searchHandler}) => {
+const AdminPanelSearchBar: React.FC<SearchBarType> = ({ searchHandler }) => {
   return (
     <div className="searchbar">
       <div className="searchbar_wrapper">
@@ -16,9 +17,9 @@ const AdminPanelSearchBar: React.FC<SearchBarType> = ({searchHandler}) => {
         <div className="searchbar_input">
           <SearchInput searchHandler={searchHandler} />
         </div>
-        <div>
-          <AccountCircleIcon />
-        </div>
+          <NavLink to="/adminpanel">
+            <AccountCircleIcon />
+          </NavLink>
       </div>
     </div>
   );
