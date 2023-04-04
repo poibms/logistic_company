@@ -60,6 +60,7 @@ export class UserRepository extends Repository<User> {
     try {
       const users = await this.find({
         select: ['id', 'name', 'surname', 'phone', 'email', 'orders', 'role'],
+        relations: ['orders'],
       });
       return users;
     } catch (e) {
@@ -76,6 +77,7 @@ export class UserRepository extends Repository<User> {
       return await this.findOne({
         where: { id: userId },
         select: ['id', 'name', 'surname', 'phone', 'email', 'orders', 'role'],
+        relations: ['orders'],
       });
     }
     return await this.findOneBy({ id: userId });
