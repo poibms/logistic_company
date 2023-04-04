@@ -1,7 +1,6 @@
 import React from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { userLogout } from "../../../store/user";
 import { useAppDispatch } from "../../../store";
