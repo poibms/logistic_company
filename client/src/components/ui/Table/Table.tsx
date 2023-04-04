@@ -1,5 +1,5 @@
 import * as React from "react";
-import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
+import { DataGrid, GridValueGetterParams } from "@mui/x-data-grid";
 import { OrderType, TruckType, DriverType } from "../../../types/types";
 
 type TablePropsType = {
@@ -19,17 +19,17 @@ const columns = {
       field: "driverId",
       headerName: "driver",
       width: 160,
-      valueGetter: (params: GridValueGetterParams) =>
-        `${params.row.driverId.name || ""} ${
-          params.row.driverId.surname || ""
-        }`,
+      valueGetter: (params: GridValueGetterParams) => {
+        return params.row.driverId ? `${params.row.driverId.name || ""} ${params.row.driverId.surname || ""}` : 'null'
+      }
     },
     {
       field: "ownerId",
       headerName: "Owner",
       width: 160,
-      valueGetter: (params: GridValueGetterParams) =>
-        `${params.row.ownerId.name || ""} ${params.row.ownerId.surname || ""}`,
+      valueGetter: (params: GridValueGetterParams) =>{
+        return params.row.ownerId ? `${params.row.ownerId.name || ""} ${params.row.ownerId.surname || ""}` : 'null'
+      }
     },
     { field: "status", headerName: "Status", width: 120 },
   ],
@@ -43,8 +43,9 @@ const columns = {
       field: "truckId",
       headerName: "Truck",
       width: 160,
-      valueGetter: (params: GridValueGetterParams) =>
-        `${params.row.truckId.name || ""} ${params.row.truckId.model || ""}`,
+      valueGetter: (params: GridValueGetterParams) => {
+        return params.row.truckId ? `${params.row.truckId.name || ""} ${params.row.truckId.model || ""}` : 'null'
+    }
     },
   ],
   trucks: [
@@ -57,10 +58,9 @@ const columns = {
       field: "driverId",
       headerName: "Driver",
       width: 160,
-      valueGetter: (params: GridValueGetterParams) =>
-        `${params.row.driverId.name || ""} ${
-          params.row.driverId.surname || ""
-        }`,
+      valueGetter: (params: GridValueGetterParams) =>{
+        return params.row.driverId ? `${params.row.driverId.name || ""} ${params.row.driverId.surname || ""}` : 'null'
+      }
     },
   ],
 };
