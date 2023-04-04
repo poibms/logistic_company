@@ -2,7 +2,7 @@ import { IsNumberString, IsOptional, IsString } from 'class-validator';
 
 export class NewUserOrderDto {
   @IsString()
-  cargo_name: string;
+  name: string;
 
   @IsNumberString()
   // @IsNumber()

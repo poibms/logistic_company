@@ -11,11 +11,22 @@ export type SignUpDataType = {
   password: string;
 };
 
-export type UserType = {
+export type JwtType = {
   id: string;
   email: string;
   role: string;
 }
+
+export type UserType = {
+  id: string;
+  name: string;
+  surname: string;
+  phone: string,
+  email: string;
+  role: string,
+  orders: OrderType[];
+}
+
 
 export enum OrderStatus {
   NOT_ASSIGNED = 'not_assigned',
@@ -24,23 +35,63 @@ export enum OrderStatus {
 }
 
 export type OrderType = {
-  id: string,
-  cargo_name: string,
+  id: number,
+  name: string,
   weight: string,
   from: string,
   to: string,
   image: string,
   status: OrderStatus,
-  ownerId?: string,
-  driverId?: string
+  track_code: string,
+  ownerId?: UserType,
+  driverId?: DriverType
 }
 
-export type DriversType = {
-  id: string,
+export type AssignOrderToDriver = {
+  orderId: string,
+  driverId: string,
+}
+
+export type DriverType = {
+  id: number,
+  email: string,
+  password: string,
   name: string,
   surname: string,
   age: string,
   photo: string,
-  truckId: string | null,
-  orders: [] | OrderType
+  truckId?: null | TruckType,
+  orders: [] | OrderType[]
+}
+
+export type DriverCreds = {
+  email: string,
+  password: string,
+  name: string,
+  surname: string,
+  age: string,
+  photo?: any
+}
+
+export type AssignTruckType = {
+  driverId: string,
+  truckId: string,
+}
+
+export type TruckType = {
+  id: number,
+  name: string,
+  model: string,
+  year: string,
+  loadCapacity: string,
+  photo: string,
+  driverId: DriverType,
+}
+
+export type TruckCreds = {
+  name: string;
+  model:string;
+  year: string;
+  loadCapacity: string;
+  photo: string;
 }

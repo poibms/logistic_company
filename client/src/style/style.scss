@@ -2,10 +2,7 @@
 @import "./components/index.scss";
 
 #root {
-  display: flex;
   min-height: 100vh;
-  flex-direction: column;
-  justify-content: space-between;
   font-family: $fontMontserrat;
   font-size: $text-16-size;
   color: $dark-grey;
@@ -86,6 +83,10 @@ img {
   margin-bottom: 70px;
 }
 
+.mt-10 {
+  margin-top: 10px;
+}
+
 .flex {
   display: flex;
 
@@ -107,6 +108,13 @@ img {
     align-items: flex-start;
   }
 }
+.br-rght {
+  border-right: 1px solid $light-grey;
+}
+
+.ovrfl-y {
+  overflow-y: scroll;
+}
 
 .justify {
   &-center {
@@ -114,5 +122,8 @@ img {
   }
   &-spacearnd {
     justify-content: space-around;
+  }
+  &-between {
+    justify-content: space-between;
   }
 }

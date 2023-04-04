@@ -7,6 +7,10 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px 70px;
+
+    a {
+      background-color: transparent !important;
+    }
   }
 
   &_title h3 {
@@ -28,4 +32,12 @@
     }
   }
   
+}
+
+.MuiAutocomplete-endAdornment {
+  display: none;
+}
+
+.MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-1qqsdnr-MuiAutocomplete-root .MuiOutlinedInput-root {
+  padding-right: 9px !important;
 }

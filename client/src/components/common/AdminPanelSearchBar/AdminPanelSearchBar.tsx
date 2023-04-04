@@ -1,8 +1,13 @@
 import * as React from "react";
-import InputField from "../InputField/InputField";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import SearchInput from "../../ui/SearchInput/SearchInput";
+import { NavLink } from "react-router-dom";
 
-const AdminPanelSearchBar = () => {
+type SearchBarType = {
+  searchHandler: any;
+};
+
+const AdminPanelSearchBar: React.FC<SearchBarType> = ({ searchHandler }) => {
   return (
     <div className="searchbar">
       <div className="searchbar_wrapper">
@@ -10,11 +15,11 @@ const AdminPanelSearchBar = () => {
           <h3>DASHBOARD</h3>
         </div>
         <div className="searchbar_input">
-          <InputField name='search' placeholder='Search orders, drivers, trucks' />
+          <SearchInput searchHandler={searchHandler} />
         </div>
-        <div>
-          <AccountCircleIcon />
-        </div>
+          <NavLink to="/adminpanel">
+            <AccountCircleIcon />
+          </NavLink>
       </div>
     </div>
   );

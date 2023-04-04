@@ -5,11 +5,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { OrdersModule } from './orders/orders.module';
 import { DriversModule } from './drivers/drivers.module';
-import { TracksModule } from './trucks/trucks.module';
+import { TrucksModule } from './trucks/trucks.module';
 import { FilesModule } from './files/files.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { UserModule } from './users/users.module';
+import { MailModule } from './mail/mail.module';
 import * as path from 'path';
+import { MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
   imports: [
@@ -30,12 +32,24 @@ import * as path from 'path';
     ServeStaticModule.forRoot({
       rootPath: path.resolve(__dirname, 'static'),
     }),
+    MailerModule.forRoot({
+      transport: {
+        host: process.env.SMTP_HOST,
+        port: Number(process.env.SMTP_PORT),
+        secure: true,
+        auth: {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASSWORD,
+        },
+      },
+    }),
     AuthModule,
     OrdersModule,
     DriversModule,
-    TracksModule,
+    TrucksModule,
     FilesModule,
     UserModule,
+    MailModule,
   ],
 })
 export class AppModule {

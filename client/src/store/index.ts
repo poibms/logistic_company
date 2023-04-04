@@ -3,12 +3,14 @@ import { Action, combineReducers, configureStore, ThunkAction } from '@reduxjs/t
 import { useDispatch } from 'react-redux';
 import driversReducer from './drivers';
 import ordersReducer from './orders';
+import trucksReducer from './trucks';
 import usersReducer from './user';
 
 const rootReducer = combineReducers({
   user: usersReducer,
   orders: ordersReducer,
   drivers: driversReducer,
+  trucks: trucksReducer,
 });
 
 export function createStore() {

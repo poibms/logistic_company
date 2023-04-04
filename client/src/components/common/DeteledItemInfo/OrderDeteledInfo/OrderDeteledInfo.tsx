@@ -1,13 +1,14 @@
 import { Button } from "@mui/material";
 import * as React from "react";
-import { OrderType } from "../../../types/types";
+import { OrderType } from "../../../../types/types";
 
 type ItemInfoPropsType = {
   order: OrderType;
+  handleOpenModal: any
 };
 
-const ItemList: React.FC<ItemInfoPropsType> = ({ order }) => {
-  console.log(order);
+const OrderDeteledInfo: React.FC<ItemInfoPropsType> = ({ order, handleOpenModal }) => {
+
   return (
     <div className="itemlist">
       <div className="itemlist_wrapper">
@@ -22,9 +23,10 @@ const ItemList: React.FC<ItemInfoPropsType> = ({ order }) => {
           </thead>
           <tbody>
             <tr>
-              <td>{order.cargo_name}</td>
+              <td>{order.name}</td>
               <td>
-                {order.driverId ? order.driverId : <Button>Assign driver</Button>}
+                {order.driverId ? order.driverId.name : <Button className="button"
+                onClick={() => handleOpenModal(order.id)}>Assign driver</Button>}
               </td>
               <td>{order.status}</td>
               <td>{order.to}</td>
@@ -36,4 +38,4 @@ const ItemList: React.FC<ItemInfoPropsType> = ({ order }) => {
   );
 };
 
-export default ItemList;
+export default OrderDeteledInfo;

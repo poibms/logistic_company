@@ -4,11 +4,17 @@
 @import '../../components/common/Slider/Silder.scss';
 @import '../../components/common/NewsList/NewsList.scss';
 @import '../../components/common/Footer/Footer.scss';
-@import '../../components/ui/styles/form.scss';
-@import '../../components/ui/styles/adminPage.scss';
 @import '../../components/common/AdminPanelNav/AdminPanelNav.scss';
 @import '../../components/common/AdminPanelSearchBar/AdminPanelSearchBar.scss';
 @import '../../components/common/AdminList/AdminList.scss';
 @import '../../components/common/AdminListItem/AdminListItem.scss';
-@import '../../components/common/Map/Map.scss';
-@import '../../components/common/ItemInfo/ItemInfo.scss';
+@import '../../components/common/DeteledItemInfo/DeteledInfo.scss';
+@import '../../components/common/DeteledItemInfo/Map/Map.scss';
+@import '../../components/common/DeteledItemInfo/OrderDeteledInfo/OrderDeteledInfo.scss';
+@import '../../components/common/DeteledItemInfo/DriverDeteledInfo/DriverDeteledInfo.scss';
+@import '../../components/common/AdminFilter/AdminFilter.scss';
+@import '../../components/pages/404Page/styles/page404';
+@import '../../components/common/AdminProfile/AdminProfile.scss';
+
+@import '../../components/ui/styles/form.scss';
+@import '../../components/ui/styles/adminPage.scss';

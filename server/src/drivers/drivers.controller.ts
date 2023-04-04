@@ -48,7 +48,7 @@ export class DriversController {
 
   @Put('/')
   @UseGuards(RoleGuard(UserRole.ADMIN))
-  async setTruckToDriver(@Body() payload: setTruckType) {
-    return await this.driversService.setTruckToDriver(payload);
+  async setDriverToTruck(@Body() payload: setTruckType) {
+    return await this.driversService.setDriverToTruck(payload);
   }
 }

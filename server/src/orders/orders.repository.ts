@@ -16,7 +16,8 @@ export class OrdersRepository extends Repository<Orders> {
   ): Promise<Orders> {
     try {
       const newOreder = this.create({ ...newUserOrderDto, ownerId: ownerId });
-      return await this.save(newOreder);
+      await this.save(newOreder);
+      return this.getOrderById(newOreder.id);
     } catch (e) {
       console.log(e);
     }
@@ -27,7 +28,7 @@ export class OrdersRepository extends Repository<Orders> {
       if (status) {
         return await this.findBy({ status: status });
       }
-      return await this.find();
+      return await this.find({ relations: ['ownerId', 'driverId'] });
     } catch (e) {
       console.log(e);
       throw new BadRequestException(
@@ -36,13 +37,13 @@ export class OrdersRepository extends Repository<Orders> {
     }
   }
 
-  async assigntOrderStatus(orderId, driverId): Promise<{ message: string }> {
+  async assigntOrderStatus(orderId: string, driverId: string): Promise<Orders> {
     try {
       await this.update(
         { id: orderId },
         { driverId: driverId, status: OrderStasus.IN_PROGRESS },
       );
-      return { message: 'order updated successfully' };
+      return this.getOrderById(orderId);
     } catch (e) {
       console.log(e);
       throw new BadRequestException(
@@ -50,4 +51,28 @@ export class OrdersRepository extends Repository<Orders> {
       );
     }
   }
+
+  async getOrderById(id: string): Promise<Orders> {
+    try {
+      return this.findOne({
+        where: {
+          id,
+        },
+        relations: ['ownerId', 'driverId'],
+      });
+    } catch (e) {
+      throw new BadRequestException('something was wrong');
+    }
+  }
+
+  // async setOrderToDriver(driverId: string, orderId: string) {
+  //   try {
+  //     await this.update({ id: driverId }, { orders: orderId });
+  //     return await this.getDriverById(driverId);
+  //   } catch (e) {
+  //     throw new BadRequestException(
+  //       'something was wrong while updating driver',
+  //     );
+  //   }
+  // }
 }

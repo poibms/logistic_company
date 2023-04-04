@@ -1,38 +1,41 @@
-import * as React from 'react';
-import { OrderType } from '../../../types/types';
+import * as React from "react";
+import { DriverType, OrderType, TruckType } from "../../../types/types";
+import DriversItem from "./listitems/DriverItem";
+import OrdersItem from "./listitems/OrderItem";
+import TrucksItem from "./listitems/TruckItem";
 
 type ListItemPropsType = {
-  order: OrderType,
-  onClickHandle: any
-}
+  data: OrderType | DriverType | TruckType;
+  dataType: URLSearchParams;
+  onClickHandle: any;
+};
 
-const AdminListItem: React.FC<ListItemPropsType> = ({ order, onClickHandle }) => {
+const AdminListItem: React.FC<ListItemPropsType> = ({
+  data,
+  dataType,
+  onClickHandle,
+}) => {
+  const genListItem = () => {
+    if (dataType.get('filter') === 'orders') {
+      return <OrdersItem order={(data as OrderType)}/>
+    } else if (dataType.get('filter') === 'drivers') {
+      return <DriversItem driver={(data as DriverType)}/>
+    } else {
+      return <TrucksItem trucks={(data as TruckType)}/>
+    }
+  };
+
+  const listItemData = genListItem();
+
   return (
-    <div className='listitem flex align_center justify_center'>
+    <div className="listitem flex align_center justify_center">
       <div className="listitem_wrapper ">
-        <div className="flex align_center"
-        onClick={() => onClickHandle(order)}>
-          <div className='listitem_inner flex listitem_inner-img'>
-            <img src={`http://localhost:3007/${order.image}`} alt='item img'/>
-          </div>
-          <div className='listitem_inner flex flex_column align_left'>
-            <div className='item_title'>
-              <p>{order.cargo_name}</p>
-            </div>
-            <div className='item_text'>
-              <p>Откуда: {order.from}</p>
-            </div>
-            <div className='item_text'>
-              <p>Куда: {order.to}</p>
-            </div>
-            <div className='item_text'>
-              <p>Вес: {order.weight} т</p>
-            </div>
-          </div>
+        <div className="flex align_center" onClick={() => onClickHandle(data)}>
+          {listItemData}
         </div>
       </div>
     </div>
   );
-}
- 
+};
+
 export default AdminListItem;

@@ -1,64 +1,60 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { getAuthUser, getIsLoggedIn } from "../../../store/user";
+import {
+  getAuthUser,
+  getIsLoggedIn,
+  isAdmin as getIsAdmin,
+} from "../../../store/user";
 import Button from "../../ui/Button/Button";
 import Container from "../Container";
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const Header = () => {
   const isLoggedIn = useSelector(getIsLoggedIn());
-  const authUser = useSelector(getAuthUser());
-  console.log(authUser);
+  const isAdmin = useSelector(getIsAdmin());
   return (
     <header className="header">
-      <Container className={'header__container'}>
+      <Container className={"header__container"}>
         <div className="header__inner">
           <div className="header__logo">
-          <NavLink to='/' className='header-buttons-button'>
-            <h3>Logistic company</h3>
-          </NavLink>
+            <NavLink to="/" className="header-buttons-button">
+              <h3>Logistic company</h3>
+            </NavLink>
           </div>
-          <div className='header-buttons'>
-            {
-              isLoggedIn ?
-                authUser!.role ? 
+          <div className="header-buttons">
+            {isLoggedIn ? (
+              isAdmin ? (
                 <>
-                <NavLink to='/adminpanel' className='header-buttons-button'>
-                 <AdminPanelSettingsIcon/>
-                </NavLink>
-                <NavLink to='/account' className='header-buttons-button'>
-                    <AccountCircleIcon/>
+                  <NavLink to="/adminpanel" className="header-buttons-button">
+                    <AdminPanelSettingsIcon />
+                  </NavLink>
+                  <NavLink to="/account" className="header-buttons-button">
+                    <AccountCircleIcon />
                   </NavLink>
                 </>
-                :
+              ) : (
                 <>
-                  <NavLink to='/createorder' className='header-buttons-button'>
-                    <Button className='button'>
-                      Создать заказ
-                    </Button>
+                  <NavLink to="/createorder" className="header-buttons-button">
+                    <Button className="button">Создать заказ</Button>
                   </NavLink>
-                  <NavLink to='/account' className='header-buttons-button'>
-                    <AccountCircleIcon/>
+                  <NavLink to="/account" className="header-buttons-button">
+                    <AccountCircleIcon />
                   </NavLink>
                 </>
-              :
+              )
+            ) : (
               <>
-                <NavLink to='/login/signIn' className='header-buttons-button'>
-                  <Button className='button'>
-                    Sign In
-                  </Button>
+                <NavLink to="/login/signIn" className="header-buttons-button">
+                  <Button className="button">Sign In</Button>
                 </NavLink>
-                <NavLink to='/login/signUp' className='header-buttons-button'>
-                  <Button className='button'>
-                    Sign Up
-                  </Button>
+                <NavLink to="/login/signUp" className="header-buttons-button">
+                  <Button className="button">Sign Up</Button>
                 </NavLink>
               </>
-            }
-              
-            </div>
+            )}
+          </div>
         </div>
       </Container>
     </header>

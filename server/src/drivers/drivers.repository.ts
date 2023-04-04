@@ -1,7 +1,11 @@
 import { setTruckType } from './../types/drivers.types';
 import { Drivers } from 'src/drivers/drivers.entity';
 import { DataSource, Repository } from 'typeorm';
-import { Injectable, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  ConflictException,
+} from '@nestjs/common';
 import { CreateDriverDto } from './dto/drivers-create.dto';
 
 @Injectable()
@@ -14,12 +18,15 @@ export class DriversRepository extends Repository<Drivers> {
     try {
       const newDriver = this.create(payload);
       await this.save(newDriver);
-      return newDriver;
+      return await this.getDriverByEmail(newDriver.email);
     } catch (e) {
-      console.log(e);
-      throw new BadRequestException(
-        'error while creating driver. Check ur input data',
-      );
+      if (e.code === '23505') {
+        throw new ConflictException('Driver with such Email already exist');
+      } else {
+        throw new BadRequestException(
+          'error while creating driver. Check ur input data',
+        );
+      }
     }
   }
 
@@ -36,14 +43,53 @@ export class DriversRepository extends Repository<Drivers> {
     }
   }
 
-  async setTruckToDriver(payload: setTruckType) {
+  async setDriverToTruck(payload: setTruckType) {
     try {
       const { driverId, truckId } = payload;
-      return this.update({ id: driverId }, { truckId: truckId });
+      await this.update({ id: driverId }, { truckId: truckId });
+      return await this.getDriverById(driverId);
     } catch (e) {
       throw new BadRequestException(
         'something was wrong while updating driver',
       );
+    }
+  }
+
+  async setOrderToDriver(orderId: string, driverId: string) {
+    try {
+      // await this.update({ id: driverId }, { orders: orderId });
+      return await this.getDriverById(driverId);
+    } catch (e) {
+      console.log(e);
+      throw new BadRequestException(
+        'something was wrong while updating driver',
+      );
+    }
+  }
+
+  async getDriverByEmail(email: string): Promise<Drivers> {
+    try {
+      return this.findOne({
+        where: {
+          email,
+        },
+        relations: ['truckId', 'orders'],
+      });
+    } catch (e) {
+      throw new BadRequestException('something was wrong');
+    }
+  }
+
+  async getDriverById(id: string): Promise<Drivers> {
+    try {
+      return this.findOne({
+        where: {
+          id,
+        },
+        relations: ['truckId', 'orders'],
+      });
+    } catch (e) {
+      throw new BadRequestException('something was wrong');
     }
   }
 }

@@ -19,7 +19,8 @@
 .env.production.local
 
 npm-debug.log*
-yarn-debug.log*
+yarn-debuglog*
 yarn-error.log*
 
 .env
+.idea

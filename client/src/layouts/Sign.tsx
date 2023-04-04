@@ -13,7 +13,6 @@ const Sign: React.FC = () => {
     <>
       <Header/>
         { type === 'signUp' ? <SignUpPage/> : <SignInPage/> }
-      <Footer/>
     </>
   )
 }

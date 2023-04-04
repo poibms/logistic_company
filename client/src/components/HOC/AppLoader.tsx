@@ -1,18 +1,25 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from '../../store';
+import { getDriversLoadingStatus, loadDrivers } from '../../store/drivers';
 import { getOrdersLoadingStatus, loadOrders } from '../../store/orders';
+import { getTrucksLoadingStatus, loadTrucks } from '../../store/trucks';
 import { isAdmin } from '../../store/user';
 
 const AppLoader = ({ children }: any) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const isAuthAdmin = useSelector(isAdmin());
   const ordersStatusLoading = useSelector(getOrdersLoadingStatus());
+  const driverStatusLoading = useSelector(getDriversLoadingStatus());
+  const trucksStatusLoading = useSelector(getTrucksLoadingStatus());
 
   useEffect(() => {
     dispatch(loadOrders());
-  }, [isAuthAdmin]);
+    dispatch(loadDrivers());
+    dispatch(loadTrucks());
+  }, [dispatch, isAuthAdmin]);
 
-  if (!ordersStatusLoading) {
+  if (!ordersStatusLoading && !driverStatusLoading && !trucksStatusLoading) {
     return children;
   } else {
     return <></>;
