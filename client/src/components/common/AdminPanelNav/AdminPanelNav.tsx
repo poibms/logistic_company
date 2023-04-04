@@ -1,6 +1,10 @@
 import React from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { userLogout } from "../../../store/user";
+import { useAppDispatch } from "../../../store";
 
 type NavPropsType = {
   changeDataType: any;
@@ -13,6 +17,9 @@ const AdminPanelNav: React.FC<NavPropsType> = ({changeDataType, queryParams}) =>
     { name: "drivers", label: 'Drivers' },
     { name: "trucks", label: 'Trucks' },
   ];
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const listItem = listItemButtons.map(({ name, label }) => {
     const active = queryParams.get('filter') === name;
@@ -47,7 +54,7 @@ const AdminPanelNav: React.FC<NavPropsType> = ({changeDataType, queryParams}) =>
       <div className="navpanel_submenu">
         <div className="navpanel_wrapper">
           <ul className="navpanel_items">
-            <li>
+            <li onClick={()=> dispatch(userLogout(()=>navigate('/')))}>
               <LogoutIcon />
               <span>Logout</span>
             </li>

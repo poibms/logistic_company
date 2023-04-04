@@ -26,6 +26,11 @@ const authService = {
   getCurrentUser: async (): Promise<UserType> => {
     const { data } = await $authHost.get('/users/profile');
     return data;
+  },
+
+  logout: async () => {
+    const {data} = await $authHost.post('/auth/logout');
+    return data;
   }
 };
 
