@@ -1,5 +1,5 @@
 import { RootState } from '.';
-import { SignInDataType, UserType } from './../types/types';
+import { SignInDataType, UserType, JwtType } from './../types/types';
 import { createSlice } from '@reduxjs/toolkit';
 import localStorageService from '../services/localStorage.service';
 import { SignUpDataType } from '../types/types';
@@ -9,7 +9,7 @@ import { AppThunk } from '.';
 type UserInitialState = {
   isLoading: boolean;
   error: string | null;
-  auth: UserType | null;
+  auth: JwtType | null;
   isLoggedIn: boolean;
 }
 
@@ -77,6 +77,8 @@ export const signIn =
       localStorageService.setToken(data.access_token);
       dispatch(authRequestSuccess())
       dispatch(setAuthUser());
+      const user = await authService.getCurrentUser();
+      console.log(user);
       callback();
     } catch (error: any) {
       const { message } = error.response.data;
@@ -87,7 +89,7 @@ export const signIn =
 
 export const getIsLoggedIn = () => (state: RootState) => state.user.isLoggedIn;
 
-export const getAuthUser = () => (state: RootState): UserType | null => state.user.auth;
+export const getAuthUser = () => (state: RootState): JwtType | null => state.user.auth;
 
 export const isAdmin = () => (state: RootState): boolean => {
   if (state.user.auth?.role === 'admin') {

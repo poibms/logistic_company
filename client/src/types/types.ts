@@ -11,11 +11,22 @@ export type SignUpDataType = {
   password: string;
 };
 
-export type UserType = {
+export type JwtType = {
   id: string;
   email: string;
   role: string;
 }
+
+export type UserType = {
+  id: string;
+  name: string;
+  surname: string;
+  phone: string,
+  email: string;
+  role: string,
+  orders: OrderType[];
+}
+
 
 export enum OrderStatus {
   NOT_ASSIGNED = 'not_assigned',

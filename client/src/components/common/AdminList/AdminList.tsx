@@ -25,7 +25,6 @@ const AdminList: React.FC<AdminListType> = ({
   };
 
   const listItem = genListItem();
-  console.log(listItem.length);
 
   return (
     <div className={listItem.length > 0 ? 'adminlist ovrfl-y' : 'adminlist'}>

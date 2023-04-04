@@ -1,5 +1,6 @@
 import React from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import LogoutIcon from '@mui/icons-material/Logout';
 
 type NavPropsType = {
   changeDataType: any;
@@ -47,12 +48,8 @@ const AdminPanelNav: React.FC<NavPropsType> = ({changeDataType, queryParams}) =>
         <div className="navpanel_wrapper">
           <ul className="navpanel_items">
             <li>
-              <DashboardIcon />
-              <span>Dashboard</span>
-            </li>
-            <li>
-              <DashboardIcon />
-              <span>Dashboard</span>
+              <LogoutIcon />
+              <span>Logout</span>
             </li>
           </ul>
         </div>

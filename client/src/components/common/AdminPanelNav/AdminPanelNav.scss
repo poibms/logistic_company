@@ -17,7 +17,7 @@
   }
 
   &_menu {
-    height: 70vh;
+    height: 75vh;
   }
 
   &_items {
@@ -38,7 +38,7 @@
       }
     }
     // li:hover {
-    //   border: .5px solid $green;
+    //   background-color: rgba(0, 121, 119, .8);
     // }
   }
 
@@ -48,7 +48,7 @@
 }
 
 .active {
-  background-color: $green;
+  background-color: $green !important;
   color: $white;
   svg {
     stroke: $white !important;
