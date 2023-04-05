@@ -12,7 +12,6 @@ const authService = {
     const response = await $host.post(`/auth/signin`, payload, {
       withCredentials: true,
     });
-    console.log(response)
     return response.data;
   },
 
