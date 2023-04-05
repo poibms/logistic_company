@@ -58,3 +58,11 @@
 .header-buttons-button {
   text-decoration: none;
 }
+
+.nav_menu {
+  cursor: pointer;
+  svg {
+    height: 60px !important;
+    width: 60px !important;
+  }
+}
