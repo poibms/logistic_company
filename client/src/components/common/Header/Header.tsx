@@ -7,7 +7,8 @@ import Container from "../Container";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import DropdownMenu from "../../ui/DropDownMenu/DropDownMenu";
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import Logo from "../../../assets/Logomark.png";
 
 const Header = () => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -19,7 +20,10 @@ const Header = () => {
         <div className="header__inner">
           <div className="header__logo">
             <NavLink to="/" className="header-buttons-button">
-              <h3>Logistic company</h3>
+              <div className="logo">
+                <img src={Logo} alt="logo" />
+                <h3>Luminous</h3>
+              </div>
             </NavLink>
           </div>
           <div className="header-buttons">
@@ -30,9 +34,9 @@ const Header = () => {
                     <AdminPanelSettingsIcon />
                   </NavLink>
                   <div className="nav_menu">
-                  <ArrowDropDownIcon onClick={() => setOpenMenu(!openMenu)}>
-                    <DropdownMenu></DropdownMenu>
-                  </ArrowDropDownIcon>
+                    <ArrowDropDownIcon onClick={() => setOpenMenu(!openMenu)}>
+                      <DropdownMenu></DropdownMenu>
+                    </ArrowDropDownIcon>
                   </div>
                   {openMenu && <DropdownMenu></DropdownMenu>}
                 </>

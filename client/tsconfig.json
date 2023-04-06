@@ -23,5 +23,5 @@
   "include": [
     "src/",
   ],
-  "files": [         "custom.d.ts"     ]
+  "files": [         "custom.d.ts", "index.d.ts"     ]
 }

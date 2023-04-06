@@ -4,6 +4,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from "react-router-dom";
 import { userLogout } from "../../../store/user";
 import { useAppDispatch } from "../../../store";
+import Logo from "../../../assets/Logomark.png";
 
 type NavPropsType = {
   changeDataType: any;
@@ -38,9 +39,9 @@ const AdminPanelNav: React.FC<NavPropsType> = ({changeDataType, queryParams}) =>
   return (
     <div className="navpanel">
       <div className="navpanel_wrapper">
-        <div className="navpanel_img">
+        <div className="navpanel_img" onClick={() => navigate('/')}>
           <img
-            src="https://cdn.logo.com/hotlink-ok/logo-social.png"
+            src={Logo}
             alt="logo"
           />
         </div>
