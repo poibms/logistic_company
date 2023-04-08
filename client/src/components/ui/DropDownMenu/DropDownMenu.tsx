@@ -109,13 +109,13 @@ function DropdownMenu() {
           </DropdownMenuItem>
           <DropdownItem
             leftIcon={<AddIcon />}
-            handleClick={() => console.log("/logout")}
+            handleClick={() => navigate('/profile/create-order')}
           >
             Create order
           </DropdownItem>
           <DropdownItem
             leftIcon={<ViewListIcon />}
-            handleClick={() => console.log("/logout")}
+            handleClick={() => navigate('/profile/orders')}
           >
             Orders List
           </DropdownItem>

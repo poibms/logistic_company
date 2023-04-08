@@ -2,15 +2,36 @@ import * as React from "react";
 import PersonIcon from "@mui/icons-material/Person";
 import { Container } from "@mui/system";
 import { Box, Tabs, Tab } from "@mui/material";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import CreateOrder from "../ui/CreateOrderForm/CreateOrder";
 
 const ProfilePage = () => {
   const [value, setValue] = React.useState(0);
-  const [queryParams, setQueryParams] = useSearchParams("");
+  const location = useLocation();
+  const navigate = useNavigate();
+  const currPath = location.pathname.split("profile/")[1];
+
+  React.useEffect(() => {
+    if (currPath === "create-order") {
+      setValue(1);
+    } else if (currPath === "orders") {
+      setValue(2);
+    } else {
+      setValue(0);
+    }
+  }, [currPath]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
+  const genItems = () => {
+    if (value === 1) {
+      return <CreateOrder/>
+    }
+  }
+
+  const item = genItems();
 
   return (
     <div>
@@ -27,12 +48,25 @@ const ProfilePage = () => {
           </div>
         </div>
         <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
-          <Tabs value={value} onChange={handleChange} centered>
-            <Tab label="Profile" />
-            <Tab label="Create order" />
-            <Tab label="Order's history" />
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            // centered
+            variant="scrollable"
+            scrollButtons="auto"
+          >
+            <Tab label="Profile" onClick={() => navigate("/profile")} />
+            <Tab
+              label="Create order"
+              onClick={() => navigate("/profile/create-order")}
+            />
+            <Tab
+              label="Order's history"
+              onClick={() => navigate("/profile/orders")}
+            />
           </Tabs>
         </Box>
+        {item}
       </Container>
     </div>
   );
