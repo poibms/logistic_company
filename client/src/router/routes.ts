@@ -10,7 +10,7 @@ export const publicRoutes = [
 ];
 
 export const privateRoutes = [
-  {path: '/profile', component: ProfileLayout},
+  {path: '/profile/*', component: ProfileLayout},
 ]
 export const adminRoutes = [
   {path: '/adminpanel/*', component: AdminLayout}

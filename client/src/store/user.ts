@@ -81,8 +81,8 @@ export const signIn =
       localStorageService.setToken(data.access_token);
       dispatch(authRequestSuccess());
       dispatch(setAuthUser());
-      const user = await authService.getCurrentUser();
-      console.log(user);
+      // const user = await authService.getCurrentUser();
+      // console.log(user);
       callback();
     } catch (error: any) {
       const { message } = error.response.data;
