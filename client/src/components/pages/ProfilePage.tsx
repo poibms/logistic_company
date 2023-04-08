@@ -4,6 +4,7 @@ import { Container } from "@mui/system";
 import { Box, Tabs, Tab } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import CreateOrder from "../ui/CreateOrderForm/CreateOrder";
+import OrderList from "../common/OrdersList/OrdersList";
 
 const ProfilePage = () => {
   const [value, setValue] = React.useState(0);
@@ -12,6 +13,7 @@ const ProfilePage = () => {
   const currPath = location.pathname.split("profile/")[1];
 
   React.useEffect(() => {
+
     if (currPath === "create-order") {
       setValue(1);
     } else if (currPath === "orders") {
@@ -28,6 +30,8 @@ const ProfilePage = () => {
   const genItems = () => {
     if (value === 1) {
       return <CreateOrder/>
+    } else if (value === 2) {
+      return <OrderList />;
     }
   }
 

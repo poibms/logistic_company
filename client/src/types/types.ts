@@ -51,7 +51,7 @@ export type OrderType = {
   image: string,
   status: OrderStatus,
   track_code: string,
-  ownerId?: UserType,
+  ownerId: UserType,
   driverId?: DriverType
 }
 

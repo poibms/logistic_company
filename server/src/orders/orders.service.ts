@@ -1,3 +1,4 @@
+import { User } from './../users/users.entity';
 import { FileType } from 'src/types/files.types';
 import { FilesService } from 'src/files/files.service';
 import { NewUserOrderDto } from './dto/orders-create.dto';
@@ -18,7 +19,7 @@ export class OrdersService {
   async newUserOrder(
     newUserOrderDto: NewUserOrderDto,
     image: string,
-    ownerId: string,
+    ownerId: User,
   ): Promise<Orders> {
     const orderImagePath = await this.filesService.createFile(
       FileType.ORDERS,
@@ -32,6 +33,11 @@ export class OrdersService {
 
   async getAllOrders(status: OrderStasus): Promise<Orders[]> {
     return await this.ordersRepository.getAllOrders(status);
+  }
+
+  async getAuthUserOrders(user: User): Promise<Orders[]> {
+    return await this.ordersRepository.getAuthUserOrders(user);
+    // return (await orders).filter((order) => order.ownerId.id == user.id);
   }
 
   async assigntOrderStatus(payload: assignOrderType): Promise<Orders> {

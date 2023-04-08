@@ -36,7 +36,7 @@ export class OrdersController {
     return await this.ordersService.newUserOrder(
       newUserOrderDto,
       image[0],
-      user.id,
+      user,
     );
   }
 
@@ -44,6 +44,11 @@ export class OrdersController {
   @UseGuards(RoleGuard(UserRole.ADMIN))
   async getAllOrders(@Query('status') status: OrderStasus): Promise<Orders[]> {
     return this.ordersService.getAllOrders(status);
+  }
+
+  @Get('/userorders')
+  async getAuthUserOrders(@GetUser() user: User): Promise<Orders[]> {
+    return this.ordersService.getAuthUserOrders(user);
   }
 
   @Put('/')

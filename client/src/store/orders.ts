@@ -8,6 +8,7 @@ const ordersSlice = createSlice({
   name: 'orders',
   initialState: {
     isLoading: true as boolean,
+    userOrders: [] as OrderType[],
     orders: [] as OrderType[],
     error: null as string | null,
   },
@@ -17,6 +18,10 @@ const ordersSlice = createSlice({
     },
     ordersReceived: (state, action) => {
       state.orders = action.payload;
+      state.isLoading = false;
+    },
+    userOrders: (state, action) => {
+      state.userOrders = action.payload;
       state.isLoading = false;
     },
     orderCreated: (state, action) => {
@@ -36,7 +41,7 @@ const ordersSlice = createSlice({
 
 const { actions, reducer: ordersReducer } = ordersSlice;
 
-const { ordersRequested, ordersReceived, ordersRequestFailed, orderUpdated, orderCreated } = actions;
+const { ordersRequested, ordersReceived, ordersRequestFailed, orderUpdated, orderCreated, userOrders } = actions;
 
 export const createOrder = (payload: any): AppThunk => async (dispatch: any) => {
   dispatch(ordersRequested());
@@ -61,6 +66,16 @@ export const loadOrders = (): any => async (dispatch: any) => {
   }
 };
 
+export const getUserOrders = (): any => async (dispatch: any) => {
+  dispatch(ordersRequested());
+  try {
+    const data = await ordersService.getAuthUserOrders()
+    dispatch(userOrders(data));
+  } catch (error: any) {
+    dispatch(ordersRequestFailed(error));
+  }
+};
+
 export const setOrderToDriver = (payload: AssignOrderToDriver, callback: any): any => async (dispatch: any) => {
   dispatch(ordersRequested());
   try {
@@ -76,9 +91,17 @@ export const getOrdersLoadingStatus = () => (state: RootState) => state.orders.i
 
 export const getAllOrders = () => (state: RootState) => state.orders.orders;
 
+export const getAuthOrders = () => (state: RootState) => state.orders.userOrders;
+
 export const getOrderrById = (orderId: number) => (state: RootState) =>{
-  if (state.drivers.drivers.length > 0) {
+  if (state.orders.orders.length > 0) {
     return state.orders.orders.find((order: OrderType) => order.id === orderId);
+  }
+}
+
+export const getOrdersByUserId = (userId: string) => (state: RootState) => {
+  if(state.orders.orders.length > 0) {
+    return state.orders.orders.filter((order: OrderType) => order.ownerId.id === userId)
   }
 }
 

@@ -22,6 +22,11 @@ const ordersService = {
     const { data } = await $authHost.post('/orders', payload)
     return data
   }, 
+
+  getAuthUserOrders: async () => {
+    const {data} = await $authHost.get('/orders/userorders');
+    return data
+  }
 }
 
 export default ordersService;
