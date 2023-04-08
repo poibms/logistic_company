@@ -34,6 +34,14 @@ export enum OrderStatus {
   DONE = 'done',
 }
 
+export type OrderCreds = {
+  name: string,
+  weight: string,
+  from: string,
+  to: string,
+  image: any,
+}
+
 export type OrderType = {
   id: number,
   name: string,

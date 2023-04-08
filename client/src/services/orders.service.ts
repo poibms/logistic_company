@@ -1,4 +1,4 @@
-import { OrderStatus, AssignOrderToDriver } from './../types/types';
+import { OrderStatus, AssignOrderToDriver, OrderCreds } from './../types/types';
 import { $authHost } from './intex';
 
 
@@ -16,7 +16,12 @@ const ordersService = {
   assignOrderToDriver: async (payload: AssignOrderToDriver) => {
     const { data } = await $authHost.put('/orders', payload)
     return data
-  }
+  }, 
+
+  createOrder: async (payload: OrderCreds) => {
+    const { data } = await $authHost.post('/orders', payload)
+    return data
+  }, 
 }
 
 export default ordersService;

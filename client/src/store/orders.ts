@@ -1,6 +1,6 @@
 import { AssignOrderToDriver } from './../types/types';
 import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from ".";
+import { AppThunk, RootState } from ".";
 import ordersService from "../services/orders.service";
 import { OrderType } from "../types/types";
 
@@ -19,6 +19,9 @@ const ordersSlice = createSlice({
       state.orders = action.payload;
       state.isLoading = false;
     },
+    orderCreated: (state, action) => {
+      state.orders.push(action.payload);
+    },
     ordersRequestFailed: (state, action) => {
       state.error = action.payload;
       state.isLoading = false;
@@ -33,7 +36,19 @@ const ordersSlice = createSlice({
 
 const { actions, reducer: ordersReducer } = ordersSlice;
 
-const { ordersRequested, ordersReceived, ordersRequestFailed, orderUpdated } = actions;
+const { ordersRequested, ordersReceived, ordersRequestFailed, orderUpdated, orderCreated } = actions;
+
+export const createOrder = (payload: any): AppThunk => async (dispatch: any) => {
+  dispatch(ordersRequested());
+  try {
+    const driver = await ordersService.createOrder(payload);
+    dispatch(orderCreated(driver));
+  } catch (error: any) {
+    dispatch(ordersRequestFailed(error.response.data.message));
+
+  }
+};
+
 
 export const loadOrders = (): any => async (dispatch: any) => {
   dispatch(ordersRequested());
