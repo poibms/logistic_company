@@ -1,3 +1,4 @@
+import { MailModule } from './../mail/mail.module';
 import { DriversModule } from './../drivers/drivers.module';
 import { Orders } from 'src/orders/orders.entity';
 import { OrdersRepository } from './orders.repository';
@@ -14,6 +15,7 @@ import { FilesModule } from 'src/files/files.module';
     AuthModule,
     FilesModule,
     DriversModule,
+    MailModule,
   ],
   controllers: [OrdersController],
   providers: [OrdersService, OrdersRepository],

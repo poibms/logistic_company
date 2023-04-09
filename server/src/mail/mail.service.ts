@@ -1,3 +1,4 @@
+import { Orders } from 'src/orders/orders.entity';
 import { Drivers } from './../drivers/drivers.entity';
 import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
@@ -19,5 +20,16 @@ export class MailService {
     <p>Passsword: ${password}</p>`,
     });
     return 'success';
+  }
+
+  async userCreateOrderNotify(order: Orders) {
+    await this.mailService.sendMail({
+      to: order.ownerId.email,
+      from: process.env.SMTP_USER,
+      subject: 'Create account',
+      text: '',
+      html: `<h1>Thanks for creation order</h1>
+    <p>Your track code: ${order.track_code} </p>`,
+    });
   }
 }

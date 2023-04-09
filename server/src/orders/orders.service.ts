@@ -7,6 +7,7 @@ import { OrdersRepository } from './orders.repository';
 import { Orders } from './orders.entity';
 import { assignOrderType, OrderStasus } from 'src/types/order.types';
 import { DriversService } from 'src/drivers/drivers.service';
+import { MailService } from 'src/mail/mail.service';
 
 @Injectable()
 export class OrdersService {
@@ -14,6 +15,7 @@ export class OrdersService {
     private ordersRepository: OrdersRepository,
     private driversService: DriversService,
     private filesService: FilesService,
+    private mailService: MailService,
   ) {}
 
   async newUserOrder(
@@ -25,19 +27,24 @@ export class OrdersService {
       FileType.ORDERS,
       image,
     );
-    return await this.ordersRepository.newUserOrder(
+    const order = await this.ordersRepository.newUserOrder(
       { ...newUserOrderDto, image: orderImagePath },
       ownerId,
     );
+    await this.mailService.userCreateOrderNotify(order);
+    return order;
   }
 
   async getAllOrders(status: OrderStasus): Promise<Orders[]> {
     return await this.ordersRepository.getAllOrders(status);
   }
 
+  async getOrderByTrackCode(track_code: string): Promise<Orders> {
+    return await this.ordersRepository.getOrderByTrackCode(track_code);
+  }
+
   async getAuthUserOrders(user: User): Promise<Orders[]> {
     return await this.ordersRepository.getAuthUserOrders(user);
-    // return (await orders).filter((order) => order.ownerId.id == user.id);
   }
 
   async assigntOrderStatus(payload: assignOrderType): Promise<Orders> {
