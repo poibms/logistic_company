@@ -1,3 +1,4 @@
+import OrderInfo from '../components/common/OrderInfo/OrderInfo';
 import AdminLayout from '../layouts/Admin';
 import MainLayout from '../layouts/Main';
 import ProfileLayout from '../layouts/ProfileLayout';
@@ -7,6 +8,7 @@ export const publicRoutes = [
   { path: '/', component: MainLayout},
   { path: '/login/:type?', component: Sign, exact: true },
   {path: '/', component: MainLayout},
+  {path: '/order/*', component: OrderInfo}
 ];
 
 export const privateRoutes = [

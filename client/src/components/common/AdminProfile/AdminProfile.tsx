@@ -6,10 +6,10 @@ import { getAllTrucks } from "../../../store/trucks";
 import DataTable from "../../ui/Table/Table";
 
 type AdminProfileProps = {
-  searchHandler: any
-}
+  searchHandler: any;
+};
 
-const AdminProfile: React.FC<AdminProfileProps> = ({searchHandler}) => {
+const AdminProfile: React.FC<AdminProfileProps> = ({ searchHandler }) => {
   const orders = useSelector(getAllOrders());
   const drivers = useSelector(getAllDrivers());
   const trucks = useSelector(getAllTrucks());
@@ -31,13 +31,24 @@ const AdminProfile: React.FC<AdminProfileProps> = ({searchHandler}) => {
         </div>
         <div className="adminprofile_info-data">
           <h2>Orders</h2>
-          <DataTable dataType={"orders"} rows={orders} searchHandler={searchHandler} />
+          <DataTable
+            dataType={"orders"}
+            rows={orders}
+            searchHandler={searchHandler}
+          />
           <h2>Drivers</h2>
-          <DataTable dataType={"drivers"} rows={drivers} searchHandler={searchHandler} />
+          <DataTable
+            dataType={"drivers"}
+            rows={drivers}
+            searchHandler={searchHandler}
+          />
           <h2>Trucks</h2>
-          <DataTable dataType={"trucks"} rows={trucks} searchHandler={searchHandler}/>
+          <DataTable
+            dataType={"trucks"}
+            rows={trucks}
+            searchHandler={searchHandler}
+          />
         </div>
-        
       </div>
     </div>
   );
