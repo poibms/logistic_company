@@ -6,6 +6,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
   Put,
   Query,
@@ -19,13 +20,13 @@ import RoleGuard from 'src/guards/get-role.guard';
 import { assignOrderType, OrderStasus } from 'src/types/order.types';
 import { User } from 'src/users/users.entity';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
-
-@Controller('orders')
 @UseGuards(AuthGuard())
+@Controller('orders')
 export class OrdersController {
   constructor(private ordersService: OrdersService) {}
 
   @Post('/')
+  // @UseGuards(AuthGuard())
   @UseInterceptors(FileFieldsInterceptor([{ name: 'image', maxCount: 1 }]))
   async newUserOrder(
     @Body() newUserOrderDto: NewUserOrderDto,
@@ -40,18 +41,26 @@ export class OrdersController {
     );
   }
 
+  // @UseGuards(AuthGuard())
   @Get('/')
   @UseGuards(RoleGuard(UserRole.ADMIN))
   async getAllOrders(@Query('status') status: OrderStasus): Promise<Orders[]> {
     return this.ordersService.getAllOrders(status);
   }
 
+  @Get('/bytrack/:code')
+  async getOrderByTrackCode(@Param('code') code: string): Promise<Orders> {
+    return await this.ordersService.getOrderByTrackCode(code);
+  }
+
   @Get('/userorders')
+  // @UseGuards(AuthGuard())
   async getAuthUserOrders(@GetUser() user: User): Promise<Orders[]> {
     return this.ordersService.getAuthUserOrders(user);
   }
 
   @Put('/')
+  // @UseGuards(AuthGuard())
   @UseGuards(RoleGuard(UserRole.ADMIN))
   async assigntOrderStatus(@Body() payload: assignOrderType): Promise<Orders> {
     return this.ordersService.assigntOrderStatus(payload);

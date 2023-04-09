@@ -8,11 +8,12 @@ import {
 } from "@mui/material";
 import * as React from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { getAuthOrders } from "../../../store/orders";
 
 const OrderList = () => {
   const currUser = useSelector(getAuthOrders());
-  console.log(currUser);
+  const navigate = useNavigate();
 
   const genCards = () => {
     return currUser.map((order) => (
@@ -41,8 +42,7 @@ const OrderList = () => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small">Share</Button>
-          <Button size="small">Learn More</Button>
+          <Button size="small" onClick={() => navigate(`/order/${order.track_code}`)}>Open Order</Button>
         </CardActions>
       </Card>
     ));

@@ -80,6 +80,19 @@ export class OrdersRepository extends Repository<Orders> {
     }
   }
 
+  async getOrderByTrackCode(track_code: string): Promise<Orders> {
+    try {
+      return this.findOne({
+        where: {
+          track_code,
+        },
+        relations: ['ownerId', 'driverId'],
+      });
+    } catch (e) {
+      throw new BadRequestException('something was wrong');
+    }
+  }
+
   // async setOrderToDriver(driverId: string, orderId: string) {
   //   try {
   //     await this.update({ id: driverId }, { orders: orderId });

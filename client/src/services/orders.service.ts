@@ -1,5 +1,5 @@
 import { OrderStatus, AssignOrderToDriver, OrderCreds } from './../types/types';
-import { $authHost } from './intex';
+import { $authHost, $host } from './intex';
 
 
 const ordersService = {
@@ -26,6 +26,10 @@ const ordersService = {
   getAuthUserOrders: async () => {
     const {data} = await $authHost.get('/orders/userorders');
     return data
+  }, 
+  getOrderByTrackCode: async (track_code: string) => {
+    const {data} = await $host.get(`/orders/bytrack/${track_code}`);
+    return data;
   }
 }
 
