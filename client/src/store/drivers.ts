@@ -22,6 +22,11 @@ const driversSlice = createSlice({
     },
     driverCreated: (state, action) => {
       state.drivers.push(action.payload);
+      state.isLoading = false;
+    },
+    driverDelete: (state, action) => {
+      state.drivers = state.drivers.filter((driver) => driver.id !== action.payload);
+      state.isLoading = false;
     },
     driversRequestFailed: (state, action) => {
       state.error = action.payload;
@@ -36,7 +41,7 @@ const driversSlice = createSlice({
 
 const { actions, reducer: driversReducer } = driversSlice;
 
-const { driversRequested, driversReceived, driversRequestFailed, driverCreated, driverUpdated } = actions;
+const { driversRequested, driversReceived, driversRequestFailed, driverCreated, driverUpdated, driverDelete } = actions;
 const driverCreateRequested = createAction('drivers/driversCreateRequested');
 
 export const createDriver = (payload: any, callback: any): AppThunk => async (dispatch: any) => {
@@ -67,7 +72,18 @@ export const setDriverToTruck = (payload: AssignTruckType, callback: any): AppTh
     const drivers = await driversService.setDriver(payload)
     dispatch(driverUpdated(drivers));
     callback();
-    // callback2();
+  } catch (error: any) {
+    console.log(error)
+    dispatch(driversRequestFailed(error.response.data.message));
+  }
+};
+
+export const deleteDriverById = (id: number, callback: any): AppThunk => async (dispatch: any) => {
+  dispatch(driversRequested());
+  try {
+    await driversService.deleteDriver(id)
+    dispatch(driverDelete(id));
+    callback();
   } catch (error: any) {
     console.log(error)
     dispatch(driversRequestFailed(error.response.data.message));

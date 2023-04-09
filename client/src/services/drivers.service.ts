@@ -16,6 +16,9 @@ const driversService = {
   setDriver: async(payload: AssignTruckType) => {
     const { data } = await $authHost.put('/drivers', payload)
     return data
+  },
+  deleteDriver: async(id: number) => {
+    await $authHost.delete(`/drivers/${id}`);
   }
 }
 

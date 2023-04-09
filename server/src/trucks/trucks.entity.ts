@@ -27,7 +27,7 @@ export class Trucks {
   @Column()
   photo: string;
 
-  @OneToOne(() => Drivers, (drivers) => drivers.id)
+  @OneToOne(() => Drivers, (drivers) => drivers.id, { onDelete: 'CASCADE' })
   @JoinColumn()
   driverId: string;
 }

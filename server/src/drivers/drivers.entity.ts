@@ -32,10 +32,10 @@ export class Drivers {
   @Column()
   photo: string;
 
-  @OneToOne(() => Trucks, (truck) => truck.id)
+  @OneToOne(() => Trucks, (truck) => truck.id, { onDelete: 'CASCADE' })
   @JoinColumn()
   truckId: string;
 
-  @OneToMany(() => Orders, (orders) => orders.driverId)
+  @OneToMany(() => Orders, (orders) => orders.driverId, { onDelete: 'CASCADE' })
   orders: Orders[];
 }
