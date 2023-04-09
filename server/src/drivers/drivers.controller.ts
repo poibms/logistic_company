@@ -18,11 +18,16 @@ import { DriversService } from './drivers.service';
 import { CreateDriverDto } from './dto/drivers-create.dto';
 import RoleGuard from 'src/guards/get-role.guard';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { FilesService } from 'src/files/files.service';
+import { FileType } from 'src/types/files.types';
 
 @Controller('drivers')
 @UseGuards(AuthGuard())
 export class DriversController {
-  constructor(private driversService: DriversService) {}
+  constructor(
+    private driversService: DriversService,
+    private filesService: FilesService,
+  ) {}
 
   @Post('/')
   @UseGuards(RoleGuard(UserRole.ADMIN))
@@ -50,5 +55,29 @@ export class DriversController {
   @UseGuards(RoleGuard(UserRole.ADMIN))
   async setDriverToTruck(@Body() payload: setTruckType) {
     return await this.driversService.setDriverToTruck(payload);
+  }
+
+  @Put('/driver')
+  @UseGuards(RoleGuard(UserRole.ADMIN))
+  @UseInterceptors(FileFieldsInterceptor([{ name: 'photo', maxCount: 1 }]))
+  async updateDriver(
+    @Body() payload: any,
+    @UploadedFiles() files,
+  ): Promise<Drivers> {
+    console.log(payload);
+    console.log(files);
+    const { photo } = files;
+    if (photo) {
+      const driverPhoto = await this.filesService.createFile(
+        FileType.DRIVERS,
+        photo[0],
+      );
+      return await this.driversService.updateDriver({
+        ...payload,
+        photo: driverPhoto,
+      });
+    } else {
+      return await this.driversService.updateDriver(payload);
+    }
   }
 }

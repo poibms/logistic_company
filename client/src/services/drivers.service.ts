@@ -19,7 +19,11 @@ const driversService = {
   },
   deleteDriver: async(id: number) => {
     await $authHost.delete(`/drivers/${id}`);
-  }
+  },
+  updateDriver: async(payload: any) => {
+    const { data } = await $authHost.put('/drivers/driver', payload)
+    return data
+  },
 }
 
 export default driversService;

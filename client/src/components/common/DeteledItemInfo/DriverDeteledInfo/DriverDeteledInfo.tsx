@@ -4,6 +4,8 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAppDispatch } from "../../../../store";
 import { deleteDriverById, getDriverById } from "../../../../store/drivers";
 import { DriverType } from "../../../../types/types";
+import BasicModal from "../../../ui/Modal/Modal";
+import UpdateDriverForm from "../../../ui/UpdateDriverForm/UpdateDriverForm";
 
 type DriverInfoPropsType = {
   handleOpenModal: any;
@@ -13,16 +15,24 @@ const DriverDeteledInfo: React.FC<DriverInfoPropsType> = ({
   handleOpenModal,
 }) => {
   const [searchParams] = useSearchParams();
+  const [open, setOpen] = React.useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const driverId = searchParams.get("id");
   const driver = useSelector(getDriverById(+driverId!));
 
-  const genDriverById = (driver: DriverType) => {
-    const deleteDriver = (id: number) => {
-      dispatch(deleteDriverById(id, navigate('/adminpanel?filter=drivers')));
-    }
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const deleteDriver = (id: number) => {
+    dispatch(deleteDriverById(id, navigate('/adminpanel?filter=drivers')));
+  }
+  const genDriverById = (driver: DriverType) => { 
 
     if (driver) {
       let numOfInProgressOrders = []
@@ -90,7 +100,7 @@ const DriverDeteledInfo: React.FC<DriverInfoPropsType> = ({
               {numOfInProgressOrders.length === 0 ? (
                 <button className="button" onClick={() => deleteDriver(driver.id)}>Delete driver</button>
               ) : null}
-              <button className="button">Update Driver</button>
+              <button className="button" onClick={handleOpen}>Update Driver</button>
             </div>
           </div>
         </>
@@ -106,6 +116,9 @@ const DriverDeteledInfo: React.FC<DriverInfoPropsType> = ({
           {driver ? driverInfo : <h1>There is no driver with such Id</h1>}
         </div>
       </div>
+      <BasicModal open={open} handleClose={handleClose} >
+        <UpdateDriverForm driver={driver!} handleClose={handleClose}/>
+      </BasicModal>
     </div>
   );
 };

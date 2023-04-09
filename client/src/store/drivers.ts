@@ -1,5 +1,5 @@
 import { AppThunk } from './index';
-import { AssignTruckType } from './../types/types';
+import { AssignTruckType, DriverUpdateType } from './../types/types';
 import { createAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from ".";
 import driversService from "../services/drivers.service";
@@ -55,6 +55,19 @@ export const createDriver = (payload: any, callback: any): AppThunk => async (di
 
   }
 };
+
+export const updateDriver = (payload: any, callback: any): AppThunk => async (dispatch: any) => {
+  dispatch(driverCreateRequested());
+  try {
+    const driver = await driversService.updateDriver(payload);
+    dispatch(driverUpdated(driver));
+    callback()
+  } catch (error: any) {
+    dispatch(driversRequestFailed(error.response.data.message));
+
+  }
+};
+
 
 export const loadDrivers = (): any => async (dispatch: any) => {
   dispatch(driversRequested());

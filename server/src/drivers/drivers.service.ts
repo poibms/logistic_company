@@ -47,6 +47,10 @@ export class DriversService {
     return await this.dirversRepository.deleteDriverById(id);
   }
 
+  async updateDriver(payload: any): Promise<Drivers> {
+    return await this.dirversRepository.updateDriver(payload);
+  }
+
   async setDriverToTruck(payload: setTruckType) {
     const driver = await this.dirversRepository.setDriverToTruck(payload);
     await this.trucksRepository.setTruckToDriver(payload);

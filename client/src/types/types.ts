@@ -80,6 +80,13 @@ export type DriverCreds = {
   age: string,
   photo?: any
 }
+export type DriverUpdateType = {
+  id?: string,
+  name: string,
+  surname: string,
+  age: string,
+  photo?: any
+}
 
 export type AssignTruckType = {
   driverId: string,
