@@ -1,0 +1,26 @@
+.orderlist {
+
+  &_title {
+    margin-bottom: 20px;
+  }
+  &_wrapper {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &_item {
+    width: 33.3%;
+    display: flex;
+    flex-direction: column;
+
+    &-img {
+      height: 100%;
+      width: 200px;
+    }
+  }
+}
+
+.MuiPaper-root {
+  margin: 0 10px 30px;
+}

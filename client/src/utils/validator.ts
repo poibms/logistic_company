@@ -32,7 +32,6 @@ export function validator(data: { [key: string]: any }, validatorConfig: Validat
       }
 
       case 'isMin': {
-        console.log(fieldData)
         statusValidate = fieldData.length >= 7 ? false : true;
         break;
       }

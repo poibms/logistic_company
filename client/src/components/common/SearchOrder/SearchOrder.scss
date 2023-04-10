@@ -1,0 +1,18 @@
+.searchorder {
+
+  &_title {
+    margin-bottom: 20px;
+  }
+
+  form {
+    display: flex;
+    button {
+      height: 50px;
+      margin-left: 20px
+    }
+  }
+}
+
+.MuiFormControl-root {
+  width: 80%;
+}

@@ -1,3 +1,4 @@
+import { User } from './../users/users.entity';
 import { NewUserOrderDto } from './dto/orders-create.dto';
 import { Orders } from 'src/orders/orders.entity';
 import { DataSource, Repository } from 'typeorm';
@@ -12,7 +13,7 @@ export class OrdersRepository extends Repository<Orders> {
 
   async newUserOrder(
     newUserOrderDto: NewUserOrderDto,
-    ownerId: string,
+    ownerId: User,
   ): Promise<Orders> {
     try {
       const newOreder = this.create({ ...newUserOrderDto, ownerId: ownerId });
@@ -29,6 +30,20 @@ export class OrdersRepository extends Repository<Orders> {
         return await this.findBy({ status: status });
       }
       return await this.find({ relations: ['ownerId', 'driverId'] });
+    } catch (e) {
+      console.log(e);
+      throw new BadRequestException(
+        `There is no order with such status: ${status}`,
+      );
+    }
+  }
+
+  async getAuthUserOrders(user: User): Promise<Orders[]> {
+    try {
+      return await this.find({
+        where: { ownerId: { id: user.id } },
+        relations: ['ownerId', 'driverId'],
+      });
     } catch (e) {
       console.log(e);
       throw new BadRequestException(
@@ -57,6 +72,19 @@ export class OrdersRepository extends Repository<Orders> {
       return this.findOne({
         where: {
           id,
+        },
+        relations: ['ownerId', 'driverId'],
+      });
+    } catch (e) {
+      throw new BadRequestException('something was wrong');
+    }
+  }
+
+  async getOrderByTrackCode(track_code: string): Promise<Orders> {
+    try {
+      return this.findOne({
+        where: {
+          track_code,
         },
         relations: ['ownerId', 'driverId'],
       });

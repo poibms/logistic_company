@@ -29,4 +29,18 @@
       margin-right: 20px;
     }
   }
+
+  &_buttons {
+    margin-top: 20px;
+    button {
+      margin-right: 20px;
+    }
+    button:first-child {
+      background-color: red;
+    }
+
+    button:last-child {
+      background-color: rgb(146, 146, 9);
+    }
+  }
 }

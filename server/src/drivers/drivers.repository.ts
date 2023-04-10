@@ -55,6 +55,18 @@ export class DriversRepository extends Repository<Drivers> {
     }
   }
 
+  async updateDriver(payload: any) {
+    try {
+      const { id } = payload;
+      await this.update({ id: id }, payload);
+      return await this.getDriverById(id);
+    } catch (e) {
+      throw new BadRequestException(
+        'something was wrong while updating driver',
+      );
+    }
+  }
+
   async setOrderToDriver(orderId: string, driverId: string) {
     try {
       // await this.update({ id: driverId }, { orders: orderId });

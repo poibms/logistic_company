@@ -8,6 +8,11 @@
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease 0s;
 
+  svg {
+    fill: #fff !important;
+    margin-right: 10px;
+  }
+
   &_outline {
     background-color: $white;
     border-radius: 3px;

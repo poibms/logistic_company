@@ -76,7 +76,6 @@ const DataTable: React.FC<TablePropsType> = ({
         <DataGrid
           rows={rows as OrderType[]}
           columns={columns.orders}
-          autoHeight={true}
           onRowClick={(e) => searchHandler(e, e.row)}
         />
       );

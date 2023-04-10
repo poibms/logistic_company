@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import {
-  getAuthUser,
-  getIsLoggedIn,
-  isAdmin as getIsAdmin,
-} from "../../../store/user";
+import { getIsLoggedIn, isAdmin as getIsAdmin } from "../../../store/user";
 import Button from "../../ui/Button/Button";
 import Container from "../Container";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import DropdownMenu from "../../ui/DropDownMenu/DropDownMenu";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import Logo from "../../../assets/Logomark.png";
 
 const Header = () => {
+  const [openMenu, setOpenMenu] = useState(false);
   const isLoggedIn = useSelector(getIsLoggedIn());
   const isAdmin = useSelector(getIsAdmin());
   return (
@@ -20,7 +20,10 @@ const Header = () => {
         <div className="header__inner">
           <div className="header__logo">
             <NavLink to="/" className="header-buttons-button">
-              <h3>Logistic company</h3>
+              <div className="logo">
+                <img src={Logo} alt="logo" />
+                <h3>Luminous</h3>
+              </div>
             </NavLink>
           </div>
           <div className="header-buttons">
@@ -30,16 +33,19 @@ const Header = () => {
                   <NavLink to="/adminpanel" className="header-buttons-button">
                     <AdminPanelSettingsIcon />
                   </NavLink>
-                  <NavLink to="/account" className="header-buttons-button">
-                    <AccountCircleIcon />
-                  </NavLink>
+                  <div className="nav_menu">
+                    <ArrowDropDownIcon onClick={() => setOpenMenu(!openMenu)}>
+                      <DropdownMenu></DropdownMenu>
+                    </ArrowDropDownIcon>
+                  </div>
+                  {openMenu && <DropdownMenu></DropdownMenu>}
                 </>
               ) : (
                 <>
                   <NavLink to="/createorder" className="header-buttons-button">
                     <Button className="button">Создать заказ</Button>
                   </NavLink>
-                  <NavLink to="/account" className="header-buttons-button">
+                  <NavLink to="/profile" className="header-buttons-button">
                     <AccountCircleIcon />
                   </NavLink>
                 </>

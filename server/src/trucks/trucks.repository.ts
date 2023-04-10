@@ -43,4 +43,25 @@ export class TrucksRepository extends Repository<Trucks> {
       throw new BadRequestException('something was wrong');
     }
   }
+
+  async delteTruckById(id: string): Promise<{ message: string }> {
+    try {
+      await this.delete({ id });
+      return { message: 'truck was succesfully deleted ' };
+    } catch (e) {
+      throw new BadRequestException('something was wrong');
+    }
+  }
+
+  async updateTruck(payload: any): Promise<Trucks> {
+    try {
+      const { id } = payload;
+      await this.update({ id: id }, payload);
+      return await this.getTruckById(id);
+    } catch (e) {
+      throw new BadRequestException(
+        'something was wrong while updating driver',
+      );
+    }
+  }
 }

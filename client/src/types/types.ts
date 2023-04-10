@@ -34,6 +34,14 @@ export enum OrderStatus {
   DONE = 'done',
 }
 
+export type OrderCreds = {
+  name: string,
+  weight: string,
+  from: string,
+  to: string,
+  image: any,
+}
+
 export type OrderType = {
   id: number,
   name: string,
@@ -43,7 +51,7 @@ export type OrderType = {
   image: string,
   status: OrderStatus,
   track_code: string,
-  ownerId?: UserType,
+  ownerId: UserType,
   driverId?: DriverType
 }
 
@@ -72,6 +80,13 @@ export type DriverCreds = {
   age: string,
   photo?: any
 }
+export type DriverUpdateType = {
+  id?: string,
+  name: string,
+  surname: string,
+  age: string,
+  photo?: any
+}
 
 export type AssignTruckType = {
   driverId: string,
@@ -94,4 +109,13 @@ export type TruckCreds = {
   year: string;
   loadCapacity: string;
   photo: string;
+}
+
+export type TruckUpdateType = {
+  id?: string,
+  name: string,
+  model: string,
+  year: string,
+  loadCapacity: string,
+  photo?: any
 }

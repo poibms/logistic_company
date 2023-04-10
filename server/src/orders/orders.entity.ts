@@ -38,7 +38,7 @@ export class Orders {
 
   @ManyToOne(() => User, (user) => user.orders)
   // @Column()
-  ownerId: string;
+  ownerId: User;
 
   // @Column({ nullable: true )
   @ManyToOne(() => Drivers, (drivers) => drivers.orders)
