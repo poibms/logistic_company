@@ -59,7 +59,6 @@ export const loadOrders = (): any => async (dispatch: any) => {
   dispatch(ordersRequested());
   try {
     const { data } = await ordersService.loadOrders()
-    console.log(data);
     dispatch(ordersReceived(data));
   } catch (error: any) {
     dispatch(ordersRequestFailed(error));

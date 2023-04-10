@@ -110,3 +110,12 @@ export type TruckCreds = {
   loadCapacity: string;
   photo: string;
 }
+
+export type TruckUpdateType = {
+  id?: string,
+  name: string,
+  model: string,
+  year: string,
+  loadCapacity: string,
+  photo?: any
+}

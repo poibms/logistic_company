@@ -21,16 +21,25 @@ const trucksSlice = createSlice({
     driverCreated: (state, action) => {
       state.trucks.push(action.payload);
     },
+    truckDelete: (state, action) => {
+      state.trucks = state.trucks.filter((truck) => truck.id !== action.payload);
+      state.isLoading = false;
+    },
     trucksRequestFailed: (state, action) => {
       state.error = action.payload;
       state.isLoading = false;
+    },
+    truckUpdated: (state, action) => {
+      const driverIndex = state.trucks.findIndex(truck => truck.id === action.payload.id);
+      state.trucks[driverIndex] = action.payload;
+      state.isLoading=false;
     },
   },
 });
 
 const { actions, reducer: trucksReducer } = trucksSlice;
 
-const { trucksRequested, trucksReceived, trucksRequestFailed, driverCreated } = actions;
+const { trucksRequested, trucksReceived, trucksRequestFailed, driverCreated, truckUpdated, truckDelete } = actions;
 
 const truckCreateRequested = createAction('trucks/trucksCreateRequested');
 
@@ -43,6 +52,30 @@ export const createTruck = (payload: any, callback: any): AppThunk => async (dis
   } catch (error: any) {
     dispatch(trucksRequestFailed(error.response.data.message));
 
+  }
+};
+
+export const updateTruck = (payload: any, callback: any): AppThunk => async (dispatch: any) => {
+  dispatch(trucksRequested());
+  try {
+    const truck = await trucksService.updateTruck(payload);
+    dispatch(truckUpdated(truck));
+    callback()
+  } catch (error: any) {
+    dispatch(trucksRequestFailed(error.response.data.message));
+
+  }
+};
+
+export const deleteTruckById = (id: number, callback: any): AppThunk => async (dispatch: any) => {
+  dispatch(trucksRequested());
+  try {
+    await trucksService.deleteTruck(id)
+    dispatch(truckDelete(id));
+    callback();
+  } catch (error: any) {
+    console.log(error)
+    dispatch(trucksRequestFailed(error.response.data.message));
   }
 };
 
