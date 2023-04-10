@@ -57,12 +57,10 @@ export class DriversRepository extends Repository<Drivers> {
 
   async updateDriver(payload: any) {
     try {
-      console.log(payload)
       const { id } = payload;
       await this.update({ id: id }, payload);
       return await this.getDriverById(id);
     } catch (e) {
-      console.log(e)
       throw new BadRequestException(
         'something was wrong while updating driver',
       );
