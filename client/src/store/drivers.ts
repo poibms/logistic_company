@@ -1,3 +1,4 @@
+import { updateTruckDriver } from './trucks';
 import { AppThunk } from './index';
 import { AssignTruckType, DriverUpdateType } from './../types/types';
 import { createAction, createSlice } from "@reduxjs/toolkit";
@@ -82,8 +83,10 @@ export const loadDrivers = (): any => async (dispatch: any) => {
 export const setDriverToTruck = (payload: AssignTruckType, callback: any): AppThunk => async (dispatch: any) => {
   dispatch(driversRequested());
   try {
-    const drivers = await driversService.setDriver(payload)
-    dispatch(driverUpdated(drivers));
+    const driver = await driversService.setDriver(payload)
+    dispatch(driverUpdated(driver));
+    const {orders, truckId, ...driverInfo} = driver;
+    dispatch(updateTruckDriver(truckId?.id!, driverInfo))
     callback();
   } catch (error: any) {
     console.log(error)
@@ -91,12 +94,12 @@ export const setDriverToTruck = (payload: AssignTruckType, callback: any): AppTh
   }
 };
 
-export const deleteDriverById = (id: number, callback: any): AppThunk => async (dispatch: any) => {
+export const deleteDriverById = (id: number): AppThunk => async (dispatch: any) => {
   dispatch(driversRequested());
   try {
     await driversService.deleteDriver(id)
     dispatch(driverDelete(id));
-    callback();
+    // callback();
   } catch (error: any) {
     console.log(error)
     dispatch(driversRequestFailed(error.response.data.message));
