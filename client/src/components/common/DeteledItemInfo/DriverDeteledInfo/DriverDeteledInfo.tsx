@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useAppDispatch } from "../../../../store";
-import { deleteDriverById, getDriverById } from "../../../../store/drivers";
+import { deleteDriverById, getDriverById, unSetDriverToTruck } from "../../../../store/drivers";
 import { DriverType } from "../../../../types/types";
 import BasicModal from "../../../ui/Modal/Modal";
 import UpdateDriverForm from "../../../ui/UpdateDriverForm/UpdateDriverForm";
@@ -14,10 +14,9 @@ type DriverInfoPropsType = {
 const DriverDeteledInfo: React.FC<DriverInfoPropsType> = ({
   handleOpenModal,
 }) => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [open, setOpen] = React.useState(false);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const driverId = searchParams.get("id");
   const driver = useSelector(getDriverById(+driverId!));
@@ -30,17 +29,25 @@ const DriverDeteledInfo: React.FC<DriverInfoPropsType> = ({
     setOpen(false);
   };
   const deleteDriver = (id: number) => {
-    dispatch(deleteDriverById(id, navigate('/adminpanel?filter=drivers')));
-  }
-  const genDriverById = (driver: DriverType) => { 
+    dispatch(deleteDriverById(id));
+    searchParams.delete("id");
+    setSearchParams(searchParams);
+  };
 
+  const unSetTruck = (driver: DriverType) => {
+    dispatch(unSetDriverToTruck({driverId: String(driver.id), truckId: String(driver.truckId?.id)}));
+    searchParams.delete("id");
+    setSearchParams(searchParams);
+  };
+
+  const genDriverById = (driver: DriverType) => {
     if (driver) {
-      let numOfInProgressOrders = []
-    if (driver.orders) {
-      numOfInProgressOrders = driver.orders.filter(
-        (order) => order.status === "in_progress"
-      );
-    }
+      let numOfInProgressOrders = [];
+      if (driver.orders) {
+        numOfInProgressOrders = driver.orders.filter(
+          (order) => order.status === "in_progress"
+        );
+      }
       return (
         <>
           <div className="flex align_center">
@@ -93,14 +100,31 @@ const DriverDeteledInfo: React.FC<DriverInfoPropsType> = ({
                       old
                     </p>
                   </div>
+                  <div className="flex align_center">
+                    {numOfInProgressOrders.length === 0 ? (
+                      <button
+                        className="button"
+                        onClick={() => unSetTruck(driver)}
+                      >
+                        Remove Truck
+                      </button>
+                    ) : null}
+                  </div>
                 </div>
               </>
             )}
             <div className="driverInfo_buttons flex justify-center">
               {numOfInProgressOrders.length === 0 ? (
-                <button className="button" onClick={() => deleteDriver(driver.id)}>Delete driver</button>
+                <button
+                  className="button"
+                  onClick={() => deleteDriver(driver.id)}
+                >
+                  Delete driver
+                </button>
               ) : null}
-              <button className="button" onClick={handleOpen}>Update Driver</button>
+              <button className="button" onClick={handleOpen}>
+                Update Driver
+              </button>
             </div>
           </div>
         </>
@@ -116,8 +140,8 @@ const DriverDeteledInfo: React.FC<DriverInfoPropsType> = ({
           {driver ? driverInfo : <h1>There is no driver with such Id</h1>}
         </div>
       </div>
-      <BasicModal open={open} handleClose={handleClose} >
-        <UpdateDriverForm driver={driver!} handleClose={handleClose}/>
+      <BasicModal open={open} handleClose={handleClose}>
+        <UpdateDriverForm driver={driver!} handleClose={handleClose} />
       </BasicModal>
     </div>
   );

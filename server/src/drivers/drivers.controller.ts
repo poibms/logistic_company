@@ -57,6 +57,12 @@ export class DriversController {
     return await this.driversService.setDriverToTruck(payload);
   }
 
+  @Put('/unset')
+  @UseGuards(RoleGuard(UserRole.ADMIN))
+  async unSetDriverToTruck(@Body() payload: setTruckType) {
+    return await this.driversService.unSetDriverToTruck(payload);
+  }
+
   @Put('/driver')
   @UseGuards(RoleGuard(UserRole.ADMIN))
   @UseInterceptors(FileFieldsInterceptor([{ name: 'photo', maxCount: 1 }]))

@@ -94,6 +94,18 @@ export const setDriverToTruck = (payload: AssignTruckType, callback: any): AppTh
   }
 };
 
+export const unSetDriverToTruck = (payload: AssignTruckType): AppThunk => async (dispatch: any) => {
+  dispatch(driversRequested());
+  try {
+    const driver = await driversService.unSetDriverToTruck(payload)
+    dispatch(driverUpdated(driver));
+    dispatch(updateTruckDriver(+payload.truckId, null))
+  } catch (error: any) {
+    console.log(error)
+    dispatch(driversRequestFailed(error.response.data.message));
+  }
+};
+
 export const deleteDriverById = (id: number): AppThunk => async (dispatch: any) => {
   dispatch(driversRequested());
   try {

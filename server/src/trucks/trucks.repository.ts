@@ -31,6 +31,17 @@ export class TrucksRepository extends Repository<Trucks> {
     }
   }
 
+  async unSetDriverToTruck(payload: setTruckType) {
+    try {
+      const { driverId, truckId } = payload;
+      await this.update({ id: truckId }, { driverId: null });
+    } catch (e) {
+      throw new BadRequestException(
+        'something was wrong while updating driver',
+      );
+    }
+  }
+
   async getTruckById(id: string): Promise<Trucks> {
     try {
       return this.findOne({

@@ -55,6 +55,18 @@ export class DriversRepository extends Repository<Drivers> {
     }
   }
 
+  async unSetDriverToTruck(payload: setTruckType) {
+    try {
+      const { driverId, truckId } = payload;
+      await this.update({ id: driverId }, { truckId: null });
+      return await this.getDriverById(driverId);
+    } catch (e) {
+      throw new BadRequestException(
+        'something was wrong while updating driver',
+      );
+    }
+  }
+
   async updateDriver(payload: any) {
     try {
       const { id } = payload;

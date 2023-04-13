@@ -33,9 +33,9 @@ export class DriversService {
       password: hashedPassword,
       photo: driverPhoto,
     });
-    console.log(
-      await this.mailService.driverCredsNotification(driver, password),
-    );
+    // console.log(
+    //   await this.mailService.driverCredsNotification(driver, password),
+    // );
     return driver;
   }
 
@@ -54,6 +54,12 @@ export class DriversService {
   async setDriverToTruck(payload: setTruckType) {
     const driver = await this.dirversRepository.setDriverToTruck(payload);
     await this.trucksRepository.setTruckToDriver(payload);
+    return driver;
+  }
+
+  async unSetDriverToTruck(payload: setTruckType) {
+    const driver = await this.dirversRepository.unSetDriverToTruck(payload);
+    await this.trucksRepository.unSetDriverToTruck(payload);
     return driver;
   }
 

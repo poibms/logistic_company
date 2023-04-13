@@ -35,8 +35,9 @@ const trucksSlice = createSlice({
       state.isLoading=false;
     },
     trackUpdateDriver: (state, action) => {
+      console.log(action)
       const driverIndex = state.trucks.findIndex(truck => truck.id === action.payload.truckId);
-      state.trucks[driverIndex].driverId = action.payload;
+      state.trucks[driverIndex].driverId = action.payload.payload;
       state.isLoading=false;
     },
   },
