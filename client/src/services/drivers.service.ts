@@ -13,7 +13,7 @@ const driversService = {
     return data;
   },
 
-  setDriver: async(payload: AssignTruckType) => {
+  setDriver: async(payload: AssignTruckType): Promise<DriverType> => {
     const { data } = await $authHost.put('/drivers', payload)
     return data
   },
