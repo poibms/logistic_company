@@ -11,34 +11,38 @@ const OrderInfo: React.FC = () => {
   const location = useLocation();
   const trackCode = location.pathname.split("order/")[1];
 
-
   React.useEffect(() => {
-    ordersService.getOrderByTrackCode(trackCode).then((data) => setOrder(data)).catch((error) => setError(error))
-  }, [trackCode])
+    ordersService
+      .getOrderByTrackCode(trackCode)
+      .then((data) => setOrder(data))
+      .catch((error) => setError(error));
+  }, [trackCode]);
 
   const configureOrder = () => {
-    if(order) {
+    if (order) {
       return (
-        <div className="orderinfo">
-          <div>
+        <div className="orderinfo flex justify-spacearnd">
+          <div className="orderinfo_img">
             <img src={`http://localhost:3007/${order.image}`} alt="item img" />
           </div>
-          <div>
-            <strong>Name</strong>: {order.name}
-          </div>
-          <div>
-            <strong>From</strong>: {order.from}
-          </div>
-          <div>
-            <strong>To</strong>: {order.to}
-          </div>
-          <div>
-          <strong>Weight</strong>: {order.weight} tons
+          <div className="orderinfo_desc">
+            <div>
+              <strong>Name</strong>: {order.name}
+            </div>
+            <div>
+              <strong>From</strong>: {order.from}
+            </div>
+            <div>
+              <strong>To</strong>: {order.to}
+            </div>
+            <div>
+              <strong>Weight</strong>: {order.weight} tons
+            </div>
           </div>
         </div>
-      )
+      );
     }
-  }
+  };
 
   const configuredOrder = configureOrder();
 
@@ -46,7 +50,15 @@ const OrderInfo: React.FC = () => {
     <>
       <Header />
       <Container>
-        {trackCode ? error ? <h3>Something was wrong! Check your track code and try again</h3> : configuredOrder : <>Set track code to find info about your order</>}
+        {trackCode ? (
+          error ? (
+            <h3>Something was wrong! Check your track code and try again</h3>
+          ) : (
+            configuredOrder
+          )
+        ) : (
+          <>Set track code to find info about your order</>
+        )}
         {}
       </Container>
     </>
