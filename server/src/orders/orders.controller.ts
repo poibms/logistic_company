@@ -62,4 +62,10 @@ export class OrdersController {
   async assigntOrderStatus(@Body() payload: assignOrderType): Promise<Orders> {
     return this.ordersService.assigntOrderStatus(payload);
   }
+
+  @Put('/cancel/:id')
+  @UseGuards(AuthGuard(), RoleGuard(UserRole.ADMIN))
+  async cancelOrder(@Param('id') id: string) {
+    return this.ordersService.cancelOrder(id);
+  }
 }

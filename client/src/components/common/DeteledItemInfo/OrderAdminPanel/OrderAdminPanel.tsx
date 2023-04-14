@@ -1,6 +1,8 @@
 import * as React from "react";
 import { OrderType } from "../../../../types/types";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useAppDispatch } from "../../../../store";
+import { cancelOrder } from "../../../../store/orders";
 
 type OrderPanel = {
   order: OrderType;
@@ -8,6 +10,7 @@ type OrderPanel = {
 };
 
 const OrderAdminPanel: React.FC<OrderPanel> = ({ order, handleClosePanel }) => {
+  const dispatch = useAppDispatch();
   const driverUi = () => {
     console.log(order.driverId);
     if (order.driverId) {
@@ -31,8 +34,8 @@ const OrderAdminPanel: React.FC<OrderPanel> = ({ order, handleClosePanel }) => {
   };
 
   const canselOrder = () => {
-    
-  }
+    dispatch(cancelOrder(order.id));
+  };
 
   const driverInfo = driverUi();
 
@@ -82,7 +85,11 @@ const OrderAdminPanel: React.FC<OrderPanel> = ({ order, handleClosePanel }) => {
         </div>
         <div className="orderpanel_driver">{driverInfo}</div>
         <div className="orderpanel_buttons">
-          <button className="button-cancel" onClick={canselOrder}>Cancel order</button>
+          {order.status === "not_assigned" ? (
+            <button className="button-cancel" onClick={canselOrder}>
+              Cancel order
+            </button>
+          ) : null}
         </div>
       </div>
     </div>

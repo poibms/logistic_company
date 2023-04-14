@@ -30,7 +30,11 @@ const ordersService = {
   getOrderByTrackCode: async (track_code: string) => {
     const {data} = await $host.get(`/orders/bytrack/${track_code}`);
     return data;
-  }
+  },
+  cancelOrder: async (id: number) => {
+    const { data } = await $authHost.put(`/orders/cancel/${id}`)
+    return data
+  },
 }
 
 export default ordersService;

@@ -2,7 +2,7 @@ import { User } from './../users/users.entity';
 import { FileType } from 'src/types/files.types';
 import { FilesService } from 'src/files/files.service';
 import { NewUserOrderDto } from './dto/orders-create.dto';
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { OrdersRepository } from './orders.repository';
 import { Orders } from './orders.entity';
 import { assignOrderType, OrderStasus } from 'src/types/order.types';
@@ -55,5 +55,18 @@ export class OrdersService {
       driverId,
     );
     return order;
+  }
+
+  async cancelOrder(id: string) {
+    const order = await this.ordersRepository.getOrderById(id);
+    if (!order) {
+      throw new BadRequestException('There is no order with such id');
+    } else if (
+      order.status === OrderStasus.IN_PROGRESS ||
+      order.status === OrderStasus.DONE
+    ) {
+      throw new BadRequestException('You cannot cancel this order');
+    }
+    return await this.ordersRepository.cancelOrder(id);
   }
 }

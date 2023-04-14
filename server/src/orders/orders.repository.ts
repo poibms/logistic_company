@@ -93,6 +93,18 @@ export class OrdersRepository extends Repository<Orders> {
     }
   }
 
+  async cancelOrder(id: string): Promise<Orders> {
+    try {
+      await this.update({ id: id }, { status: OrderStasus.CANCEL });
+      return this.getOrderById(id);
+    } catch (e) {
+      console.log(e);
+      throw new BadRequestException(
+        'an error occurred while placing the order, please check the correctness of the entered data',
+      );
+    }
+  }
+
   // async setOrderToDriver(driverId: string, orderId: string) {
   //   try {
   //     await this.update({ id: driverId }, { orders: orderId });

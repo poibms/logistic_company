@@ -86,6 +86,16 @@ export const setOrderToDriver = (payload: AssignOrderToDriver, callback: any): a
   }
 };
 
+export const cancelOrder = (id: number): any => async (dispatch: any) => {
+  dispatch(ordersRequested());
+  try {
+    const drivers = await ordersService.cancelOrder(id);
+    dispatch(orderUpdated(drivers));
+  } catch (error: any) {
+    dispatch(ordersRequestFailed(error.response.data.message));
+  }
+};
+
 export const getOrdersLoadingStatus = () => (state: RootState) => state.orders.isLoading;
 
 export const getAllOrders = () => (state: RootState) => state.orders.orders;
