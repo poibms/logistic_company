@@ -1,13 +1,15 @@
 import { Button } from "@mui/material";
 import * as React from "react";
 import { OrderType } from "../../../../types/types";
+import OrderAdminPanel from "../OrderAdminPanel/OrderAdminPanel";
 
 type ItemInfoPropsType = {
   order: OrderType;
-  handleOpenModal: any
+  handleOpenModal: any;
+  handleOpenPanel: any
 };
 
-const OrderDeteledInfo: React.FC<ItemInfoPropsType> = ({ order, handleOpenModal }) => {
+const OrderDeteledInfo: React.FC<ItemInfoPropsType> = ({ order, handleOpenModal, handleOpenPanel }) => {
 
   return (
     <div className="itemlist">
@@ -33,6 +35,9 @@ const OrderDeteledInfo: React.FC<ItemInfoPropsType> = ({ order, handleOpenModal 
             </tr>
           </tbody>
         </table>
+        <div className="itemlist_moredetails">
+        <button className="small-button" onClick={() => handleOpenPanel(true)}>See more details...</button>
+        </div>
       </div>
     </div>
   );

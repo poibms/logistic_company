@@ -11,7 +11,13 @@
   left: 0;
   right: 0;
   &_wrapper {
-    padding: 30px 38px;
+    padding: 30px 38px 10px 38px;
+
+    .itemlist_moredetails {
+      display: flex;
+      justify-content: end;
+      margin-top: 10px;
+    }
   }
   table {
     border-collapse: collapse;
