@@ -1,3 +1,5 @@
+import { Drivers } from 'src/drivers/drivers.entity';
+import { DriversRepository } from './../drivers/drivers.repository';
 import { UserRepository } from '../users/users.repository';
 import { AuthSignInDto } from './dto/auth-signin.dto';
 import { AuthSignUpDto } from './dto/auth-signup.dto';
@@ -7,6 +9,8 @@ import {
   BadRequestException,
   ForbiddenException,
 } from '@nestjs/common';
+import { serialize } from 'cookie';
+import { Response as ResponseType } from 'express';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
@@ -18,6 +22,7 @@ import { JwtPayload } from '../types/jwt-payload.interface';
 export class AuthService {
   constructor(
     private userRepository: UserRepository,
+    private driversRepository: DriversRepository,
     private jwtService: JwtService,
     private config: ConfigService,
   ) {}
@@ -56,6 +61,23 @@ export class AuthService {
     }
   }
 
+  async signInDriver(authSignInDto: AuthSignInDto): Promise<TokensType> {
+    const { email, password } = authSignInDto;
+
+    const user = await this.driversRepository.getDriverByEmail(email);
+    if (user && (await bcrypt.compare(password, user.password))) {
+      const tokens = await this.genAccesToken(user);
+      await this.driversRepository.updateDriverRefreshToken(
+        user.id,
+        tokens.refresh_token,
+      );
+
+      return tokens;
+    } else {
+      throw new UnauthorizedException('Please check your credentials');
+    }
+  }
+
   async logout(userId: string): Promise<boolean> {
     return await this.userRepository.logout(userId);
   }
@@ -63,7 +85,23 @@ export class AuthService {
   async refreshToken(
     userId: string,
     refreshToken: string,
+    role: string,
   ): Promise<TokensType> {
+    if (role === 'driver') {
+      const driver = await this.driversRepository.getDriverById(userId);
+      if (!driver || !driver.rthash)
+        throw new BadRequestException('Access denied');
+
+      const isRefreshMatch = await bcrypt.compare(refreshToken, driver.rthash);
+      if (!isRefreshMatch) throw new ForbiddenException('Access Denied');
+
+      const tokens = await this.genAccesToken(driver);
+      await this.userRepository.updateUserRefreshToken(
+        driver.id,
+        tokens.refresh_token,
+      );
+      return tokens;
+    }
     const user = await this.userRepository.getUserById(userId);
     if (!user || !user.rthash) throw new BadRequestException('Access denied');
 
@@ -71,7 +109,7 @@ export class AuthService {
     if (!isRefreshMatch) throw new ForbiddenException('Access Denied');
 
     const tokens = await this.genAccesToken(user);
-    await this.userRepository.updateUserRefreshToken(
+    await this.driversRepository.updateDriverRefreshToken(
       user.id,
       tokens.refresh_token,
     );
@@ -79,7 +117,7 @@ export class AuthService {
     return tokens;
   }
 
-  async genAccesToken(user: User): Promise<TokensType> {
+  async genAccesToken(user: User | Drivers): Promise<TokensType> {
     const jwtPayload: JwtPayload = {
       id: user.id,
       email: user.email,
@@ -101,5 +139,15 @@ export class AuthService {
       access_token: accesToken,
       refresh_token: refreshToken,
     };
+  }
+
+  clearRefreshToken(res: ResponseType) {
+    const cookie = serialize('refresh_token', '', {
+      httpOnly: true,
+      sameSite: 'strict',
+      path: '/',
+      expires: new Date(0),
+    });
+    res.setHeader('Set-Cookie', cookie);
   }
 }

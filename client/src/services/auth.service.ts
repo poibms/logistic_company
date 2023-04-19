@@ -29,8 +29,13 @@ const authService = {
 
   logout: async () => {
     const {data} = await $authHost.post('/auth/logout');
+    console.log(data)
     return data;
-  }
+  },
+  signInDriver: async (payload: SignInDataType) => {
+    const response = await $host.post(`/auth/signindriver`, payload);
+    return response.data;
+  },
 };
 
 export default authService;

@@ -1,5 +1,6 @@
 import { Orders } from 'src/orders/orders.entity';
 import { Trucks } from 'src/trucks/trucks.entity';
+import { UserRole } from 'src/types/user.types';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -31,6 +32,12 @@ export class Drivers {
 
   @Column()
   photo: string;
+
+  @Column({ default: UserRole.DRIVER })
+  role: string;
+
+  @Column({ name: 'refreshTokenHash', nullable: true })
+  rthash: string;
 
   @OneToOne(() => Trucks, (truck) => truck.id, { onDelete: 'CASCADE' })
   @JoinColumn()

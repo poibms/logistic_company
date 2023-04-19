@@ -1,3 +1,4 @@
+import { Drivers } from 'src/drivers/drivers.entity';
 import { AuthGuard } from '@nestjs/passport';
 import { RefreshAuthGuard } from './../guards/refresh.guard';
 import { AccessTokenType } from './../types/token.types';
@@ -29,7 +30,7 @@ export class AuthController {
     @Res({ passthrough: true }) res: ResponseType,
   ): Promise<AccessTokenType> {
     const tokens = await this.authService.signUp(authSignUpDto);
-    res.cookie('refresh_token', tokens.refresh_token, { httpOnly: true });
+    res.cookie('refresh_token', tokens.refresh_token);
     return { access_token: tokens.access_token };
   }
 
@@ -41,7 +42,7 @@ export class AuthController {
     @Res({ passthrough: true }) res: ResponseType,
   ): Promise<AccessTokenType> {
     const tokens = await this.authService.signIn(authSignInDto);
-    res.cookie('refresh_token', tokens.refresh_token, { httpOnly: true });
+    res.cookie('refresh_token', tokens.refresh_token);
     return { access_token: tokens.access_token };
   }
 
@@ -51,7 +52,7 @@ export class AuthController {
   @UseGuards(AuthGuard())
   @Post('/logout')
   async logout(
-    @GetUser() user: User,
+    @GetUser() user: User | Drivers,
     @Res({ passthrough: true }) res: ResponseType,
   ): Promise<boolean> {
     res.clearCookie('refresh_token');
@@ -67,9 +68,21 @@ export class AuthController {
     @GetUser() user,
     @Res({ passthrough: true }) res: ResponseType,
   ): Promise<AccessTokenType> {
-    const { id, refreshToken } = user;
-    const tokens = await this.authService.refreshToken(id, refreshToken);
-    res.cookie('refresh_token', refreshToken, { httpOnly: true });
+    console.log(user);
+    const { id, refreshToken, role } = user;
+    const tokens = await this.authService.refreshToken(id, refreshToken, role);
+    res.cookie('refresh_token', refreshToken);
+    return { access_token: tokens.access_token };
+  }
+
+  @Post('/signindriver')
+  async signInDriver(
+    @Body() authSignInDto: AuthSignInDto,
+    @Res({ passthrough: true }) res: ResponseType,
+  ): Promise<AccessTokenType> {
+    const tokens = await this.authService.signInDriver(authSignInDto);
+    res.cookie('refresh_token', tokens.refresh_token);
+    console.log(tokens.access_token);
     return { access_token: tokens.access_token };
   }
 }
