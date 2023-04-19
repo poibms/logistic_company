@@ -33,9 +33,9 @@ export class DriversService {
       password: hashedPassword,
       photo: driverPhoto,
     });
-    // console.log(
-    //   await this.mailService.driverCredsNotification(driver, password),
-    // );
+
+    await this.mailService.driverCredsNotification(driver, password);
+
     return driver;
   }
 
@@ -65,6 +65,7 @@ export class DriversService {
 
   async setOrderToDriver(driverId: string) {
     const driver = await this.dirversRepository.getDriverById(driverId);
+    console.log(driver);
     if (!driver.truckId) {
       throw new BadRequestException(
         'You cannot assign order on this driver, because he does not have a truck',

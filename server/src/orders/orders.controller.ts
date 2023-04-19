@@ -1,3 +1,4 @@
+import { Drivers } from 'src/drivers/drivers.entity';
 import { UserRole } from './../types/user.types';
 import { NewUserOrderDto } from './dto/orders-create.dto';
 import { AuthGuard } from '@nestjs/passport';
@@ -57,6 +58,12 @@ export class OrdersController {
     return this.ordersService.getAuthUserOrders(user);
   }
 
+  @Get('/ordersbydriver')
+  @UseGuards(AuthGuard(), RoleGuard(UserRole.DRIVER))
+  async getOrdersByDriver(@GetUser() user: Drivers): Promise<Orders[]> {
+    return this.ordersService.getOrdersByDriver(user);
+  }
+
   @Put('/')
   @UseGuards(AuthGuard(), RoleGuard(UserRole.ADMIN))
   async assigntOrderStatus(@Body() payload: assignOrderType): Promise<Orders> {
@@ -67,5 +74,11 @@ export class OrdersController {
   @UseGuards(AuthGuard(), RoleGuard(UserRole.ADMIN))
   async cancelOrder(@Param('id') id: string) {
     return this.ordersService.cancelOrder(id);
+  }
+
+  @Put('/complete/:id')
+  @UseGuards(AuthGuard(), RoleGuard(UserRole.DRIVER))
+  async completeOrder(@Param('id') id: string) {
+    return this.ordersService.completeOrder(id);
   }
 }

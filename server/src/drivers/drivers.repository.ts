@@ -7,6 +7,7 @@ import {
   ConflictException,
 } from '@nestjs/common';
 import { CreateDriverDto } from './dto/drivers-create.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class DriversRepository extends Repository<Drivers> {
@@ -115,5 +116,14 @@ export class DriversRepository extends Repository<Drivers> {
     } catch (e) {
       throw new BadRequestException('something was wrong');
     }
+  }
+
+  async updateDriverRefreshToken(
+    userId: string,
+    refreshToken: string,
+  ): Promise<void> {
+    const salt = await bcrypt.genSalt();
+    const hashedRefreshToken = await bcrypt.hash(refreshToken, salt);
+    await this.update({ id: userId }, { rthash: hashedRefreshToken });
   }
 }

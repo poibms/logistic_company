@@ -1,3 +1,4 @@
+import { Drivers } from 'src/drivers/drivers.entity';
 import { User } from './../users/users.entity';
 import { FileType } from 'src/types/files.types';
 import { FilesService } from 'src/files/files.service';
@@ -47,9 +48,13 @@ export class OrdersService {
     return await this.ordersRepository.getAuthUserOrders(user);
   }
 
+  async getOrdersByDriver(user: Drivers): Promise<Orders[]> {
+    return await this.ordersRepository.getOrdersByDriver(user);
+  }
+
   async assigntOrderStatus(payload: assignOrderType): Promise<Orders> {
     const { orderId, driverId } = payload;
-    await this.driversService.setOrderToDriver(orderId);
+    await this.driversService.setOrderToDriver(driverId);
     const order = await this.ordersRepository.assigntOrderStatus(
       orderId,
       driverId,
@@ -68,5 +73,15 @@ export class OrdersService {
       throw new BadRequestException('You cannot cancel this order');
     }
     return await this.ordersRepository.cancelOrder(id);
+  }
+
+  async completeOrder(id: string) {
+    const order = await this.ordersRepository.getOrderById(id);
+    if (!order) {
+      throw new BadRequestException('There is no order with such id');
+    } else if (order.status !== OrderStasus.IN_PROGRESS) {
+      throw new BadRequestException('You cannot complete this order');
+    }
+    return await this.ordersRepository.completeOrder(id);
   }
 }

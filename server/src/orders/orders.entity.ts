@@ -42,5 +42,5 @@ export class Orders {
 
   // @Column({ nullable: true )
   @ManyToOne(() => Drivers, (drivers) => drivers.orders)
-  driverId: string;
+  driverId: Drivers;
 }
