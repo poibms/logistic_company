@@ -2,12 +2,12 @@ import React, { Suspense } from "react";
 import { adminRoutes, privateRoutes, publicRoutes } from "../routes";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { getIsLoggedIn, isAdmin as getIsAdmin } from "../../store/user";
+import { getIsLoggedIn, getRole } from "../../store/user";
 import Page404 from "../../components/pages/404Page/Page404";
 
 const AppRouter: React.FC = () => {
   const isLoggedIn = useSelector(getIsLoggedIn());
-  const isAdmin = useSelector(getIsAdmin());
+  const role = useSelector(getRole());
   return (
     <Suspense fallback={<></>}>
       <Router>
@@ -22,7 +22,7 @@ const AppRouter: React.FC = () => {
                 />
               ) : null
             )}
-          {isAdmin &&
+          {role === 'admin' &&
             adminRoutes.map((route) =>
               route.path ? (
                 <Route

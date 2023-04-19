@@ -35,6 +35,16 @@ const ordersService = {
     const { data } = await $authHost.put(`/orders/cancel/${id}`)
     return data
   },
+
+  getOrderByDriver: async () => {
+    const {data} = await $authHost.get('orders/ordersbydriver');
+    return data
+  },
+
+  completeOder: async (id: number) => {
+    const {data} = await $authHost.put(`orders/complete/${id}`);
+    return data
+  }
 }
 
 export default ordersService;

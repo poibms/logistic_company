@@ -10,13 +10,26 @@ import * as React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getAuthOrders } from "../../../store/orders";
+import { getRole } from "../../../store/user";
 
 const OrderList = () => {
   const currUser = useSelector(getAuthOrders());
+  const driversOrder = useSelector(getAuthOrders());
   const navigate = useNavigate();
 
+  const role = useSelector(getRole());
+
+  const chooseData = () => {
+    if (role === 'driver') {
+      return driversOrder
+    }
+    return currUser
+  }
+
+  const orders = chooseData();
+
   const genCards = () => {
-    return currUser.map((order) => (
+    return orders.map((order) => (
       <Card sx={{ maxWidth: 345 }} key={order.id}>
         <CardMedia
           component="img"

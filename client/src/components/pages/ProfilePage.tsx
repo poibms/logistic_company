@@ -5,6 +5,8 @@ import { Box, Tabs, Tab } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import CreateOrder from "../ui/CreateOrderForm/CreateOrder";
 import OrderList from "../common/OrdersList/OrdersList";
+import { getRole } from "../../store/user";
+import { useSelector } from "react-redux";
 
 const ProfilePage = () => {
   const [value, setValue] = React.useState(0);
@@ -12,8 +14,9 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   const currPath = location.pathname.split("profile/")[1];
 
-  React.useEffect(() => {
+  const role = useSelector(getRole());
 
+  React.useEffect(() => {
     if (currPath === "create-order") {
       setValue(1);
     } else if (currPath === "orders") {
@@ -29,11 +32,11 @@ const ProfilePage = () => {
 
   const genItems = () => {
     if (value === 1) {
-      return <CreateOrder/>
+      return <CreateOrder />;
     } else if (value === 2) {
       return <OrderList />;
     }
-  }
+  };
 
   const item = genItems();
 
@@ -51,26 +54,32 @@ const ProfilePage = () => {
             <PersonIcon />
           </div>
         </div>
-        <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            // centered
-            variant="scrollable"
-            scrollButtons="auto"
-          >
-            <Tab label="Profile" onClick={() => navigate("/profile")} />
-            <Tab
-              label="Create order"
-              onClick={() => navigate("/profile/create-order")}
-            />
-            <Tab
-              label="Order's history"
-              onClick={() => navigate("/profile/orders")}
-            />
-          </Tabs>
-        </Box>
-        {item}
+        {role === "driver" ? (
+          <OrderList />
+        ) : (
+          <>
+            <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                // centered
+                variant="scrollable"
+                scrollButtons="auto"
+              >
+                <Tab label="Profile" onClick={() => navigate("/profile")} />
+                <Tab
+                  label="Create order"
+                  onClick={() => navigate("/profile/create-order")}
+                />
+                <Tab
+                  label="Order's history"
+                  onClick={() => navigate("/profile/orders")}
+                />
+              </Tabs>
+            </Box>
+            {item}
+          </>
+        )}
       </Container>
     </div>
   );

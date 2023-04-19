@@ -75,6 +75,16 @@ export const getUserOrders = (): any => async (dispatch: any) => {
   }
 };
 
+export const getDriverOrders = (): any => async (dispatch: any) => {
+  dispatch(ordersRequested());
+  try {
+    const data = await ordersService.getOrderByDriver()
+    dispatch(userOrders(data));
+  } catch (error: any) {
+    dispatch(ordersRequestFailed(error));
+  }
+};
+
 export const setOrderToDriver = (payload: AssignOrderToDriver, callback: any): any => async (dispatch: any) => {
   dispatch(ordersRequested());
   try {
@@ -91,6 +101,17 @@ export const cancelOrder = (id: number): any => async (dispatch: any) => {
   try {
     const drivers = await ordersService.cancelOrder(id);
     dispatch(orderUpdated(drivers));
+  } catch (error: any) {
+    dispatch(ordersRequestFailed(error.response.data.message));
+  }
+};
+
+export const completeOrder = (id: number, callback: any): any => async (dispatch: any) => {
+  dispatch(ordersRequested());
+  try {
+    const drivers = await ordersService.completeOder(id);
+    dispatch(orderUpdated(drivers));
+    callback();
   } catch (error: any) {
     dispatch(ordersRequestFailed(error.response.data.message));
   }

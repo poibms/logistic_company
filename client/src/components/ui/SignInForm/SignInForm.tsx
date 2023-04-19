@@ -43,9 +43,9 @@ const SignInForm = () => {
     <>
       <Form data={data} errors={errors} handleChange={handleInputChange}>
           <InputField name='email' label='Email' autoFocus />
-          <InputWithPassword name='password' label='Пароль' type='password' />
+          <InputWithPassword name='password' label='Password' type='password' />
           <Button className=' button button_sign' type='submit' onClick={handleSubmit} disabled={enterError ? true : false}>
-            Войти
+            Sign In
           </Button>
       </Form>
       {authError && <p className='form_error'>{authError}</p>}
