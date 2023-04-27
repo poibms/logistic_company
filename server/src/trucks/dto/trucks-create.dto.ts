@@ -1,3 +1,4 @@
+import { OrderType } from 'src/types/order.types';
 import { IsNumberString, IsOptional, IsString } from 'class-validator';
 
 export class CreateTruckDto {
@@ -7,8 +8,14 @@ export class CreateTruckDto {
   @IsString()
   model: string;
 
+  @IsString()
+  truck_type: OrderType;
+
   @IsNumberString()
   year: number;
+
+  @IsNumberString()
+  trailer_volume: number;
 
   @IsNumberString()
   loadCapacity: number;
