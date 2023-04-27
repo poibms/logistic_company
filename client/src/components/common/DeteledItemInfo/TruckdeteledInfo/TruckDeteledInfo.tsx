@@ -66,7 +66,7 @@ const TruckDeteledInfo: React.FC = () => {
                 {deleteButton}
                 <button className="button" onClick={handleOpen}>
                   {" "}
-                  Update Driver
+                  Update Truck
                 </button>
               </div>
             </div>

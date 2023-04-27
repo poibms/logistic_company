@@ -5,10 +5,10 @@ const TextSliderItem: React.FC<TextSliderProps> = ({ title, subtitle }) => {
   return (
     <div className='slider_item'>
       <div className='slider_item-title'>
-        <div>25</div>
+        <div>{title}</div>
       </div>
       <div className='slider_item-subtitle'>
-        <p>Лет на рынке</p>
+        <p>{subtitle}</p>
       </div>
     </div>
   )

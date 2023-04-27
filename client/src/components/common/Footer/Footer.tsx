@@ -31,7 +31,7 @@ const Footer = () => {
         <div className="footer_inner-nav">
           <div className="flex flex_row justify-spacearnd align_center">
             <div className="flex flex_column align_center">
-              <div className="footer_menu">
+              {/* <div className="footer_menu">
                 <NavLink to="/news">
                   <div>Новости</div>
                 </NavLink>
@@ -40,7 +40,7 @@ const Footer = () => {
                 <NavLink to="/news">
                   <div>О нас</div>
                 </NavLink>
-              </div>
+              </div> */}
               <div className="footer_menu">
                 <NavLink to="/login/signin?type=driver">
                   <div>Login as a driver</div>

@@ -20,6 +20,9 @@ const validatorConfig: ConfigType = {
     isRequired: {
       message: 'Field "Age" is required',
     },
+    inNum: {
+      message: 'Data must be a number'
+    },
   },
 };
 

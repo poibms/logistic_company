@@ -35,6 +35,10 @@
     width: 100%;
     margin-bottom: 10px;
   }
+
+  &_select_inner {
+    width: 100%;
+  }
 }
 
 .login_form-card {
@@ -85,4 +89,8 @@ input[type="file"]::file-selector-button:hover {
     width: 50px;
     margin-right: 10px;
   }
+}
+
+.select_menu {
+  width: 100%;
 }

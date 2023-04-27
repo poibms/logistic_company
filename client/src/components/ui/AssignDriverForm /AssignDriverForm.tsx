@@ -64,7 +64,7 @@ const AssignDriverForm: React.FC<AssihnDriverPropsType> = ({
   return (
     <div className="sign_form-wrapper">
       <Paper elevation={3} className="login_form-card form_card">
-        <h2>Assign Truck to Driver</h2>
+        <h2>Choose the driver</h2>
         <Form data={{ driver: driver }}>
           {DriverMenuItem.length > 0 ? (
             <FormControl fullWidth>
@@ -81,7 +81,7 @@ const AssignDriverForm: React.FC<AssihnDriverPropsType> = ({
             </FormControl>
           ) : (
             <p className="flex alig-center" style={{'color': 'red'}}>
-              There is no free truck right now. Please try it later
+              There is no free drivers right now. Please try it later
             </p>
           )}
 
