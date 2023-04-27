@@ -9,11 +9,13 @@ import Slider from "../common/Slider/Slider";
 import TextSliderItem from "../common/TextSliderItem/TextSliderItem";
 import text from "../../assets/text/textSlider.json";
 import cargoType from "../../assets/imageSlider/cargoTypes.json";
+import trucksType from "../../assets/imageSlider/trucksTypes.json";
+import sertificatesData from "../../assets/imageSlider/sertificates.json";
 import { SliderType } from "../../types/slider";
 import SearchOrder from "../common/SearchOrder/SearchOrder";
 
 const MainPage = () => {
-    const SliderGen = (sliderData: any, sliderType: SliderType) => {
+  const SliderGen = (sliderData: any, sliderType: SliderType) => {
     if (sliderType === "text") {
       return (
         <Slider className={"main_slider"}>
@@ -33,9 +35,10 @@ const MainPage = () => {
     }
   };
 
-
   const TextSlider = SliderGen(text, SliderType.TEXT);
   const ImageSlider = SliderGen(cargoType, SliderType.IMAGE);
+  const TrucksSloder = SliderGen(trucksType, SliderType.IMAGE);
+  const SertificatesSlider = SliderGen(sertificatesData, SliderType.IMAGE);
   return (
     <main className="main">
       {/* <ImageSlider className={'main_wrapper'}>
@@ -51,11 +54,11 @@ const MainPage = () => {
         />
       </section>
       <Container className="mg-btm-70">
-        <SearchOrder/>
+        <SearchOrder />
       </Container>
       <Container className={"mg-btm-70"}>{ImageSlider}</Container>
       <Container>
-        <h1 className="main_title">Преимущества</h1>
+        <h1 className="main_title">Advantages</h1>
       </Container>
       <section className="main_wrapper h-500 mg-btm-70">
         <img
@@ -65,10 +68,25 @@ const MainPage = () => {
         />
       </section>
 
+      {/* <!-- iframe calculator.nrg-tk.ru -->  */}
+      {/* <>
+        <iframe
+        title="fs"
+          width="100"
+          height="550"
+          scrolling="auto"
+          // style="border: 0;"
+          src="//calculator.nrg-tk.ru"
+        >
+          Ваш браузер не поддерживает встроенные фреймы!
+        </iframe>
+      </> */}
+      {/* <!-- /iframe calculator.nrg-tk.ru --> */}
+
       <Container className={"mg-btm-70"}>{TextSlider}</Container>
 
       <Container>
-        <h1 className="main_title">Наш автопарк</h1>
+        <h1 className="main_title">Our fleet</h1>
       </Container>
       <section className="main_wrapper h-500 mg-btm-70">
         <img
@@ -79,14 +97,14 @@ const MainPage = () => {
         ƒ
       </section>
 
-      <Container className={"mg-btm-70"}>{ImageSlider}</Container>
+      <Container className={"mg-btm-70"}>{TrucksSloder}</Container>
 
       <Container>
         <div className="main_title">
-          <h1>Новости</h1>
-          <NavLink to="/news" className="header-buttons-button">
+          <h1>News</h1>
+          {/* <NavLink to="/news" className="header-buttons-button">
             <Button className="button">Все новости</Button>
-          </NavLink>
+          </NavLink> */}
         </div>
       </Container>
       <div className="news">
@@ -96,9 +114,9 @@ const MainPage = () => {
       </div>
 
       <Container className={"mg-btm-70"}>
-        <h1 className="main_title">Сертификаты</h1>
+        <h1 className="main_title">Сertificates</h1>
 
-        {ImageSlider}
+        {SertificatesSlider}
       </Container>
     </main>
   );
