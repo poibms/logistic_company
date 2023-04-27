@@ -24,16 +24,20 @@ export class OrdersService {
     image: string,
     ownerId: User,
   ): Promise<Orders> {
-    const orderImagePath = await this.filesService.createFile(
-      FileType.ORDERS,
-      image,
-    );
-    const order = await this.ordersRepository.newUserOrder(
-      { ...newUserOrderDto, image: orderImagePath },
-      ownerId,
-    );
-    await this.mailService.userCreateOrderNotify(order);
-    return order;
+    try {
+      const orderImagePath = await this.filesService.createFile(
+        FileType.ORDERS,
+        image,
+      );
+      const order = await this.ordersRepository.newUserOrder(
+        { ...newUserOrderDto, image: orderImagePath },
+        ownerId,
+      );
+      await this.mailService.userCreateOrderNotify(order);
+      return order;
+    } catch (e) {
+      throw new BadRequestException('something was wrong while creating order');
+    }
   }
 
   async getAllOrders(status: OrderStasus): Promise<Orders[]> {

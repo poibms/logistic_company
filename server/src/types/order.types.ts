@@ -9,3 +9,10 @@ export type assignOrderType = {
   orderId: string;
   driverId: string;
 };
+
+export enum OrderType {
+  BULKY_CARGO = 'Bulky cargo',
+  CAR_TRANSPORTER = 'Car transporter',
+  REFRIGERATOR_TRAILER = 'Refrigerator trailer',
+  COMMON_TRAILER = 'Common trailer',
+}
