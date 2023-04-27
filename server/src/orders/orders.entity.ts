@@ -1,5 +1,5 @@
 import { Drivers } from 'src/drivers/drivers.entity';
-import { OrderStasus } from 'src/types/order.types';
+import { OrderStasus, OrderType } from 'src/types/order.types';
 import { User } from 'src/users/users.entity';
 import {
   Entity,
@@ -28,6 +28,15 @@ export class Orders {
 
   @Column()
   image: string;
+
+  @Column()
+  distance: number;
+
+  @Column()
+  price: number;
+
+  @Column()
+  order_type: OrderType;
 
   @Column({ default: OrderStasus.NOT_ASSIGNED })
   status: OrderStasus;
