@@ -35,9 +35,21 @@ export function validator(data: { [key: string]: any }, validatorConfig: Validat
         statusValidate = fieldData.length >= 7 ? false : true;
         break;
       }
+
+      case 'isMinYear': {
+        console.log(fieldData.length)
+        statusValidate = fieldData.length === 4 ? false : true;
+        break;
+      }
       
       case 'isMax': {
         statusValidate = fieldData.length > 32 ? true : false;
+        break;
+      }
+
+      case 'inNum': {
+        const numRegExp = /^\d+$/;
+        statusValidate = !numRegExp.test(fieldData);
         break;
       }
       default:
