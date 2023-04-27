@@ -52,9 +52,8 @@ const AssignTruckForm: React.FC<AssihnTruckPropsType> = ({
     if (truck !== "") {
       console.log("true");
       dispatch(
-        setDriverToTruck(
-          { driverId: dataId, truckId: truck },
-          () => handleClose()
+        setDriverToTruck({ driverId: dataId, truckId: truck }, () =>
+          handleClose()
         )
       );
     } else {
@@ -70,32 +69,34 @@ const AssignTruckForm: React.FC<AssihnTruckPropsType> = ({
         <h2>Assign Truck to Driver</h2>
         <Form data={{ truck: truck }}>
           {TruckMenuItem.length > 0 ? (
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Truck</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={truck}
-                label="truck"
-                onChange={handleChange}
+            <>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Truck</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={truck}
+                  label="truck"
+                  onChange={handleChange}
+                >
+                  {TruckMenuItem}
+                </Select>
+              </FormControl>
+
+              <button
+                className="button_outline button_modal"
+                type="submit"
+                onClick={handleSubmit}
+                disabled={enterError ? true : false}
               >
-                {TruckMenuItem}
-              </Select>
-            </FormControl>
+                Assign
+              </button>
+            </>
           ) : (
             <p className="flex alig-center" style={{ color: "red" }}>
               There is no free drivers right now. Please try it later
             </p>
           )}
-
-          <button
-            className="button_outline button_modal"
-            type="submit"
-            onClick={handleSubmit}
-            disabled={enterError ? true : false}
-          >
-            Assign
-          </button>
         </Form>
         {enterError && <p className="form_error">{enterError}</p>}
         {driverError && <p className="form_error">{driverError}</p>}
