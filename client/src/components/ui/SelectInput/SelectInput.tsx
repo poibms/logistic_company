@@ -3,18 +3,20 @@ import * as React from "react";
 
 type SelectInputProps = {
   label: string;
-  handleChange: any;
+  onChange: any;
   value: any;
   items: any[];
   name: string;
+  error?: any;
 };
 
 const SelectInput: React.FC<SelectInputProps> = ({
   label,
-  handleChange,
+  onChange,
   value,
   items,
   name,
+  error
 }) => {
   const genMenuItem = () => {
     return items.map((item) => (
@@ -27,7 +29,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
   const selectMenuItems = genMenuItem();
   return (
     <div className="flex flex_column select_menu">
-      <FormControl fullWidth>
+      <FormControl fullWidth error={!!error}>
         <InputLabel id="demo-simple-select-label">{label}</InputLabel>
         <Select
           name={name}
@@ -35,7 +37,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
           id="demo-simple-select"
           value={value}
           label="truck"
-          onChange={handleChange}
+          onChange={onChange}
         >
           {selectMenuItems}
         </Select>

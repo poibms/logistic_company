@@ -1,5 +1,6 @@
+import { CargoType } from './../types/order.types';
 import { Drivers } from 'src/drivers/drivers.entity';
-import { OrderStasus, OrderType } from 'src/types/order.types';
+import { OrderStasus } from 'src/types/order.types';
 import { User } from 'src/users/users.entity';
 import {
   Entity,
@@ -36,7 +37,10 @@ export class Orders {
   price: number;
 
   @Column()
-  order_type: OrderType;
+  cargo_type: CargoType;
+
+  @Column()
+  volume: number;
 
   @Column({ default: OrderStasus.NOT_ASSIGNED })
   status: OrderStasus;

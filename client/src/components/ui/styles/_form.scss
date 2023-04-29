@@ -31,13 +31,23 @@
     text-align: center;
   }
 
+.MuiTextField-root {
+  margin-bottom: 10px;
+}
+
   .MuiFormControl-root {
     width: 100%;
     margin-bottom: 10px;
+
+    p {
+      color: red;
+    }
   }
 
   &_select_inner {
     width: 100%;
+
+
   }
 }
 
@@ -94,3 +104,11 @@ input[type="file"]::file-selector-button:hover {
 .select_menu {
   width: 100%;
 }
+
+.select_menu:first-child {
+  margin-right: 20px;
+}
+
+// .MuiFormHelperText-root {
+//   color: red;
+// }

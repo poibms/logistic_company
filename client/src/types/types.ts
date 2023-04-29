@@ -27,6 +27,12 @@ export type UserType = {
   orders: OrderType[];
 }
 
+export enum CargoType {
+  BULKY_CARGO = 'Bulky cargo',
+  CAR_TRANSPORTER = 'Car transporter',
+  REFRIGERATOR_TRAILER = 'Refrigerator trailer',
+  COMMON_TRAILER = 'Common trailer',
+}
 
 export enum OrderStatus {
   NOT_ASSIGNED = 'not_assigned',
@@ -39,6 +45,10 @@ export type OrderCreds = {
   weight: string,
   from: string,
   to: string,
+  price: number,
+  cargo_type: string,
+  distance: number, 
+  volume: string,
   image: any,
 }
 
