@@ -1,4 +1,4 @@
-import { OrderType } from 'src/types/order.types';
+import { CargoType } from './../../types/order.types';
 import { IsNumberString, IsOptional, IsString } from 'class-validator';
 
 export class CreateTruckDto {
@@ -9,7 +9,7 @@ export class CreateTruckDto {
   model: string;
 
   @IsString()
-  truck_type: OrderType;
+  truck_type: CargoType;
 
   @IsNumberString()
   year: number;

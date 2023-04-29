@@ -1,4 +1,4 @@
-import { OrderType } from './../types/order.types';
+import { CargoType } from './../types/order.types';
 import { Drivers } from 'src/drivers/drivers.entity';
 import {
   Entity,
@@ -25,8 +25,8 @@ export class Trucks {
   @Column({ name: 'load_capacity' })
   loadCapacity: number;
 
-  @Column({ default: OrderType.COMMON_TRAILER })
-  truck_type: OrderType;
+  @Column({ default: CargoType.COMMON_TRAILER })
+  truck_type: CargoType;
 
   @Column()
   trailer_volume: number;
