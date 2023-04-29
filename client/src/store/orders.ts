@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from ".";
 import ordersService from "../services/orders.service";
 import { OrderType } from "../types/types";
+import { toast } from 'react-toastify';
 
 const ordersSlice = createSlice({
   name: 'orders',
@@ -48,6 +49,7 @@ export const createOrder = (payload: any): AppThunk => async (dispatch: any) => 
   try {
     const driver = await ordersService.createOrder(payload);
     dispatch(orderCreated(driver));
+    toast.success('order successfylly created. Check ur email to get more information')
   } catch (error: any) {
     dispatch(ordersRequestFailed(error.response.data.message));
 

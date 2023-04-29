@@ -1,6 +1,6 @@
 @import "./variables";
 @import "./components/index.scss";
-
+@import './libs/react-toastify.scss';
 #root {
   min-height: 100vh;
   font-family: $fontMontserrat;
@@ -131,6 +131,18 @@ img {
   }
 }
 
-.calculate_inner {
-  margin: 10px 0
+.calculate {
+  &_inner {
+    margin: 10px 0;
+  }
+
+  &_desc {
+    p {
+      color: $light-grey;
+    }
+  }
+}
+
+.profile_from {
+  margin-bottom: 10px;
 }
