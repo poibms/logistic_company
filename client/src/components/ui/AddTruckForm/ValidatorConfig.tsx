@@ -20,10 +20,24 @@ const validatorConfig: ConfigType = {
     isRequired: {
       message: 'Field "Age" is required',
     },
+    inNum: {
+      message: 'Data must be a number'
+    },
   },
   loadCapacity: {
     isRequired: {
       message: 'Field "Age" is required',
+    },
+    inNum: {
+      message: 'Data must be a number'
+    },
+  },
+  trailer_volume: {
+    isRequired: {
+      message: 'Field "Age" is required',
+    },
+    inNum: {
+      message: 'Data must be a number'
     },
   },
 };

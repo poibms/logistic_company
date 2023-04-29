@@ -30,7 +30,7 @@ interface FormState {
 
 }
 
-const cargoTypeValue = [
+export const cargoTypeValue = [
   { id: 1, name: "Bulky cargo" },
   { id: 2, name: "Car transporter" },
   { id: 3, name: "Refrigerator trailer" },
@@ -111,7 +111,7 @@ const CreateOrder: React.FC = () => {
       }
       if(!cargo_type) {
         console.log(formState.cargo_type)
-        setCargoTypeErrors('Field "From" is required')
+        setCargoTypeErrors('Field "Cargo Type" is required')
       } else {
         setCargoTypeErrors('')
       }

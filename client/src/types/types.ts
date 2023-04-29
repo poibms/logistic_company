@@ -59,6 +59,10 @@ export type OrderType = {
   from: string,
   to: string,
   image: string,
+  volume: string,
+  cargo_type: string,
+  distance: number,
+  price: number,
   status: OrderStatus,
   track_code: string,
   ownerId: UserType,
@@ -118,6 +122,8 @@ export type TruckCreds = {
   model:string;
   year: string;
   loadCapacity: string;
+  trailer_volume: string,
+  truck_type: string,
   photo: string;
 }
 
