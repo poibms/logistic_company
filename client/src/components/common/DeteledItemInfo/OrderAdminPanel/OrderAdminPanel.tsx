@@ -62,6 +62,9 @@ const OrderAdminPanel: React.FC<OrderPanel> = ({ order, handleClosePanel }) => {
               <strong>Weight</strong> {order.weight} tons
             </div>
             <div>
+              <strong>Volime</strong> {order.volume} cm3
+            </div>
+            <div>
               <strong>From</strong> {order.from}
             </div>
             <div>
@@ -69,6 +72,15 @@ const OrderAdminPanel: React.FC<OrderPanel> = ({ order, handleClosePanel }) => {
             </div>
             <div>
               <strong>Status</strong> {order.status}
+            </div>
+            <div>
+              <strong>Cargo type</strong> {order.cargo_type}
+            </div>
+            <div>
+              <strong>Distace</strong> {order.distance} km
+            </div>
+            <div>
+              <strong>Price</strong> {order.price} BYN
             </div>
             <div className="flex orderpanel_owner align_center">
               <div className="orderpanel_owner-title">
