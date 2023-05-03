@@ -98,7 +98,7 @@ const CreateOrder: React.FC = () => {
   const validateForm = () => {
     const { to, from, cargo_type } = formState;
     validate(data)
-    if (!to || !from || !cargo_type) {
+    if (!to || !from || !cargo_type || !distance || !price) {
       if(!to) {
         setToErrors('Field "To" is required')
       } else {
@@ -114,6 +114,13 @@ const CreateOrder: React.FC = () => {
         setCargoTypeErrors('Field "Cargo Type" is required')
       } else {
         setCargoTypeErrors('')
+      }
+      if(!cargo_type || !price) {
+        setDistanceError(
+          "Please callculate distance and price"
+        );
+      } else {
+        setDistanceError('')
       }
       return false;
     }
@@ -134,27 +141,31 @@ const CreateOrder: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (validateForm()) {
-      handleCalculateDistance(e)
-      console.log(formState.cargo_type)
-      const formData = new FormData();
-      formData.append("name", data.name);
-      formData.append("weight", data.weight);
-      formData.append("volume", String(data.volume));
-      formData.append("from", formState.from);
-      formData.append("to", formState.to);
-      formData.append("cargo_type", formState.cargo_type);
-      formData.append("price", String(price));
-      formData.append("distance", String(distance));
-      formData.append("image", selectedFile!);
-      if (selectedFile) {
-        dispatch(createOrder(formData));
-        handleResetForm(e);
-        handleResetSelect(e);
-        setSelectedFile(null);
-        setDistance(0);
-      } else {
-        setFileError(true);
-      }
+      await handleCalculateDistance(e).then(() => {
+        // console.log(distance)
+        // console.log()
+        const formData = new FormData();
+        formData.append("name", data.name);
+        formData.append("weight", data.weight);
+        formData.append("volume", String(data.volume));
+        formData.append("from", formState.from);
+        formData.append("to", formState.to);
+        formData.append("cargo_type", formState.cargo_type);
+        formData.append("price", String(price));
+        formData.append("distance", String(distance));
+        formData.append("image", selectedFile!);
+        if (selectedFile) {
+          dispatch(createOrder(formData));
+          handleResetForm(e);
+          handleResetSelect(e);
+          setSelectedFile(null);
+          setDistance(0);
+          setPrice(0);
+        } else {
+          setFileError(true);
+        }
+      })
+      
     } else {
       console.log('err')
     }
@@ -280,76 +291,5 @@ const CreateOrder: React.FC = () => {
     </div>
   );
 };
-
-// const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
-//   const [errors, setErrors] = useState<string[]>([]);
-
-//   const handleOptionChange = (event: any, index: number) => {
-//     const selectedValue = event.target.value as string;
-//     const updatedOptions = [...selectedOptions];
-//     updatedOptions[index] = selectedValue;
-//     setSelectedOptions(updatedOptions);
-//   };
-
-//   const handleValidation = () => {
-//     const updatedErrors: string[] = [];
-
-//     // Валидация каждого поля
-//     selectedOptions.forEach((value, index) => {
-//       console.log(value)
-//       if (!value.includes('BY')) {
-//         updatedErrors[index] = 'Выберите опцию, содержащую "BY"';
-//       }
-//     });
-
-//     setErrors(updatedErrors);
-//   };
-
-//   const renderSelectFields = () => {
-//     // return selectedOptions.map((option, index) => (
-
-//     // ));
-//   };
-
-//   return (
-//     <div>
-//       <FormControl error={!!errors[0]} fullWidth key={0}>
-//         <InputLabel id={`select-label-${0}`}>Выберите опцию {0 + 1}</InputLabel>
-//         <Select
-//           labelId={`select-label-${0}`}
-//           value={selectedOptions[0] || ""}
-//           onChange={event => handleOptionChange(event, 0)}
-//           label={`Выберите опцию ${0 + 1}`}
-//         >
-//           {options.map(option => (
-//             <MenuItem key={option.value} value={option.label}>
-//               {option.label}
-//             </MenuItem>
-//           ))}
-//         </Select>
-//         {errors[0] && <FormHelperText>{errors[0]}</FormHelperText>}
-//       </FormControl>
-//       <FormControl error={!!errors[1]} fullWidth key={1}>
-//         <InputLabel id={`select-label-${1}`}>Выберите опцию {1 + 1}</InputLabel>
-//         <Select
-//           labelId={`select-label-${1}`}
-//           value={selectedOptions[1] || ""}
-//           onChange={event => handleOptionChange(event, 1)}
-//           label={`Выберите опцию ${1 + 1}`}
-//         >
-//           {options.map(option => (
-//             <MenuItem key={option.value} value={option.value}>
-//               {option.label}
-//             </MenuItem>
-//           ))}
-//         </Select>
-//         {errors[1] && <FormHelperText>{errors[1]}</FormHelperText>}
-//       </FormControl>
-//       <Button variant="contained" onClick={handleValidation}>
-//         Проверить
-//       </Button>
-//     </div>
-//   );
-// };
 
 export default CreateOrder;
