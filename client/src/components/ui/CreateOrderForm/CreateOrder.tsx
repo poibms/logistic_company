@@ -7,6 +7,7 @@ import { useAppDispatch } from "../../../store";
 import { createOrder, getOrdersErrors } from "../../../store/orders";
 import { CargoType, OrderCreds } from "../../../types/types";
 import calculateDistance from "../../../utils/DistanceCalculator";
+import calculateShippingCost from "../../../utils/PriceCalculator";
 import InputField from "../../common/InputField/InputField";
 import SelectInput from "../SelectInput/SelectInput";
 import validatorConfig from "./ValidatorConfig";
@@ -23,7 +24,7 @@ const initialData: OrderCreds = {
   image: "",
 };
 
-interface FormState {
+export interface FormState {
   to: string;
   from: string;
   cargo_type: string;
@@ -142,8 +143,6 @@ const CreateOrder: React.FC = () => {
     e.preventDefault();
     if (validateForm()) {
       await handleCalculateDistance(e).then(() => {
-        // console.log(distance)
-        // console.log()
         const formData = new FormData();
         formData.append("name", data.name);
         formData.append("weight", data.weight);
@@ -181,15 +180,17 @@ const CreateOrder: React.FC = () => {
         "Something went wrong while calculating the distance, check the correctness of the filled fields"
       );
     } else {
-      const calc = await calculateDistance(formState.from, formState.to);
-      setDistance(Math.round(calc));
-      calculatePrice(Math.round(calc));
+      const distnce = await calculateDistance(formState.from, formState.to);
+      setDistance(Math.round(distnce));
+      if(validateForm()) {
+        const price = calculateShippingCost(Math.round(distnce), formState.cargo_type, +data.weight, +data.volume)
+        setPrice(Math.round(price))
+      } else {
+        setDistanceError(
+          "Something went wrong while calculating the price, check the correctness of the filled fields"
+        );
+      }
     }
-  };
-
-  const calculatePrice = (distance: number) => {
-    const totalPrice = distance * Number(0.5);
-    setPrice(totalPrice);
   };
 
   const handleOptionChange = (event: React.ChangeEvent<{ name: string; value: unknown }>) => {

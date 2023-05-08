@@ -41,7 +41,7 @@ const ProfilePage = () => {
   const item = genItems();
 
   return (
-    <div>
+    <div className="profile">
       <div className="profile_bg">
         <img
           src="https://resumekraft.com/wp-content/uploads/2021/08/logistics-linkedin-background-photo-2-1024x256.jpg"
