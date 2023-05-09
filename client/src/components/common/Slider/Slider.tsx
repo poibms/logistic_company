@@ -6,7 +6,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 const defaultSettings = {
   dots: true,
   infinite: true,
-  slidesToShow: 4,
+  slidesToShow: 3,
   slidesToScroll: 1,
   nextArrow: <NextButton />,
   prevArrow: <PrevButton />,
