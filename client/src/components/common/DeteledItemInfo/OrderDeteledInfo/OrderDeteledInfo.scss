@@ -38,3 +38,36 @@
     }
   }
 }
+
+@media screen and (max-width: 790px) {
+  .itemlist{
+
+    bottom: 40px;
+    &_wrapper {
+      padding: 10px;
+
+      .small-button {
+        font-size: 12px;
+      }
+    }
+  }
+  thead {
+    th {
+      font-size: 14px;
+      // padding-bottom: 10px;
+    }
+  }
+
+  tbody {
+    td {
+     font-size: 12px;
+
+     .MuiButtonBase-root {
+      font-size: 12px;
+      padding: 0;
+      margin-right: 5px;
+     }
+    }
+
+  }
+}
