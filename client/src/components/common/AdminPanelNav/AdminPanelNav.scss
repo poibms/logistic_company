@@ -56,3 +56,10 @@
     color: $green !important;
   }
 }
+
+
+@media screen and (max-width: 790px) { 
+  .navpanel {
+    display: none;
+  }
+}

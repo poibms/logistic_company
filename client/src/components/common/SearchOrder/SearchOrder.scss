@@ -16,3 +16,24 @@
 .MuiFormControl-root {
   width: 80%;
 }
+
+@media screen and (max-width: 570px) {
+  .searchorder {
+    &_title { 
+      h1 {
+        font-size: 18px;
+      }
+    }
+
+    &_form {
+      svg {
+        height: 20px !important;
+        width: 20px !important;
+      }
+      button {
+        margin-left: 10px;
+        font-size: 14px;
+      }
+    }
+  }
+}

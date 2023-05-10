@@ -1,6 +1,12 @@
 .searchbar {
   border-bottom: 1px solid $light-grey;
   // width: 100%;
+  &_flex {
+    display: flex;
+    align-items: center;
+
+    
+  }
 
   &_wrapper {
     display: flex;
@@ -34,10 +40,37 @@
   
 }
 
+
 .MuiAutocomplete-endAdornment {
   display: none;
 }
 
 .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-1qqsdnr-MuiAutocomplete-root .MuiOutlinedInput-root {
   padding-right: 9px !important;
+}
+
+@media screen and (min-width: 790px) { 
+  .searchbar_img {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 790px) { 
+  .searchbar {
+    &_flex {
+      margin-bottom: 10px;
+      img {
+        margin-right: 10px;
+      }
+    }
+
+    &_wrapper {
+      flex-direction: column;
+      padding: 20px 20px;
+    }
+
+    &_title h3 {
+      font-size: 16px;
+    }
+  }
 }
