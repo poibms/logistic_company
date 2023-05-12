@@ -123,3 +123,11 @@
   transform: translateX(110%);
   transition: all var(--speed) ease;
 }
+
+
+@media screen and (max-width: 790px) {
+  .dropdown {
+    width: 200px;
+    padding: 0;
+  }
+}
