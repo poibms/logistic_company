@@ -15,12 +15,14 @@ import { useAppDispatch } from "../../store";
 import DeteledInfo from "../common/DeteledItemInfo/DeteledInfo";
 import { useSearchParams } from "react-router-dom";
 import AdminProfile from "../common/AdminProfile/AdminProfile";
+import AdminBurgerMenu from "../ui/AdminBurgerMenu/AdminBurgerMenu";
 
 const AdminPage: React.FC = memo(() => {
   const [load, setLoad] = useState(true);
   const [data, setData] = useState({} as OrderType | DriverType | TruckType);
   const [filterIndex, setFilterIndex] = useState(0);
   const [open, setOpen] = React.useState(false);
+  const [openBurger, setOpenBurger] = React.useState(false);
   const [queryParams, setQueryParams] = useSearchParams("orders");
   const id = queryParams.get("id");
 
@@ -28,7 +30,7 @@ const AdminPage: React.FC = memo(() => {
     if (id) {
       setLoad(true);
     } else {
-      setLoad(false)
+      setLoad(false);
     }
   }, [id]);
 
@@ -144,12 +146,20 @@ const AdminPage: React.FC = memo(() => {
 
   return (
     <div className="admin_wrapper">
+      {openBurger ? (
+        <AdminBurgerMenu
+          queryParams={queryParams}
+          changeDataType={changeDataType}
+          setOpenBurger={setOpenBurger}
+        />
+      ) : null}
+
       <AdminPanelNav
         queryParams={queryParams}
         changeDataType={changeDataType}
       />
       <div className="admin_content">
-        <AdminPanelSearchBar searchHandler={searchHandler} />
+        <AdminPanelSearchBar searchHandler={searchHandler} setOpenBurger={setOpenBurger} />
         {!queryParams.get("filter") ? (
           <AdminProfile searchHandler={searchHandler} />
         ) : (
@@ -160,7 +170,7 @@ const AdminPage: React.FC = memo(() => {
               value={filterIndex}
               handleOpenModal={handleOpen}
             />
-            <div className="flex admin_content-wrapper">
+            <div className="admin_content-wrapper">
               <AdminList
                 onClickHandle={setDeteledInfoVissible}
                 dataType={queryParams}
