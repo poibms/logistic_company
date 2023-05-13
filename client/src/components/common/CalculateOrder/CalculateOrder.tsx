@@ -159,8 +159,8 @@ const CalculateOrder: React.FC<TypeCalculatorProps> = ({ cities }) => {
               </FormControl>
             </div>
             <div className="flex align_center" >
-              <InputField name="weight" label="Weight" />
-              <InputField name="volume" label="Volume" />
+              <InputField name="weight" label="Weight (tons)" />
+              <InputField name="volume" label="Volume (м³)" />
               <button
                 className="button_outline "
                 type="submit"
