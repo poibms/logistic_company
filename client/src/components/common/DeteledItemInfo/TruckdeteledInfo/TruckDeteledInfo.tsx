@@ -45,7 +45,7 @@ const TruckDeteledInfo: React.FC = () => {
       <div className="deteledInfo_wrapper flex flex_column">
         <div className="driverInfo">
           {truck ? (
-            <div className="flex align_center">
+            <div className="truckInfo_data">
               <img
                 src={`http://localhost:3007/${truck.photo}`}
                 alt="driver img"

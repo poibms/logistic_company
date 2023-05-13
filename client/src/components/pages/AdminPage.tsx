@@ -67,6 +67,7 @@ const AdminPage: React.FC = memo(() => {
     setLoad(false);
     setFilterIndex(0);
     setQueryParams({ filter: dataType });
+    setOpenBurger(false)
   };
 
   const genOrdersEntityByFilter = () => {

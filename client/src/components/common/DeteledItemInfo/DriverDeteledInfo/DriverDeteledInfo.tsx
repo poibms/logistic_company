@@ -49,8 +49,8 @@ const DriverDeteledInfo: React.FC<DriverInfoPropsType> = ({
         );
       }
       return (
-        <>
-          <div className="flex align_center">
+        <div className="driverInfo">
+          <div className="driverInfo_data">
             <img
               src={`http://localhost:3007/${driver.photo}`}
               alt="driver img"
@@ -83,7 +83,7 @@ const DriverDeteledInfo: React.FC<DriverInfoPropsType> = ({
             ) : (
               <>
                 <h2 className="truck_title">Driver's truck info</h2>
-                <div className="truck flex">
+                <div className="truck">
                   <img
                     src={`http://localhost:3007/${driver.truckId.photo}`}
                     alt="driver img"
@@ -127,7 +127,7 @@ const DriverDeteledInfo: React.FC<DriverInfoPropsType> = ({
               </button>
             </div>
           </div>
-        </>
+        </div>
       );
     }
   };
@@ -136,9 +136,7 @@ const DriverDeteledInfo: React.FC<DriverInfoPropsType> = ({
   return (
     <div className="deteledInfo">
       <div className="deteledInfo_wrapper flex flex_column">
-        <div className="driverInfo">
           {driver ? driverInfo : <h1>There is no driver with such Id</h1>}
-        </div>
       </div>
       <BasicModal open={open} handleClose={handleClose}>
         <UpdateDriverForm driver={driver!} handleClose={handleClose} />

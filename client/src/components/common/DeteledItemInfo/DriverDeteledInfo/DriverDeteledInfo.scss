@@ -1,4 +1,9 @@
 .driverInfo {
+
+
+  &_data {
+    display: flex;
+  }
   img {
     border-radius: 15px;
     width: 300px;
@@ -11,19 +16,7 @@
     }
   }
   &_truck {
-    .truck {
-      &_title {
-        margin-bottom: 20px;
-      }
-     img {
-      height: 200px;
-      width: 200px;
-      margin-right: 50px;
-     }
-    }
-    button {
-      margin-left: 20px;
-    }
+
   }
 
   .notassgn {
@@ -45,6 +38,16 @@
 
     button:last-child {
       background-color: rgb(146, 146, 9);
+    }
+  }
+}
+
+@media screen and (max-width: 790px) {
+  .driverInfo {
+    &_data {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
     }
   }
 }
