@@ -120,21 +120,6 @@ const MainPage = () => {
           </section>
 
           <Container className={"mg-btm-70"}>{TrucksSloder}</Container>
-
-          <Container>
-            <div className="main_title">
-              <h1>News</h1>
-              {/* <NavLink to="/news" className="header-buttons-button">
-            <Button className="button">Все новости</Button>
-          </NavLink> */}
-            </div>
-          </Container>
-          <div className="news">
-            <Container className={"mg-btm-70"}>
-              <NewsList />
-            </Container>
-          </div>
-
           <Container className={"mg-btm-70"}>
             <h1 className="main_title">Сertificates</h1>
 
