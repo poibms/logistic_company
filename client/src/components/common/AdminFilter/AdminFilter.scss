@@ -51,6 +51,7 @@
     overflow: hidden;
     &_wrapper {
       padding: 10px 20px;
+      flex-direction: column;
     }
     &-inner {
       width: 100%;
