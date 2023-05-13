@@ -114,6 +114,7 @@ export type TruckType = {
   year: string,
   loadCapacity: string,
   photo: string,
+  fuel_consumption: number;
   volume: string,
   truck_type: CargoType,
   driverId: DriverType,
@@ -126,6 +127,7 @@ export type TruckCreds = {
   loadCapacity: string;
   trailer_volume: string,
   truck_type: string,
+  fuel_consumption: string,
   photo: string;
 }
 

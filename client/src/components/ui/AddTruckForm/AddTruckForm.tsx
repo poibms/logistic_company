@@ -17,6 +17,7 @@ const initialData: TruckCreds = {
   loadCapacity: "",
   trailer_volume: "",
   truck_type: "",
+  fuel_consumption: "",
   photo: "",
 };
 
@@ -68,6 +69,7 @@ const AddTuckForm: React.FC<AddTcuckPropsType> = ({ handleClose }) => {
       formData.append("year", data.year);
       formData.append("loadCapacity", data.loadCapacity);
       formData.append("trailer_volume", data.trailer_volume);
+      formData.append("fuel_consumption", data.fuel_consumption);
       formData.append("truck_type", cargoType);
       formData.append("photo", selectedFile!);
       if (selectedFile) {
@@ -94,8 +96,9 @@ const AddTuckForm: React.FC<AddTcuckPropsType> = ({ handleClose }) => {
           <InputField name="name" label="name" autoFocus />
           <InputField name="model" label="model" />
           <InputField name="year" label="year" />
-          <InputField name="loadCapacity" label="Load Capacity" />
-          <InputField name="trailer_volume" label="Volume" />
+          <InputField name="loadCapacity" label="Load Capacity (tons)" />
+          <InputField name="trailer_volume" label="Volume (м³)" />
+          <InputField name="fuel_consumption" label="Fuel Consumption (litters/per 100 km)" />
           <FormControl error={!!errors[2]} fullWidth key={2}>
             <SelectInput
               label="Cargo Type"

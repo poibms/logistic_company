@@ -66,8 +66,10 @@ const TruckDeteledInfo: React.FC = () => {
                 <p>
                   <b>Trailer type</b>: {truck.truck_type}
                 </p>
+                <p>
+                  <b>Fuel Consumption</b>: {truck.fuel_consumption} litters/per 100 km
+                </p>
               </div>
-              {/* {truckButton} */}
               <div className="driverInfo_buttons flex justify-center">
                 {deleteButton}
                 <button className="button" onClick={handleOpen}>
