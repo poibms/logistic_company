@@ -29,6 +29,9 @@ export class Trucks {
   truck_type: CargoType;
 
   @Column()
+  fuel_consumption: number;
+
+  @Column()
   trailer_volume: number;
 
   @Column()

@@ -18,6 +18,9 @@ export class CreateTruckDto {
   trailer_volume: number;
 
   @IsNumberString()
+  fuel_consumption: number;
+
+  @IsNumberString()
   loadCapacity: number;
 
   @IsOptional()
