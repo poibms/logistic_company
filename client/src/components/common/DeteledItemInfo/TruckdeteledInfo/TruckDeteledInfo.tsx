@@ -60,6 +60,12 @@ const TruckDeteledInfo: React.FC = () => {
                 <p>
                   <b>Load capacity</b>: {truck.loadCapacity} tons
                 </p>
+                <p>
+                  <b>Volume</b>: {truck.volume} cm^3
+                </p>
+                <p>
+                  <b>Trailer type</b>: {truck.truck_type}
+                </p>
               </div>
               {/* {truckButton} */}
               <div className="driverInfo_buttons flex justify-center">

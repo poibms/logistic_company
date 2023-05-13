@@ -11,15 +11,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { Form } from "../../../hooks/useForm";
 import { getAllDrivers } from "../../../store/drivers";
 import { getOrdersErrors, setOrderToDriver } from "../../../store/orders";
+import { OrderType } from "../../../types/types";
 
 type AssihnDriverPropsType = {
   dataId: string;
   handleClose: any;
+  data: OrderType,
 };
 
 const AssignDriverForm: React.FC<AssihnDriverPropsType> = ({
   dataId,
   handleClose,
+  data
 }) => {
   const [driver, setDriver] = React.useState("");
   const [enterError, setEnterError] = React.useState("");
@@ -35,8 +38,10 @@ const AssignDriverForm: React.FC<AssihnDriverPropsType> = ({
   };
 
   const genDriverMenuItems = () => {
-    const driverWithoutOrders = drivers.filter((item) => item.orders.length === 0  && item.truckId !== null);
-    return driverWithoutOrders.map((driver) => (
+    // const driverWithoutOrders = drivers.filter((item) => item.orders.length === 0  && item.truckId !== null);
+    const suitableDrivers = drivers.filter(driver => driver.truckId && driver.truckId.truck_type === data.cargo_type)
+
+    return suitableDrivers.map((driver) => (
       <MenuItem key={driver.id} value={driver.id}>
         <>
           <img src={`http://localhost:3007/${driver.photo}`} alt="truck img" />
@@ -45,6 +50,7 @@ const AssignDriverForm: React.FC<AssihnDriverPropsType> = ({
       </MenuItem>
     ));
   };
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();

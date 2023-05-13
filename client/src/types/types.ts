@@ -114,6 +114,8 @@ export type TruckType = {
   year: string,
   loadCapacity: string,
   photo: string,
+  volume: string,
+  truck_type: CargoType,
   driverId: DriverType,
 }
 

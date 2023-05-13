@@ -35,7 +35,7 @@ const DeteledInfo: React.FC<DeteledPropsType> = ({ dataType, data }) => {
     } else if (dataType.get("filter") === "orders") {
       const map = <Map handleOpenModal={handleOpen} />;
       const modal = (
-        <AssignDriverForm dataId={dataId} handleClose={handleClose} />
+        <AssignDriverForm dataId={dataId} data={(data as OrderType)} handleClose={handleClose} />
       );
       return { deteledInfo: map, modal: modal };
     } else {
