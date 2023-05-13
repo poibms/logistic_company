@@ -69,7 +69,6 @@ const MainPage = () => {
   return (
     <main className="main">
       {isLoading ? (
-        // <h1>Loading</h1>
         <LoadingSpinner/>
       ) : (
         <>
@@ -88,7 +87,6 @@ const MainPage = () => {
                 <CalculateOrder cities={cities} />,
               ]}
             />
-            {/* <SearchOrder /> */}
           </Container>
           <Container className={"mg-btm-70"}>
             <h1 className="main_title">Transportation Types</h1>
