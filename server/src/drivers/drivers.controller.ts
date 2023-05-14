@@ -46,6 +46,12 @@ export class DriversController {
     return await this.driversService.getAllDrivers();
   }
 
+  @Get('/byid/:id')
+  @UseGuards(RoleGuard(UserRole.DRIVER))
+  async getDriverById(@Param('id') id): Promise<Drivers> {
+    return await this.driversService.getDriverById(id);
+  }
+
   @Delete('/:id')
   async deleteDriverById(@Param('id') id): Promise<{ message: string }> {
     return await this.driversService.deleteDriverById(id);

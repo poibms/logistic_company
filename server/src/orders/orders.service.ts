@@ -79,13 +79,13 @@ export class OrdersService {
     return await this.ordersRepository.cancelOrder(id);
   }
 
-  async completeOrder(id: string) {
+  async completeOrder(id: string, payload: any) {
     const order = await this.ordersRepository.getOrderById(id);
     if (!order) {
       throw new BadRequestException('There is no order with such id');
     } else if (order.status !== OrderStasus.IN_PROGRESS) {
       throw new BadRequestException('You cannot complete this order');
     }
-    return await this.ordersRepository.completeOrder(id);
+    return await this.ordersRepository.completeOrder(id, payload);
   }
 }

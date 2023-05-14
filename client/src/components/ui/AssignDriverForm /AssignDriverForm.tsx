@@ -38,7 +38,7 @@ const AssignDriverForm: React.FC<AssihnDriverPropsType> = ({
   };
 
   const genDriverMenuItems = () => {
-    const suitableDrivers = drivers.filter(driver => driver.truckId && driver.orders.filter((order) => order.status !== 'in_progress')  && driver.truckId.truck_type === data.cargo_type && data.volume <= driver.truckId.trailer_volume && data.weight <= driver.truckId.loadCapacity)
+    const suitableDrivers = drivers.filter(driver => driver.truckId && driver.truckId.truck_type === data.cargo_type && data.volume <= driver.truckId.trailer_volume && data.weight <= driver.truckId.loadCapacity)
 
     return suitableDrivers.map((driver) => (
       <MenuItem key={driver.id} value={driver.id}>

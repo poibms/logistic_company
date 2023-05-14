@@ -43,6 +43,10 @@ export class DriversService {
     return await this.dirversRepository.getAllDrivers();
   }
 
+  async getDriverById(id: string): Promise<Drivers> {
+    return await this.dirversRepository.getDriverById(id);
+  }
+
   async deleteDriverById(id: string): Promise<{ message: string }> {
     return await this.dirversRepository.deleteDriverById(id);
   }

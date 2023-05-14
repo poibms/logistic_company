@@ -120,9 +120,16 @@ export class OrdersRepository extends Repository<Orders> {
     }
   }
 
-  async completeOrder(id: string): Promise<Orders> {
+  async completeOrder(id: string, payload: any): Promise<Orders> {
     try {
-      await this.update({ id: id }, { status: OrderStasus.DONE });
+      await this.update(
+        { id: id },
+        {
+          status: OrderStasus.DONE,
+          price: payload.payload.price,
+          distance: payload.payload.distance,
+        },
+      );
       return this.getOrderById(id);
     } catch (e) {
       console.log(e);

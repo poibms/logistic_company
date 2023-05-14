@@ -108,10 +108,10 @@ export const cancelOrder = (id: number): any => async (dispatch: any) => {
   }
 };
 
-export const completeOrder = (id: number, callback: any): any => async (dispatch: any) => {
+export const completeOrder = (data: any, callback: any): any => async (dispatch: any) => {
   dispatch(ordersRequested());
   try {
-    const drivers = await ordersService.completeOder(id);
+    const drivers = await ordersService.completeOder(data);
     dispatch(orderUpdated(drivers));
     callback();
   } catch (error: any) {

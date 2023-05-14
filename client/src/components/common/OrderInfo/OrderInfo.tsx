@@ -2,19 +2,25 @@ import { Container } from "@mui/system";
 import * as React from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import driversService from "../../../services/drivers.service";
 import ordersService from "../../../services/orders.service";
 import { useAppDispatch } from "../../../store";
 import { completeOrder } from "../../../store/orders";
-import { getIsLoggedIn, getRole } from "../../../store/user";
-import { OrderType } from "../../../types/types";
+import { getAuthUser, getIsLoggedIn, getRole } from "../../../store/user";
+import { DriverType, OrderType } from "../../../types/types";
+import CompleteOrderForm from "../../ui/CompleteOrderForm/CompleteOrderForm";
+import BasicModal from "../../ui/Modal/Modal";
 import Header from "../Header/Header";
 
 const OrderInfo: React.FC = () => {
   const [order, setOrder] = React.useState({} as OrderType | null);
+  const [driver, setDriver] = React.useState({} as DriverType | null);
   const [error, setError] = React.useState("");
+  const [open, setOpen] = React.useState(false);
   const location = useLocation();
   const trackCode = location.pathname.split("order/")[1];
   const isAuth = useSelector(getIsLoggedIn());
+  const authUser = useSelector(getAuthUser());
   const role = useSelector(getRole());
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -24,10 +30,21 @@ const OrderInfo: React.FC = () => {
       .getOrderByTrackCode(trackCode)
       .then((data) => setOrder(data))
       .catch((error) => setError(error));
-  }, [trackCode]);
+
+    if(role === 'driver') {
+      driversService.getDriverById(authUser!.id).then((data) => setDriver(data))
+    }
+  }, [trackCode, authUser]);
 
   const handleCompleteOrder = (id: number) => {
     dispatch(completeOrder(id, () => navigate('/profile')))
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const configureOrder = () => {
@@ -63,6 +80,9 @@ const OrderInfo: React.FC = () => {
               <div>
                 <strong>Status</strong>: {order.status}
               </div>
+              <div>
+                <strong>Price</strong>: {order.price} BYN
+              </div>
             </div>
             <div className="flex align_center">
               {isAuth ? (
@@ -70,7 +90,7 @@ const OrderInfo: React.FC = () => {
                   order.status !== "done" ? (
                     <button
                       className="button"
-                      onClick={() => handleCompleteOrder(order.id)}
+                      onClick={handleOpen}
                     >
                       Order complete
                     </button>
@@ -101,6 +121,10 @@ const OrderInfo: React.FC = () => {
         )}
         {}
       </Container>
+
+      <BasicModal open={open} handleClose={handleClose}>
+        {order && driver ? <CompleteOrderForm order={order} driver={driver}/> : <></>}
+      </BasicModal>
     </>
   );
 };

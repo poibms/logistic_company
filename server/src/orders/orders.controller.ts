@@ -78,7 +78,7 @@ export class OrdersController {
 
   @Put('/complete/:id')
   @UseGuards(AuthGuard(), RoleGuard(UserRole.DRIVER))
-  async completeOrder(@Param('id') id: string) {
-    return this.ordersService.completeOrder(id);
+  async completeOrder(@Param('id') id: string, @Body() payload: any) {
+    return this.ordersService.completeOrder(id, payload);
   }
 }
