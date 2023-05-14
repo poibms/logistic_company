@@ -1,6 +1,7 @@
 .deteledInfo {
   height: 100%;
   width: 60%;
+  overflow-y: scroll;
 
   &_wrapper {
     padding: 20px;
@@ -20,6 +21,7 @@
     &_data {
       display: flex;
       flex-direction: column;
+      overflow-y: hidden;
     }
   }
 }
