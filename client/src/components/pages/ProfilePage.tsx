@@ -7,6 +7,7 @@ import CreateOrder from "../ui/CreateOrderForm/CreateOrder";
 import OrderList from "../common/OrdersList/OrdersList";
 import { getRole } from "../../store/user";
 import { useSelector } from "react-redux";
+import Profile from "../common/Profile/Profile";
 
 const ProfilePage = () => {
   const [value, setValue] = React.useState(0);
@@ -35,6 +36,8 @@ const ProfilePage = () => {
       return <CreateOrder />;
     } else if (value === 2) {
       return <OrderList />;
+    } else if (value === 0) {
+      return <Profile/>;
     }
   };
 
