@@ -10,9 +10,9 @@ const cargoTypeValue: Cargo[] = [
   { id: 4, name: "Common trailer" },
 ];
 
-function calculateShippingCost(distance: number, cargoType: string, weight: number, volume: number): number {
+function calculateShippingCost(distance: number, cargoType: string, weight: number, volume: number, fuel_consumption: number = 30): number {
   const weightCost = weight * 0.1;
-  const volumeCost = volume * 0.3;
+  const volumeCost = volume * 0.1;
   let cargoTypeCost = 0;
 
   const selectedCargoType = cargoTypeValue.find((cargo) => cargo.name === cargoType);
@@ -36,9 +36,13 @@ function calculateShippingCost(distance: number, cargoType: string, weight: numb
     }
   }
 
-  const totalCost = weightCost + volumeCost + cargoTypeCost;
+  const fuelPrice = 2.26;
+  const fuelNeeded = fuel_consumption / 100 * distance;
+  const fuel_cost = fuelNeeded * fuelPrice;
+  const totalCost = weightCost + volumeCost + cargoTypeCost + Math.floor(fuel_cost);
 
-  return totalCost * (distance * 0.1);
+  const tax = (totalCost + (distance * 0.1)) * 0.24;
+  return (totalCost + (distance * 0.1)) + tax;
 }
 
 export default calculateShippingCost;
