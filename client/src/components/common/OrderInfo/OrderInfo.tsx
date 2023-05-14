@@ -55,6 +55,12 @@ const OrderInfo: React.FC = () => {
                 <strong>Weight</strong>: {order.weight} tons
               </div>
               <div>
+                <strong>Volume</strong>: {order.volume} tons
+              </div>
+              <div>
+                <strong>Distance</strong>: {order.distance} km
+              </div>
+              <div>
                 <strong>Status</strong>: {order.status}
               </div>
             </div>

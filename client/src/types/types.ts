@@ -116,7 +116,7 @@ export type TruckType = {
   busy_weight: number,
   photo: string,
   fuel_consumption: number;
-  volume: string,
+  trailer_volume: string,
   truck_type: CargoType,
   driverId: DriverType,
 }

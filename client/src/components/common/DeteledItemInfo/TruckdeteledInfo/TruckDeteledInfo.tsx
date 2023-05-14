@@ -61,7 +61,7 @@ const TruckDeteledInfo: React.FC = () => {
                   <b>Load capacity</b>: {truck.loadCapacity} tons
                 </p>
                 <p>
-                  <b>Volume</b>: {truck.volume} cm^3
+                  <b>Volume</b>: {truck.trailer_volume} cm^3
                 </p>
                 <p>
                   <b>Trailer type</b>: {truck.truck_type}
