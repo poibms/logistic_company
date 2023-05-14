@@ -113,6 +113,7 @@ export type TruckType = {
   model: string,
   year: string,
   loadCapacity: string,
+  busy_weight: number,
   photo: string,
   fuel_consumption: number;
   volume: string,

@@ -180,7 +180,7 @@ const CalculateOrder: React.FC<TypeCalculatorProps> = ({ cities }) => {
                   <h4>
                     Fill the From & To fields and press the callculate button
                   </h4>
-                  <p>the price of one for one kilometer is 0.5 BYN</p>
+                  <p>This is a preliminary price, the final price will be calculated after the completion of the order</p>
                 </div>
               )}
               {distanceError && <p className="form_error">{distanceError}</p>}

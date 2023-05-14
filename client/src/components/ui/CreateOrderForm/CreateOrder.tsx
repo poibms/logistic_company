@@ -9,6 +9,7 @@ import { CargoType, OrderCreds } from "../../../types/types";
 import calculateDistance from "../../../utils/DistanceCalculator";
 import calculateShippingCost from "../../../utils/PriceCalculator";
 import InputField from "../../common/InputField/InputField";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import SelectInput from "../SelectInput/SelectInput";
 import validatorConfig from "./ValidatorConfig";
 
@@ -28,7 +29,6 @@ export interface FormState {
   to: string;
   from: string;
   cargo_type: string;
-
 }
 
 export const cargoTypeValue = [
@@ -50,13 +50,12 @@ const CreateOrder: React.FC = () => {
   const [fromErrors, setFromErrors] = React.useState("");
   const [toErrors, setToErrors] = React.useState("");
   const [cargoTypeErrors, setCargoTypeErrors] = React.useState("");
-  
-  const [formState, setFormState] = React.useState<FormState>({
-    to: '',
-    from: '',
-    cargo_type: '',
-  })
 
+  const [formState, setFormState] = React.useState<FormState>({
+    to: "",
+    from: "",
+    cargo_type: "",
+  });
 
   const dispatch = useAppDispatch();
   const orderErrors = useSelector(getOrdersErrors());
@@ -86,7 +85,6 @@ const CreateOrder: React.FC = () => {
     setFileError(false);
   };
 
-
   const citiesHandler = (cityList: any) => {
     const filteredArray = cityList.filter((obj: any) =>
       obj.name.includes("BY")
@@ -96,32 +94,29 @@ const CreateOrder: React.FC = () => {
     setIsLoading(false);
   };
 
-  const validateForm = () => {
+  const validateForm = (res: any) => {
     const { to, from, cargo_type } = formState;
-    validate(data)
-    if (!to || !from || !cargo_type || !distance || !price) {
-      if(!to) {
-        setToErrors('Field "To" is required')
+    validate(data);
+    if (!to || !from || !cargo_type || !res.price || !res.distnce) {
+      if (!to) {
+        setToErrors('Field "To" is required');
       } else {
-        setToErrors('')
+        setToErrors("");
       }
-      if(!from) {
-        setFromErrors('Field "From" is required')
+      if (!from) {
+        setFromErrors('Field "From" is required');
       } else {
-        setFromErrors('')
+        setFromErrors("");
       }
-      if(!cargo_type) {
-        console.log(formState.cargo_type)
-        setCargoTypeErrors('Field "Cargo Type" is required')
+      if (!cargo_type) {
+        setCargoTypeErrors('Field "Cargo Type" is required');
       } else {
-        setCargoTypeErrors('')
+        setCargoTypeErrors("");
       }
-      if(!cargo_type || !price) {
-        setDistanceError(
-          "Please callculate distance and price"
-        );
+      if (!res.price || !res.distnce) {
+        setDistanceError("Please callculate distance and price");
       } else {
-        setDistanceError('')
+        setDistanceError("");
       }
       return false;
     }
@@ -135,14 +130,13 @@ const CreateOrder: React.FC = () => {
       from: "",
       to: "",
       cargo_type: "",
-    })
-  }
-
+    });
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (validateForm()) {
-      await handleCalculateDistance(e).then(() => {
+    handleCalculateDistance(e).then((res) => {
+      if (validateForm(res)) {
         const formData = new FormData();
         formData.append("name", data.name);
         formData.append("weight", data.weight);
@@ -150,8 +144,8 @@ const CreateOrder: React.FC = () => {
         formData.append("from", formState.from);
         formData.append("to", formState.to);
         formData.append("cargo_type", formState.cargo_type);
-        formData.append("price", String(price));
-        formData.append("distance", String(distance));
+        formData.append("price", String(Math.round(res!.price)));
+        formData.append("distance", String(Math.round(res!.distnce)));
         formData.append("image", selectedFile!);
         if (selectedFile) {
           dispatch(createOrder(formData));
@@ -163,11 +157,10 @@ const CreateOrder: React.FC = () => {
         } else {
           setFileError(true);
         }
-      })
-      
-    } else {
-      console.log('err')
-    }
+      } else {
+        console.log("err");
+      }
+    });
   };
 
   const handleCalculateDistance = async (
@@ -179,12 +172,25 @@ const CreateOrder: React.FC = () => {
       setDistanceError(
         "Something went wrong while calculating the distance, check the correctness of the filled fields"
       );
+    } else if (formState.from === formState.to) {
+      setDistanceError("You cannot choose the same cities");
     } else {
       const distnce = await calculateDistance(formState.from, formState.to);
       setDistance(Math.round(distnce));
-      if(validateForm()) {
-        const price = calculateShippingCost(Math.round(distnce), formState.cargo_type, +data.weight, +data.volume)
-        setPrice(Math.round(price))
+      if (
+        Math.round(distnce) !== 0 &&
+        formState.cargo_type !== "" &&
+        data.weight !== "" &&
+        data.volume !== ""
+      ) {
+        const price = calculateShippingCost(
+          Math.round(distnce),
+          formState.cargo_type,
+          +data.weight,
+          +data.volume
+        );
+        setPrice(Math.round(price));
+        return {distnce, price}
       } else {
         setDistanceError(
           "Something went wrong while calculating the price, check the correctness of the filled fields"
@@ -193,27 +199,27 @@ const CreateOrder: React.FC = () => {
     }
   };
 
-  const handleOptionChange = (event: React.ChangeEvent<{ name: string; value: unknown }>) => {
+  const handleOptionChange = (
+    event: React.ChangeEvent<{ name: string; value: unknown }>
+  ) => {
     const { name, value } = event.target;
-    console.log(event.target)
-    setFormState(prevState => ({
+    setFormState((prevState) => ({
       ...prevState,
       [name]: value as string,
     }));
   };
 
-
   return (
     <div className="profile_from">
       {isLoading ? (
-        <>Loading</>
+        <LoadingSpinner />
       ) : (
         <div>
           <h2>Create new Order</h2>
           <Form data={data} errors={errors} handleChange={handleInputChange}>
             <InputField name="name" label="Name" autoFocus />
-            <InputField name="weight" label="Weight" />
-            <InputField name="volume" label="Volume" />
+            <InputField name="weight" label="Weight (tons)" />
+            <InputField name="volume" label="Volume (м³)" />
             <div className="form_select_inner flex">
               <FormControl error={!!errors[0]} fullWidth key={0}>
                 <SelectInput
@@ -227,27 +233,29 @@ const CreateOrder: React.FC = () => {
                 {fromErrors && <FormHelperText>{fromErrors}</FormHelperText>}
               </FormControl>
               <FormControl error={!!errors[1]} fullWidth key={1}>
-              <SelectInput
-                label="to"
-                name="to"
-                value={formState.to}
-                items={cities}
-                error={toErrors}
-                onChange={(event: any) => handleOptionChange(event)}
-              />
-              {toErrors && <FormHelperText>{toErrors}</FormHelperText>}
+                <SelectInput
+                  label="to"
+                  name="to"
+                  value={formState.to}
+                  items={cities}
+                  error={toErrors}
+                  onChange={(event: any) => handleOptionChange(event)}
+                />
+                {toErrors && <FormHelperText>{toErrors}</FormHelperText>}
               </FormControl>
             </div>
             <FormControl error={!!errors[2]} fullWidth key={2}>
-            <SelectInput
-              label="Cargo Type"
-              name="cargo_type"
-              value={formState.cargo_type}
-              items={cargoTypeValue}
-              error={cargoTypeErrors}
-              onChange={(event: any) => handleOptionChange(event)}
-            />
-            {cargoTypeErrors && <FormHelperText>{cargoTypeErrors}</FormHelperText>}
+              <SelectInput
+                label="Cargo Type"
+                name="cargo_type"
+                value={formState.cargo_type}
+                items={cargoTypeValue}
+                error={cargoTypeErrors}
+                onChange={(event: any) => handleOptionChange(event)}
+              />
+              {cargoTypeErrors && (
+                <FormHelperText>{cargoTypeErrors}</FormHelperText>
+              )}
             </FormControl>
             <input className="mt-10" type="file" onInput={handleFileSelect} />
             <div className="flex calculate_inner justify-between">
@@ -261,7 +269,7 @@ const CreateOrder: React.FC = () => {
                   <h4>
                     Fill the From & To fields and press the callculate button
                   </h4>
-                  <p>the price of one for one kilometer is 0.5 BYN</p>
+                  <p>This is a preliminary price, the final price will be calculated after the completion of the order</p>
                 </div>
               )}
 
