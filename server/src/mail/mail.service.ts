@@ -9,17 +9,21 @@ export class MailService {
   constructor(private mailService: MailerService) {}
 
   async driverCredsNotification(driver: Drivers, password: string) {
-    await this.mailService.sendMail({
-      to: driver.email,
-      from: process.env.SMTP_USER,
-      subject: 'Create account',
-      text: '',
-      html: `<h1>Hi ${driver.name} ${driver.surname}</h1>
+    try {
+      await this.mailService.sendMail({
+        to: driver.email,
+        from: process.env.SMTP_USER,
+        subject: 'Create account',
+        text: '',
+        html: `<h1>Hi ${driver.name} ${driver.surname}</h1>
     <p>Your credentionals for log in in mobile app: </p>
     <p>Email: ${driver.email}</p>
     <p>Passsword: ${password}</p>`,
-    });
-    return 'success';
+      });
+      return 'success';
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   async userCreateOrderNotify(order: Orders) {
