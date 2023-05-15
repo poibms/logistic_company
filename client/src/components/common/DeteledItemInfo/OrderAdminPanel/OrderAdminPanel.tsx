@@ -48,7 +48,7 @@ const OrderAdminPanel: React.FC<OrderPanel> = ({ order, handleClosePanel }) => {
 
   const canselOrder = (e: React.FormEvent<HTMLButtonElement>, err_message: string) => {
     e.preventDefault();
-    dispatch(cancelOrder(order.id, err_message, () => navigate('/adminpanel?filter=trucks')));
+    dispatch(cancelOrder(order.id, err_message, () => navigate('/adminpanel?filter=orders')));
   };
 
   return (
