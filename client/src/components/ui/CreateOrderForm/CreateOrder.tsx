@@ -39,7 +39,7 @@ export const cargoTypeValue = [
 ];
 
 const CreateOrder: React.FC = () => {
-  const [selectedFile, setSelectedFile] = React.useState(null);
+  const [selectedFile, setSelectedFile] = React.useState<File | undefined>();
   const [fileError, setFileError] = React.useState(false);
   const [distance, setDistance] = React.useState(0);
   const [price, setPrice] = React.useState(0);
@@ -80,9 +80,19 @@ const CreateOrder: React.FC = () => {
     handleResetForm,
   } = useForm(initialData, false, validatorConfig);
 
-  const handleFileSelect = (event: any) => {
-    setSelectedFile(event.target.files[0]);
-    setFileError(false);
+  // const handleFileSelect = (event: any) => {
+  //   setSelectedFile(event.target.files[0]);
+  //   setFileError(false);
+  // };
+
+  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      setSelectedFile(files[0]);
+      setFileError(false);
+    } else {
+      setSelectedFile(undefined);
+    }
   };
 
   const citiesHandler = (cityList: any) => {
@@ -96,32 +106,33 @@ const CreateOrder: React.FC = () => {
 
   const validateForm = (res: any) => {
     const { to, from, cargo_type } = formState;
-    validate(data);
-    if (!to || !from || !cargo_type || !res.price || !res.distnce) {
-      if (!to) {
-        setToErrors('Field "To" is required');
-      } else {
-        setToErrors("");
+    if (validate(data)) {
+      if (!to || !from || !cargo_type || !res.price || !res.distnce) {
+        if (!to) {
+          setToErrors('Field "To" is required');
+        } else {
+          setToErrors("");
+        }
+        if (!from) {
+          setFromErrors('Field "From" is required');
+        } else {
+          setFromErrors("");
+        }
+        if (!cargo_type) {
+          setCargoTypeErrors('Field "Cargo Type" is required');
+        } else {
+          setCargoTypeErrors("");
+        }
+        if (!res.price || !res.distnce) {
+          setDistanceError("Please callculate distance and price");
+        } else {
+          setDistanceError("");
+        }
+        return false;
       }
-      if (!from) {
-        setFromErrors('Field "From" is required');
-      } else {
-        setFromErrors("");
-      }
-      if (!cargo_type) {
-        setCargoTypeErrors('Field "Cargo Type" is required');
-      } else {
-        setCargoTypeErrors("");
-      }
-      if (!res.price || !res.distnce) {
-        setDistanceError("Please callculate distance and price");
-      } else {
-        setDistanceError("");
-      }
-      return false;
-    }
 
-    return true;
+      return true;
+    }
   };
 
   const handleResetSelect = (e: React.FormEvent<HTMLButtonElement>) => {
@@ -146,15 +157,18 @@ const CreateOrder: React.FC = () => {
         formData.append("cargo_type", formState.cargo_type);
         formData.append("price", String(Math.round(res!.price)));
         formData.append("distance", String(Math.round(res!.distnce)));
-        formData.append("image", selectedFile!);
+        console.log(selectedFile)
         if (selectedFile) {
+          formData.append("image", selectedFile!);
+          console.log('valid')
           dispatch(createOrder(formData));
           handleResetForm(e);
           handleResetSelect(e);
-          setSelectedFile(null);
+          setSelectedFile(undefined);
           setDistance(0);
           setPrice(0);
         } else {
+          console.log("check file");
           setFileError(true);
         }
       } else {
@@ -190,7 +204,7 @@ const CreateOrder: React.FC = () => {
           +data.volume
         );
         setPrice(Math.round(price));
-        return {distnce, price}
+        return { distnce, price };
       } else {
         setDistanceError(
           "Something went wrong while calculating the price, check the correctness of the filled fields"
@@ -209,6 +223,8 @@ const CreateOrder: React.FC = () => {
     }));
   };
 
+  console.log(fileError);
+  console.log(selectedFile);
   return (
     <div className="profile_from">
       {isLoading ? (
@@ -269,7 +285,10 @@ const CreateOrder: React.FC = () => {
                   <h4>
                     Fill the From & To fields and press the callculate button
                   </h4>
-                  <p>This is a preliminary price, the final price will be calculated after the completion of the order</p>
+                  <p>
+                    This is a preliminary price, the final price will be
+                    calculated after the completion of the order
+                  </p>
                 </div>
               )}
 
