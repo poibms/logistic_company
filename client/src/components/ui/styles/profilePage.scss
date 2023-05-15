@@ -1,5 +1,9 @@
 .profile {
 
+  .MuiBox-root{
+  display: flex;
+  justify-content: center;
+}
   &_bg {
     width: 100%;
     height: 200px;
@@ -42,7 +46,8 @@
   background-color: $green !important;
 }
 
-.MuiBox-root{
-  display: flex;
-  justify-content: center;
-}
+// .MuiBox-root{
+//   display: flex;
+//   justify-content: center;
+// }
+

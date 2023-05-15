@@ -1,4 +1,4 @@
-.button{
+.button {
   background-color: $green;
   border-radius: 3px;
   padding: 5px 10px;
@@ -20,7 +20,7 @@
     border: 1px solid $green;
     color: $green;
     font-size: $text-16-size;
-    transition: .3s;
+    transition: 0.3s;
   }
 
   &_outline:hover {
@@ -52,7 +52,8 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-family: Inter, -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
+    sans-serif;
   font-size: 16px;
   font-weight: 600;
   letter-spacing: normal;
@@ -64,7 +65,7 @@
   text-align: center;
   text-decoration: none;
   transform: translate3d(0, 0, 0);
-  transition: all .3s;
+  transition: all 0.3s;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
@@ -76,14 +77,31 @@
   background-color: #036563;
   opacity: 1;
   transform: translateY(0);
-  transition-duration: .35s;
+  transition-duration: 0.35s;
 }
 
 .button-68:active {
   transform: translateY(2px);
-  transition-duration: .35s;
+  transition-duration: 0.35s;
 }
 
 .button-68:hover {
-  box-shadow: rgba(39, 174, 96, .2) 0 6px 12px;
+  box-shadow: rgba(39, 174, 96, 0.2) 0 6px 12px;
+}
+
+.small-button {
+  font-size: 14px;
+  color: $green;
+  background-color: inherit;
+}
+
+.button-cancel {
+  background-color: red;
+  border-radius: 3px;
+  padding: 5px 10px;
+  border-color: $green;
+  color: $white;
+  font-size: $text-16-size;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
 }

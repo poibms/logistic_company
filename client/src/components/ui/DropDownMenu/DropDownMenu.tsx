@@ -5,13 +5,14 @@ import { ReactComponent as ChevronIcon } from "../../../assets/icons/chevron.svg
 import PersonIcon from "@mui/icons-material/Person";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import LogoutIcon from "@mui/icons-material/Logout";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import AddIcon from '@mui/icons-material/Add';
-import ViewListIcon from '@mui/icons-material/ViewList';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import AddIcon from "@mui/icons-material/Add";
+import ViewListIcon from "@mui/icons-material/ViewList";
 
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../../store";
-import { userLogout } from "../../../store/user";
+import { getRole, userLogout } from "../../../store/user";
+import { useSelector } from "react-redux";
 
 type DropDownItemProps = {
   handleClick: any;
@@ -26,6 +27,8 @@ function DropdownMenu() {
   const dropdownRef = React.useRef<any>(null);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
+  const role = useSelector(getRole());
 
   React.useEffect(() => {
     setMenuHeight(dropdownRef.current?.firstChild.offsetHeight);
@@ -80,15 +83,26 @@ function DropdownMenu() {
           >
             My Profile
           </DropdownItem>
-          <DropdownMenuItem
-            leftIcon={<DashboardIcon />}
-            rightIcon={<ChevronIcon />}
-            goToMenu="orders"
-          >
-            Orders
-          </DropdownMenuItem>
+          {role === "driver" ? (
+            <>
+              <DropdownItem
+                leftIcon={<DashboardIcon />}
+                handleClick={() => navigate("/profile")}
+              >
+                Orders
+              </DropdownItem>
+            </>
+          ) : (
+            <DropdownMenuItem
+              leftIcon={<DashboardIcon />}
+              rightIcon={<ChevronIcon />}
+              goToMenu="orders"
+            >
+              Orders
+            </DropdownMenuItem>
+          )}
           <DropdownItem
-            handleClick={()=> dispatch(userLogout(()=>navigate('/')))}
+            handleClick={() => dispatch(userLogout(() => navigate("/")))}
             leftIcon={<LogoutIcon />}
           >
             Logout
@@ -109,13 +123,13 @@ function DropdownMenu() {
           </DropdownMenuItem>
           <DropdownItem
             leftIcon={<AddIcon />}
-            handleClick={() => navigate('/profile/create-order')}
+            handleClick={() => navigate("/profile/create-order")}
           >
             Create order
           </DropdownItem>
           <DropdownItem
             leftIcon={<ViewListIcon />}
-            handleClick={() => navigate('/profile/orders')}
+            handleClick={() => navigate("/profile/orders")}
           >
             Orders List
           </DropdownItem>

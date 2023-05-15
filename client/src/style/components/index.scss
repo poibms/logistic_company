@@ -17,8 +17,15 @@
 @import '../../components/common/AdminProfile/AdminProfile.scss';
 @import '../../components/common/OrdersList/ordersList.scss';
 @import '../../components/common/SearchOrder/SearchOrder.scss';
+@import '../../components/common/OrderInfo/OrderInfo.scss';
+@import '../../components/common/DeteledItemInfo/OrderAdminPanel/OrderAdminPanel.scss';
+@import '../../components/common/CalculateOrder/CalculateOrder.scss';
 
 @import '../../components/ui/styles/form.scss';
 @import '../../components/ui/styles/adminPage.scss';
 @import '../../components/ui/styles/profilePage.scss';
 @import '../../components/ui/DropDownMenu/DropDownMenu.scss';
+@import '../../components/ui/LoadingSpinner/LoadingSpinner.scss';
+@import '../../components/ui/TabsContainer/TabsContainer.scss';
+@import '../../components/ui/AdminBurgerMenu/AdminBurgerMenu.scss';
+@import '../../components/ui/CompleteOrderForm/CompleteOrderForm.scss';

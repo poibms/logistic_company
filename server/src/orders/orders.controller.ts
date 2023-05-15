@@ -1,3 +1,4 @@
+import { Drivers } from 'src/drivers/drivers.entity';
 import { UserRole } from './../types/user.types';
 import { NewUserOrderDto } from './dto/orders-create.dto';
 import { AuthGuard } from '@nestjs/passport';
@@ -17,16 +18,19 @@ import {
 import { GetUser } from 'src/decorators/get-user.decorator';
 import { Orders } from './orders.entity';
 import RoleGuard from 'src/guards/get-role.guard';
-import { assignOrderType, OrderStasus } from 'src/types/order.types';
+import {
+  assignOrderType,
+  cancelOrderType,
+  OrderStasus,
+} from 'src/types/order.types';
 import { User } from 'src/users/users.entity';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
-@UseGuards(AuthGuard())
 @Controller('orders')
 export class OrdersController {
   constructor(private ordersService: OrdersService) {}
 
   @Post('/')
-  // @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard())
   @UseInterceptors(FileFieldsInterceptor([{ name: 'image', maxCount: 1 }]))
   async newUserOrder(
     @Body() newUserOrderDto: NewUserOrderDto,
@@ -41,9 +45,8 @@ export class OrdersController {
     );
   }
 
-  // @UseGuards(AuthGuard())
   @Get('/')
-  @UseGuards(RoleGuard(UserRole.ADMIN))
+  @UseGuards(AuthGuard(), RoleGuard(UserRole.ADMIN))
   async getAllOrders(@Query('status') status: OrderStasus): Promise<Orders[]> {
     return this.ordersService.getAllOrders(status);
   }
@@ -54,15 +57,32 @@ export class OrdersController {
   }
 
   @Get('/userorders')
-  // @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard())
   async getAuthUserOrders(@GetUser() user: User): Promise<Orders[]> {
     return this.ordersService.getAuthUserOrders(user);
   }
 
+  @Get('/ordersbydriver')
+  @UseGuards(AuthGuard(), RoleGuard(UserRole.DRIVER))
+  async getOrdersByDriver(@GetUser() user: Drivers): Promise<Orders[]> {
+    return this.ordersService.getOrdersByDriver(user);
+  }
+
   @Put('/')
-  // @UseGuards(AuthGuard())
-  @UseGuards(RoleGuard(UserRole.ADMIN))
+  @UseGuards(AuthGuard(), RoleGuard(UserRole.ADMIN))
   async assigntOrderStatus(@Body() payload: assignOrderType): Promise<Orders> {
     return this.ordersService.assigntOrderStatus(payload);
+  }
+
+  @Put('/cancel/:id')
+  @UseGuards(AuthGuard(), RoleGuard(UserRole.ADMIN))
+  async cancelOrder(@Param('id') id: string, @Body() payload: cancelOrderType) {
+    return this.ordersService.cancelOrder(id, payload);
+  }
+
+  @Put('/complete/:id')
+  @UseGuards(AuthGuard(), RoleGuard(UserRole.DRIVER))
+  async completeOrder(@Param('id') id: string, @Body() payload: any) {
+    return this.ordersService.completeOrder(id, payload);
   }
 }

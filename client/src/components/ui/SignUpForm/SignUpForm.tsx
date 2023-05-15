@@ -45,13 +45,13 @@ const SignUpForm = () => {
   return (
     <>
       <Form data={data} errors={errors} handleChange={handleInputChange}>
-          <InputField name='name' label='Имя' autoFocus />
-          <InputField name='surname' label='Фамилия' autoFocus />
-          <InputField name='phone' label='Номер телефона' autoFocus type='tel' />
+          <InputField name='name' label='Name' autoFocus />
+          <InputField name='surname' label='Surname' autoFocus />
+          <InputField name='phone' label='Phone number' autoFocus type='tel' />
           <InputField name='email' label='Email' autoFocus />
-          <InputWithPassword name='password' label='Пароль' type='password' />
+          <InputWithPassword name='password' label='Password' type='password' />
           <Button className=' button button_sign' type='submit' onClick={handleSubmit} disabled={enterError ? true : false}>
-            Зарегистрироваться
+            Sign Up
           </Button>
       </Form>
       {authError && <p className='form_error'>{authError}</p>}

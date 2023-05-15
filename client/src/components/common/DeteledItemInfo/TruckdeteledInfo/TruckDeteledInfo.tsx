@@ -45,7 +45,7 @@ const TruckDeteledInfo: React.FC = () => {
       <div className="deteledInfo_wrapper flex flex_column">
         <div className="driverInfo">
           {truck ? (
-            <div className="flex align_center">
+            <div className="truckInfo_data">
               <img
                 src={`http://localhost:3007/${truck.photo}`}
                 alt="driver img"
@@ -60,13 +60,21 @@ const TruckDeteledInfo: React.FC = () => {
                 <p>
                   <b>Load capacity</b>: {truck.loadCapacity} tons
                 </p>
+                <p>
+                  <b>Volume</b>: {truck.trailer_volume} cm^3
+                </p>
+                <p>
+                  <b>Trailer type</b>: {truck.truck_type}
+                </p>
+                <p>
+                  <b>Fuel Consumption</b>: {truck.fuel_consumption} litters/per 100 km
+                </p>
               </div>
-              {/* {truckButton} */}
               <div className="driverInfo_buttons flex justify-center">
                 {deleteButton}
                 <button className="button" onClick={handleOpen}>
                   {" "}
-                  Update Driver
+                  Update Truck
                 </button>
               </div>
             </div>

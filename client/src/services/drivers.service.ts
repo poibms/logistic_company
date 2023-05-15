@@ -13,12 +13,20 @@ const driversService = {
     return data;
   },
 
-  setDriver: async(payload: AssignTruckType) => {
+  setDriver: async(payload: AssignTruckType): Promise<DriverType> => {
     const { data } = await $authHost.put('/drivers', payload)
+    return data
+  },
+  unSetDriverToTruck: async(payload: AssignTruckType): Promise<DriverType> => {
+    const { data } = await $authHost.put('/drivers/unset', payload)
     return data
   },
   deleteDriver: async(id: number) => {
     await $authHost.delete(`/drivers/${id}`);
+  },
+  getDriverById: async(id: string) => {
+    const {data} = await $authHost.get(`/drivers/byid/${id}`);
+    return data
   },
   updateDriver: async(payload: any) => {
     const { data } = await $authHost.put('/drivers/driver', payload)

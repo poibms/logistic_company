@@ -10,3 +10,12 @@
 .radius {
   border-radius: 15px;
 }
+
+@media screen and (max-width: 790px) {
+  .map {
+    &_wrapper {
+      width: 100%;
+      height: 350px;
+    }
+  }
+}

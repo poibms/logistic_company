@@ -1,8 +1,27 @@
 .deteledInfo {
   height: 100%;
   width: 60%;
+  overflow-y: scroll;
 
   &_wrapper {
     padding: 20px;
+  }
+
+  &_data {
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 790px) { 
+
+  .deteledInfo {
+    width: 100%;
+
+    &_data {
+      display: flex;
+      flex-direction: column;
+      overflow-y: hidden;
+    }
   }
 }

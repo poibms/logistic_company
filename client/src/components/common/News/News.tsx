@@ -1,20 +1,26 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
 
-const News = () => {
+type NewsPropsType = {
+  image: string,
+  text: string,
+  date: string
+}
+
+const News: React.FC<NewsPropsType> = ({image, text, date}) => {
   return (
     <div className='news_list'>
       <div className='news_block'>
-        <NavLink to='/news/1'>
+        {/* <NavLink to='/news/1'> */}
           <div className='news_img news-img_zoom'>
-            <img src='https://lkwstore.ro/wp-content/uploads/2019/12/iveco-3.jpg' alt='news_img'/>
+            <img src={image} alt='news_img'/>
           </div>
-        </NavLink>
+        {/* </NavLink> */}
           <div className='news_title'>
-            <p>Доставка грузов из Европы в условиях ограничительных мер</p>
+            <p>{text}</p>
           </div>
           <div className='news_date'>
-            18.01.2023
+            {date}
           </div>
 
       </div>

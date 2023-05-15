@@ -27,11 +27,18 @@ export type UserType = {
   orders: OrderType[];
 }
 
+export enum CargoType {
+  BULKY_CARGO = 'Bulky cargo',
+  CAR_TRANSPORTER = 'Car transporter',
+  REFRIGERATOR_TRAILER = 'Refrigerator trailer',
+  COMMON_TRAILER = 'Common trailer',
+}
 
 export enum OrderStatus {
   NOT_ASSIGNED = 'not_assigned',
   IN_PROGRESS = 'in_progress',
   DONE = 'done',
+  CANCELED = 'canceled',
 }
 
 export type OrderCreds = {
@@ -39,6 +46,10 @@ export type OrderCreds = {
   weight: string,
   from: string,
   to: string,
+  price: number,
+  cargo_type: string,
+  distance: number, 
+  volume: string,
   image: any,
 }
 
@@ -49,7 +60,12 @@ export type OrderType = {
   from: string,
   to: string,
   image: string,
+  volume: string,
+  cargo_type: string,
+  distance: number,
+  price: number,
   status: OrderStatus,
+  err_message: string;
   track_code: string,
   ownerId: UserType,
   driverId?: DriverType
@@ -99,7 +115,11 @@ export type TruckType = {
   model: string,
   year: string,
   loadCapacity: string,
+  busy_weight: number,
   photo: string,
+  fuel_consumption: number;
+  trailer_volume: string,
+  truck_type: CargoType,
   driverId: DriverType,
 }
 
@@ -108,6 +128,9 @@ export type TruckCreds = {
   model:string;
   year: string;
   loadCapacity: string;
+  trailer_volume: string,
+  truck_type: string,
+  fuel_consumption: string,
   photo: string;
 }
 

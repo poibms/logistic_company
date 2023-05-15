@@ -27,7 +27,7 @@ const AdminList: React.FC<AdminListType> = ({
   const listItem = genListItem();
 
   return (
-    <div className={listItem.length > 0 ? 'adminlist ovrfl-y' : 'adminlist'}>
+    <div className={listItem.length > 0 ? 'adminlist' : 'adminlist'}>
       {listItem.length > 0 ? (
         <div className="adminlist_wrapper">{listItem}</div>
       ) : (

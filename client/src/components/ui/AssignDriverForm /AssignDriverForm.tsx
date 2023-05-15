@@ -11,15 +11,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { Form } from "../../../hooks/useForm";
 import { getAllDrivers } from "../../../store/drivers";
 import { getOrdersErrors, setOrderToDriver } from "../../../store/orders";
+import { OrderType } from "../../../types/types";
 
 type AssihnDriverPropsType = {
   dataId: string;
   handleClose: any;
+  data: OrderType,
 };
 
 const AssignDriverForm: React.FC<AssihnDriverPropsType> = ({
   dataId,
   handleClose,
+  data
 }) => {
   const [driver, setDriver] = React.useState("");
   const [enterError, setEnterError] = React.useState("");
@@ -35,8 +38,9 @@ const AssignDriverForm: React.FC<AssihnDriverPropsType> = ({
   };
 
   const genDriverMenuItems = () => {
-    const driverWithoutOrders = drivers.filter((item) => item.orders.length === 0  && item.truckId !== null);
-    return driverWithoutOrders.map((driver) => (
+    const suitableDrivers = drivers.filter(driver => driver.truckId && driver.truckId.truck_type === data.cargo_type && data.volume <= driver.truckId.trailer_volume && data.weight <= driver.truckId.loadCapacity)
+
+    return suitableDrivers.map((driver) => (
       <MenuItem key={driver.id} value={driver.id}>
         <>
           <img src={`http://localhost:3007/${driver.photo}`} alt="truck img" />
@@ -45,6 +49,7 @@ const AssignDriverForm: React.FC<AssihnDriverPropsType> = ({
       </MenuItem>
     ));
   };
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -64,7 +69,7 @@ const AssignDriverForm: React.FC<AssihnDriverPropsType> = ({
   return (
     <div className="sign_form-wrapper">
       <Paper elevation={3} className="login_form-card form_card">
-        <h2>Assign Truck to Driver</h2>
+        <h2>Choose the driver</h2>
         <Form data={{ driver: driver }}>
           {DriverMenuItem.length > 0 ? (
             <FormControl fullWidth>
@@ -81,7 +86,7 @@ const AssignDriverForm: React.FC<AssihnDriverPropsType> = ({
             </FormControl>
           ) : (
             <p className="flex alig-center" style={{'color': 'red'}}>
-              There is no free truck right now. Please try it later
+              There is no free drivers right now. Please try it later
             </p>
           )}
 

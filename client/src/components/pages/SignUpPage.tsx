@@ -10,13 +10,13 @@ const SignUpPage = () => {
     <div className="sign_form">
       <div className="sign_form-wrapper">
         <Paper elevation={3} className='login_form-card form_card'>
-          <h2>Зарегистрироваться</h2>
+          <h2>Sign Up</h2>
             <SignUpForm />
           <div className='login_form-footer'>
-            <span>Есть аккаунт?</span>
+            <span>already registered?</span>
             <Link to='../login/signIn' className='login_form-link'>
               <Button className='button_outline'>
-              Войти
+              Sign In
               </Button>
             </Link>
           </div>

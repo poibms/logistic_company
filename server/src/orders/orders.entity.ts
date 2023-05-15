@@ -1,3 +1,4 @@
+import { CargoType } from './../types/order.types';
 import { Drivers } from 'src/drivers/drivers.entity';
 import { OrderStasus } from 'src/types/order.types';
 import { User } from 'src/users/users.entity';
@@ -29,8 +30,23 @@ export class Orders {
   @Column()
   image: string;
 
+  @Column()
+  distance: number;
+
+  @Column()
+  price: number;
+
+  @Column()
+  cargo_type: CargoType;
+
+  @Column()
+  volume: number;
+
   @Column({ default: OrderStasus.NOT_ASSIGNED })
   status: OrderStasus;
+
+  @Column({ nullable: true })
+  err_message: string;
 
   @Column()
   @Generated('uuid')
@@ -42,5 +58,5 @@ export class Orders {
 
   // @Column({ nullable: true )
   @ManyToOne(() => Drivers, (drivers) => drivers.orders)
-  driverId: string;
+  driverId: Drivers;
 }

@@ -1,3 +1,5 @@
+import { cancelOrderType } from './../types/order.types';
+import { Drivers } from 'src/drivers/drivers.entity';
 import { User } from './../users/users.entity';
 import { NewUserOrderDto } from './dto/orders-create.dto';
 import { Orders } from 'src/orders/orders.entity';
@@ -52,11 +54,25 @@ export class OrdersRepository extends Repository<Orders> {
     }
   }
 
+  async getOrdersByDriver(user: Drivers): Promise<Orders[]> {
+    try {
+      return await this.find({
+        where: { driverId: { id: user.id } },
+        relations: ['ownerId', 'driverId'],
+      });
+    } catch (e) {
+      console.log(e);
+      throw new BadRequestException(
+        `There is no order with such status: ${status}`,
+      );
+    }
+  }
+
   async assigntOrderStatus(orderId: string, driverId: string): Promise<Orders> {
     try {
       await this.update(
         { id: orderId },
-        { driverId: driverId, status: OrderStasus.IN_PROGRESS },
+        { driverId: { id: driverId }, status: OrderStasus.IN_PROGRESS },
       );
       return this.getOrderById(orderId);
     } catch (e) {
@@ -89,18 +105,43 @@ export class OrdersRepository extends Repository<Orders> {
         relations: ['ownerId', 'driverId'],
       });
     } catch (e) {
+      console.log('err');
       throw new BadRequestException('something was wrong');
     }
   }
 
-  // async setOrderToDriver(driverId: string, orderId: string) {
-  //   try {
-  //     await this.update({ id: driverId }, { orders: orderId });
-  //     return await this.getDriverById(driverId);
-  //   } catch (e) {
-  //     throw new BadRequestException(
-  //       'something was wrong while updating driver',
-  //     );
-  //   }
-  // }
+  async cancelOrder(id: string, payload: cancelOrderType): Promise<Orders> {
+    const { err_message } = payload;
+    try {
+      await this.update(
+        { id: id },
+        { status: OrderStasus.CANCEL, err_message: err_message },
+      );
+      return this.getOrderById(id);
+    } catch (e) {
+      console.log(e);
+      throw new BadRequestException(
+        'an error occurred while placing the order, please check the correctness of the entered data',
+      );
+    }
+  }
+
+  async completeOrder(id: string, payload: any): Promise<Orders> {
+    try {
+      await this.update(
+        { id: id },
+        {
+          status: OrderStasus.DONE,
+          price: payload.payload.price,
+          distance: payload.payload.distance,
+        },
+      );
+      return this.getOrderById(id);
+    } catch (e) {
+      console.log(e);
+      throw new BadRequestException(
+        'an error occurred while placing the order, please check the correctness of the entered data',
+      );
+    }
+  }
 }

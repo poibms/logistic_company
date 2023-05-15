@@ -20,11 +20,21 @@ const validatorConfig: ConfigType = {
     isRequired: {
       message: 'Field "Age" is required',
     },
+    inNum: {
+      message: 'Data must be a number'
+    },
+    isMinYear: {
+      message: 'The "Year" field must be exactly 4 characters long'
+    }
   },
+
   loadCapacity: {
     isRequired: {
       message: 'Field "Load Capacity" is required',
     },
+    inNum: {
+      message: 'Data must be a number'
+    }
   },
 };
 

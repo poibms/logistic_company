@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "image": "https://jenty-spedition.ru/wp-content/themes/jenty/img/main/avtopark/truck_1_active.svg",
+      "text": "Semi-trailer truck"
+    },
+    {
+      "image": "https://jenty-spedition.ru/wp-content/themes/jenty/img/main/avtopark/truck_2.svg",
+      "text": "Mega trailers and standard semi-trailers"
+    },
+    {
+      "image": "https://jenty-spedition.ru/wp-content/themes/jenty/img/main/avtopark/truck_3.svg",
+      "text": "Refrigerated semi-trailers"
+    },
+    {
+      "image": "https://jenty-spedition.ru/wp-content/themes/jenty/img/main/avtopark/truck_5.svg",
+      "text": "Long trailers"
+    }
+  ]
+}

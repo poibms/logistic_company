@@ -28,8 +28,23 @@ const ordersService = {
     return data
   }, 
   getOrderByTrackCode: async (track_code: string) => {
-    const {data} = await $host.get(`/orders/bytrack/${track_code}`);
-    return data;
+    const res = await $host.get(`/orders/bytrack/${track_code}`);
+  
+    return res;
+  },
+  cancelOrder: async (id: number, err_message: string) => {
+    const { data } = await $authHost.put(`/orders/cancel/${id}`, {err_message})
+    return data
+  },
+
+  getOrderByDriver: async () => {
+    const {data} = await $authHost.get('orders/ordersbydriver');
+    return data
+  },
+
+  completeOder: async (payload: any) => {
+    const {data} = await $authHost.put(`orders/complete/${payload.id}`, {payload});
+    return data
   }
 }
 

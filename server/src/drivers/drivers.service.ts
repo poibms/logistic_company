@@ -33,14 +33,18 @@ export class DriversService {
       password: hashedPassword,
       photo: driverPhoto,
     });
-    console.log(
-      await this.mailService.driverCredsNotification(driver, password),
-    );
+
+    await this.mailService.driverCredsNotification(driver, password);
+
     return driver;
   }
 
   async getAllDrivers(): Promise<Drivers[]> {
     return await this.dirversRepository.getAllDrivers();
+  }
+
+  async getDriverById(id: string): Promise<Drivers> {
+    return await this.dirversRepository.getDriverById(id);
   }
 
   async deleteDriverById(id: string): Promise<{ message: string }> {
@@ -57,8 +61,15 @@ export class DriversService {
     return driver;
   }
 
+  async unSetDriverToTruck(payload: setTruckType) {
+    const driver = await this.dirversRepository.unSetDriverToTruck(payload);
+    await this.trucksRepository.unSetDriverToTruck(payload);
+    return driver;
+  }
+
   async setOrderToDriver(driverId: string) {
     const driver = await this.dirversRepository.getDriverById(driverId);
+    console.log(driver);
     if (!driver.truckId) {
       throw new BadRequestException(
         'You cannot assign order on this driver, because he does not have a truck',

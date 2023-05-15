@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from ".";
 import ordersService from "../services/orders.service";
 import { OrderType } from "../types/types";
+import { toast } from 'react-toastify';
 
 const ordersSlice = createSlice({
   name: 'orders',
@@ -48,6 +49,7 @@ export const createOrder = (payload: any): AppThunk => async (dispatch: any) => 
   try {
     const driver = await ordersService.createOrder(payload);
     dispatch(orderCreated(driver));
+    toast.success('order successfylly created. Check ur email to get more information')
   } catch (error: any) {
     dispatch(ordersRequestFailed(error.response.data.message));
 
@@ -75,10 +77,42 @@ export const getUserOrders = (): any => async (dispatch: any) => {
   }
 };
 
+export const getDriverOrders = (): any => async (dispatch: any) => {
+  dispatch(ordersRequested());
+  try {
+    const data = await ordersService.getOrderByDriver()
+    dispatch(userOrders(data));
+  } catch (error: any) {
+    dispatch(ordersRequestFailed(error));
+  }
+};
+
 export const setOrderToDriver = (payload: AssignOrderToDriver, callback: any): any => async (dispatch: any) => {
   dispatch(ordersRequested());
   try {
     const drivers = await ordersService.assignOrderToDriver(payload)
+    dispatch(orderUpdated(drivers));
+    callback();
+  } catch (error: any) {
+    dispatch(ordersRequestFailed(error.response.data.message));
+  }
+};
+
+export const cancelOrder = (id: number, err_message: string, callback: any): any => async (dispatch: any) => {
+  dispatch(ordersRequested());
+  try {
+    const drivers = await ordersService.cancelOrder(id, err_message);
+    dispatch(orderUpdated(drivers));
+    callback();
+  } catch (error: any) {
+    dispatch(ordersRequestFailed(error.response.data.message));
+  }
+};
+
+export const completeOrder = (data: any, callback: any): any => async (dispatch: any) => {
+  dispatch(ordersRequested());
+  try {
+    const drivers = await ordersService.completeOder(data);
     dispatch(orderUpdated(drivers));
     callback();
   } catch (error: any) {

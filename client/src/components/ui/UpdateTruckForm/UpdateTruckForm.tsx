@@ -16,7 +16,7 @@ import {
   updateDriver,
 } from "../../../store/drivers";
 import { useSelector } from "react-redux";
-import { updateTruck } from "../../../store/trucks";
+import { getTruckErrors, updateTruck } from "../../../store/trucks";
 
 type UpdateTruckPropsType = {
   truck: TruckType;
@@ -29,7 +29,7 @@ const UpdateTruckForm: React.FC<UpdateTruckPropsType> = ({
 }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [fileError, setFileError] = useState(false);
-  const driverError = useSelector(getDriverErrors());
+  const trucksErrors = useSelector(getTruckErrors());
 
   const initialData: TruckUpdateType = {
     name: truck.name,
@@ -67,8 +67,10 @@ const UpdateTruckForm: React.FC<UpdateTruckPropsType> = ({
       if (selectedFile) {
         formData.append("photo", selectedFile!);
       }
+      if(!trucksErrors) {
       dispatch(updateTruck(formData, () => handleClose()));
-      handleResetForm(e);
+        handleResetForm(e);
+      }
     }
   };
 
@@ -92,7 +94,7 @@ const UpdateTruckForm: React.FC<UpdateTruckPropsType> = ({
             Update Truck
           </button>
         </Form>
-        {driverError && <p className="form_error">{driverError}</p>}
+        {trucksErrors && <p className="form_error">{trucksErrors}</p>}
       </Paper>
     </div>
   );

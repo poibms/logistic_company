@@ -1,3 +1,4 @@
+import { DriversModule } from './../drivers/drivers.module';
 import { JwtStrategy } from './strategy/jwt.strategy';
 import { forwardRef, Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
@@ -12,6 +13,7 @@ import { UserModule } from 'src/users/users.module';
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({}),
     forwardRef(() => UserModule),
+    forwardRef(() => DriversModule),
   ],
   providers: [AuthService, JwtStrategy, RefreshTokenStrategy],
   controllers: [AuthController],

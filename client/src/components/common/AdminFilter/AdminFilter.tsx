@@ -33,10 +33,10 @@ const AdminFilter: React.FC<FilterPropsType> = ({
   };
 
   const genAddButton = () => {
-    if (dataType.get('filter') === "drivers") {
+    if (dataType.get("filter") === "drivers") {
       return (
         <button className="button-68" onClick={handleOpenModal}>
-          <PersonAddIcon className="button_icon"/>
+          <PersonAddIcon className="button_icon" />
           Add New Driver
         </button>
       );
@@ -51,7 +51,7 @@ const AdminFilter: React.FC<FilterPropsType> = ({
   };
 
   const genTabs = () => {
-    switch (dataType.get('filter')) {
+    switch (dataType.get("filter")) {
       case "orders":
         return mockStatus.orders.map((item) => (
           <Tab key={item.key} label={item.label} />
@@ -62,7 +62,7 @@ const AdminFilter: React.FC<FilterPropsType> = ({
         ));
       case "trucks":
         return mockStatus.trucks.map((item) => (
-          <Tab key={item.key} label={item.label} />  
+          <Tab key={item.key} label={item.label} />
         ));
     }
   };
@@ -75,15 +75,19 @@ const AdminFilter: React.FC<FilterPropsType> = ({
       <div className="adminfilter_wrapper flex justify-between align_center">
         <div className="adminfilter-inner flex align_center">
           <h2>Status</h2>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            aria-label="disabled tabs example"
-          >
-            {tabs}
-          </Tabs>
+          <div className="adminfilter-inner_tabs">
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              aria-label="disabled tabs example"
+              variant="scrollable"
+              scrollButtons="auto"
+            >
+              {tabs}
+            </Tabs>
+          </div>
         </div>
-        {dataType.get('filter') !== "orders" ? (
+        {dataType.get("filter") !== "orders" ? (
           <div className="adminfilter-inner">{addButton}</div>
         ) : null}
       </div>

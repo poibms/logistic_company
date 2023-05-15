@@ -15,17 +15,19 @@ const validatorConfig: ConfigType = {
     isRequired: {
       message: 'Field "Surname" is required',
     },
-  },
-  from: {
-    isRequired: {
-      message: 'Field "Age" is required',
+    inNum: {
+      message: 'Data must be a number'
     },
   },
-  to: {
+  volume: {
     isRequired: {
-      message: 'Field "Age" is required',
+      message: 'Field "Volume" is required',
+    },
+    inNum: {
+      message: 'Data must be a number'
     },
   },
+
 };
 
 export default validatorConfig;

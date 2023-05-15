@@ -1,3 +1,4 @@
+import { CargoType } from 'src/types/order.types';
 import { IsNumberString, IsOptional, IsString } from 'class-validator';
 
 export class NewUserOrderDto {
@@ -5,8 +6,20 @@ export class NewUserOrderDto {
   name: string;
 
   @IsNumberString()
-  // @IsNumber()
   weight: number;
+
+  @IsNumberString()
+  distance: number;
+
+  @IsNumberString()
+  // @IsNumber()
+  price: number;
+
+  @IsNumberString()
+  volume: number;
+
+  @IsString()
+  cargo_type: CargoType;
 
   @IsString()
   from: string;
