@@ -33,7 +33,9 @@ const authService = {
     return data;
   },
   signInDriver: async (payload: SignInDataType) => {
-    const response = await $host.post(`/auth/signindriver`, payload);
+    const response = await $host.post(`/auth/signindriver`, payload, {
+      withCredentials: true,
+    });
     return response.data;
   },
 };
