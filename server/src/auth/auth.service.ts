@@ -78,8 +78,12 @@ export class AuthService {
     }
   }
 
-  async logout(userId: string): Promise<boolean> {
-    return await this.userRepository.logout(userId);
+  async logout(user: User | Drivers): Promise<boolean> {
+    if (user.role === 'user') {
+      return await this.userRepository.logout(user.id);
+    } else {
+      return await this.driversRepository.logout(user.id);
+    }
   }
 
   async refreshToken(
@@ -127,7 +131,7 @@ export class AuthService {
     const [accesToken, refreshToken] = await Promise.all([
       this.jwtService.signAsync(jwtPayload, {
         secret: this.config.get<string>('JWT_ACCESS_SECRET'),
-        expiresIn: '45m',
+        expiresIn: '1m',
       }),
       this.jwtService.signAsync(jwtPayload, {
         secret: this.config.get<string>('JWT_REFRESH_SECRET'),

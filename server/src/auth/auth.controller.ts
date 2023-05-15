@@ -56,7 +56,7 @@ export class AuthController {
     @Res({ passthrough: true }) res: ResponseType,
   ): Promise<boolean> {
     res.clearCookie('refresh_token');
-    return await this.authService.logout(user.id);
+    return await this.authService.logout(user);
   }
 
   @ApiOperation({ summary: 'Refresh user token' })
@@ -68,7 +68,7 @@ export class AuthController {
     @GetUser() user,
     @Res({ passthrough: true }) res: ResponseType,
   ): Promise<AccessTokenType> {
-    console.log(user);
+    console.log('refresh');
     const { id, refreshToken, role } = user;
     const tokens = await this.authService.refreshToken(id, refreshToken, role);
     res.cookie('refresh_token', refreshToken);
@@ -82,7 +82,7 @@ export class AuthController {
   ): Promise<AccessTokenType> {
     const tokens = await this.authService.signInDriver(authSignInDto);
     res.cookie('refresh_token', tokens.refresh_token);
-    console.log(tokens.access_token);
+    console.log(tokens);
     return { access_token: tokens.access_token };
   }
 }
