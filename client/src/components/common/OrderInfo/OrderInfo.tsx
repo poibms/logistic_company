@@ -1,13 +1,11 @@
 import { Container } from "@mui/system";
 import * as React from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import driversService from "../../../services/drivers.service";
 import ordersService from "../../../services/orders.service";
-import { useAppDispatch } from "../../../store";
-import { completeOrder } from "../../../store/orders";
 import { getAuthUser, getIsLoggedIn, getRole } from "../../../store/user";
-import { DriverType, OrderType } from "../../../types/types";
+import { DriverType, OrderStatus, OrderType } from "../../../types/types";
 import CompleteOrderForm from "../../ui/CompleteOrderForm/CompleteOrderForm";
 import BasicModal from "../../ui/Modal/Modal";
 import Header from "../Header/Header";
@@ -22,23 +20,23 @@ const OrderInfo: React.FC = () => {
   const isAuth = useSelector(getIsLoggedIn());
   const authUser = useSelector(getAuthUser());
   const role = useSelector(getRole());
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+  // const dispatch = useAppDispatch();
+  // const navigate = useNavigate();
 
   React.useEffect(() => {
     ordersService
       .getOrderByTrackCode(trackCode)
-      .then((data) => setOrder(data))
-      .catch((error) => setError(error));
+      .then((res) => setOrder(res.data))
+      .catch((res) => setError(res));
 
     if(role === 'driver') {
       driversService.getDriverById(authUser!.id).then((data) => setDriver(data))
     }
-  }, [trackCode, authUser]);
+  }, [trackCode, authUser, role]);
 
-  const handleCompleteOrder = (id: number) => {
-    dispatch(completeOrder(id, () => navigate('/profile')))
-  };
+  // const handleCompleteOrder = (id: number) => {
+  //   dispatch(completeOrder(id, () => navigate('/profile')))
+  // };
 
   const handleOpen = () => {
     setOpen(true);
@@ -51,7 +49,7 @@ const OrderInfo: React.FC = () => {
     if (order) {
       return (
         <div className="flex flex_column">
-          <div className="orderinfo flex justify-spacearnd">
+          <div className="orderinfo">
             <div className="orderinfo_img">
               <img
                 src={`http://localhost:3007/${order.image}`}
@@ -80,6 +78,11 @@ const OrderInfo: React.FC = () => {
               <div>
                 <strong>Status</strong>: {order.status}
               </div>
+              {order.status === OrderStatus.CANCELED ? 
+              <div>
+                <strong>Error message</strong>: {order.err_message}
+              </div> :
+              <></>}
               <div>
                 <strong>Price</strong>: {order.price} BYN
               </div>
@@ -123,7 +126,7 @@ const OrderInfo: React.FC = () => {
       </Container>
 
       <BasicModal open={open} handleClose={handleClose}>
-        {order && driver ? <CompleteOrderForm order={order} driver={driver}/> : <></>}
+        {order && driver && role === "driver" ? <CompleteOrderForm order={order} driver={driver}/> : <></>}
       </BasicModal>
     </>
   );

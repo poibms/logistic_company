@@ -1,5 +1,4 @@
 import { FormControl, FormHelperText } from "@mui/material";
-import axios from "axios";
 import * as React from "react";
 import { Form, useForm } from "../../../hooks/useForm";
 import calculateDistance from "../../../utils/DistanceCalculator";
@@ -40,7 +39,6 @@ const CalculateOrder: React.FC<TypeCalculatorProps> = ({ cities }) => {
     enterError,
     handleInputChange,
     validate,
-    handleResetForm,
   } = useForm(initialData, false, validatorConfig);
 
   const validateForm = () => {

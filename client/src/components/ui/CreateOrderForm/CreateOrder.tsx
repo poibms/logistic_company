@@ -1,11 +1,11 @@
-import { FormControl, FormHelperText, SelectChangeEvent } from "@mui/material";
+import { FormControl, FormHelperText } from "@mui/material";
 import axios from "axios";
 import * as React from "react";
 import { useSelector } from "react-redux";
 import { Form, useForm } from "../../../hooks/useForm";
 import { useAppDispatch } from "../../../store";
 import { createOrder, getOrdersErrors } from "../../../store/orders";
-import { CargoType, OrderCreds } from "../../../types/types";
+import { OrderCreds } from "../../../types/types";
 import calculateDistance from "../../../utils/DistanceCalculator";
 import calculateShippingCost from "../../../utils/PriceCalculator";
 import InputField from "../../common/InputField/InputField";

@@ -9,7 +9,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const corsOptions = {
     origin: 'http://localhost:3000',
-    credentials: true, //access-control-allow-credentials:true
+    credentials: true,
     optionSuccessStatus: 200,
   };
   app.enableCors(corsOptions);
@@ -22,7 +22,7 @@ async function bootstrap() {
   app.setGlobalPrefix('/api');
 
   const config = new DocumentBuilder()
-    .setTitle('Nest.js server for logistic company')
+    .setTitle('Nest.js server for transport company')
     .setDescription('REST API DOCS')
     .setVersion('1.0.0')
     .addBearerAuth(

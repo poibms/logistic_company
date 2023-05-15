@@ -1,10 +1,7 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
-import Button from "../ui/Button/Button";
+import React from "react";
 import Container from "../common/Container/Container";
 import ImageSliderItem from "../common/ImageSliderItem/ImageSliderItem";
 // import News from '../common/News/News';
-import NewsList from "../common/NewsList/NewsList";
 import Slider from "../common/Slider/Slider";
 import TextSliderItem from "../common/TextSliderItem/TextSliderItem";
 import text from "../../assets/text/textSlider.json";

@@ -1,10 +1,13 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import { Button } from "@mui/material";
+import { useSelector } from "react-redux";
+import { getIsLoggedIn } from "../../../store/user";
 
 const Footer = () => {
+  const isLoggedIn = useSelector(getIsLoggedIn());
+
   return (
     <footer className="footer">
       <div className="footer_inner">
@@ -42,9 +45,13 @@ const Footer = () => {
                 </NavLink>
               </div> */}
               <div className="footer_menu">
-                <NavLink to="/login/signin?type=driver">
-                  <div>Login as a driver</div>
-                </NavLink>
+                {isLoggedIn ? (
+                  <></>
+                ) : (
+                  <NavLink to="/login/signin?type=driver">
+                    <div>Login as a driver</div>
+                  </NavLink>
+                )}
               </div>
             </div>
             <div className="flex flex_column align_center">
