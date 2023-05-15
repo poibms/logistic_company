@@ -25,16 +25,16 @@ const CompleteOrderForm:React.FC<CompleteOrderPropsType> = ({order, driver}) => 
   const {
     data,
     errors,
-    enterError,
     handleInputChange,
-    validate,
-    handleResetForm,
+    validate
   } = useForm(initialData, false, validatorConfig);
 
   const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const price = calculateShippingCost(data.distance, order.cargo_type, +order.weight, +order.volume, driver.truckId?.fuel_consumption)
-    dispatch(completeOrder({id: order.id, distance: data.distance, price: Math.floor(price)}, () => navigate('/profile')))
+    if(validate(data)) {
+      const price = calculateShippingCost(data.distance, order.cargo_type, +order.weight, +order.volume, driver.truckId?.fuel_consumption)
+      dispatch(completeOrder({id: order.id, distance: data.distance, price: Math.floor(price)}, () => navigate('/profile')))
+    }
   }
 
   return (
