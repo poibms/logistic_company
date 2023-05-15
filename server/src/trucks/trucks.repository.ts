@@ -76,9 +76,7 @@ export class TrucksRepository extends Repository<Trucks> {
       await this.update({ id: id }, payload);
       return await this.getTruckById(id);
     } catch (e) {
-      throw new BadRequestException(
-        'something was wrong while updating driver',
-      );
+      throw new BadRequestException('something was wrong while updating truck');
     }
   }
 }

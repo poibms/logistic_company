@@ -20,5 +20,5 @@ export class CreateDriverDto {
 
   photo?: string;
 
-  truckId?: string;
+  // truckId?: string;
 }

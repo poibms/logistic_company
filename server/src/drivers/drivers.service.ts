@@ -48,7 +48,23 @@ export class DriversService {
   }
 
   async deleteDriverById(id: string): Promise<{ message: string }> {
-    return await this.dirversRepository.deleteDriverById(id);
+    const driver = await this.dirversRepository.getDriverById(id);
+    if (!driver) {
+      throw new BadRequestException('There is no driver with such id');
+    }
+    const driverOrders = driver.orders.filter(
+      (order) => order.status === 'in_progress',
+    );
+    if (driverOrders.length > 0) {
+      throw new BadRequestException('Cannot delete this driver');
+    }
+    await this.trucksRepository.updateTruck({
+      id: driver.truckId.id,
+      driverId: null,
+    });
+    const res = await this.dirversRepository.deleteDriverById(id);
+
+    return res;
   }
 
   async updateDriver(payload: any): Promise<Drivers> {
