@@ -38,6 +38,7 @@ export enum OrderStatus {
   NOT_ASSIGNED = 'not_assigned',
   IN_PROGRESS = 'in_progress',
   DONE = 'done',
+  CANCELED = 'canceled',
 }
 
 export type OrderCreds = {
@@ -64,6 +65,7 @@ export type OrderType = {
   distance: number,
   price: number,
   status: OrderStatus,
+  err_message: string;
   track_code: string,
   ownerId: UserType,
   driverId?: DriverType

@@ -98,11 +98,12 @@ export const setOrderToDriver = (payload: AssignOrderToDriver, callback: any): a
   }
 };
 
-export const cancelOrder = (id: number): any => async (dispatch: any) => {
+export const cancelOrder = (id: number, err_message: string, callback: any): any => async (dispatch: any) => {
   dispatch(ordersRequested());
   try {
-    const drivers = await ordersService.cancelOrder(id);
+    const drivers = await ordersService.cancelOrder(id, err_message);
     dispatch(orderUpdated(drivers));
+    callback();
   } catch (error: any) {
     dispatch(ordersRequestFailed(error.response.data.message));
   }

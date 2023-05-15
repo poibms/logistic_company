@@ -1,3 +1,4 @@
+import { cancelOrderType } from './../types/order.types';
 import { Drivers } from 'src/drivers/drivers.entity';
 import { User } from './../users/users.entity';
 import { NewUserOrderDto } from './dto/orders-create.dto';
@@ -104,13 +105,18 @@ export class OrdersRepository extends Repository<Orders> {
         relations: ['ownerId', 'driverId'],
       });
     } catch (e) {
+      console.log('err');
       throw new BadRequestException('something was wrong');
     }
   }
 
-  async cancelOrder(id: string): Promise<Orders> {
+  async cancelOrder(id: string, payload: cancelOrderType): Promise<Orders> {
+    const { err_message } = payload;
     try {
-      await this.update({ id: id }, { status: OrderStasus.CANCEL });
+      await this.update(
+        { id: id },
+        { status: OrderStasus.CANCEL, err_message: err_message },
+      );
       return this.getOrderById(id);
     } catch (e) {
       console.log(e);

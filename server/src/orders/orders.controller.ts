@@ -18,7 +18,11 @@ import {
 import { GetUser } from 'src/decorators/get-user.decorator';
 import { Orders } from './orders.entity';
 import RoleGuard from 'src/guards/get-role.guard';
-import { assignOrderType, OrderStasus } from 'src/types/order.types';
+import {
+  assignOrderType,
+  cancelOrderType,
+  OrderStasus,
+} from 'src/types/order.types';
 import { User } from 'src/users/users.entity';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 @Controller('orders')
@@ -72,8 +76,8 @@ export class OrdersController {
 
   @Put('/cancel/:id')
   @UseGuards(AuthGuard(), RoleGuard(UserRole.ADMIN))
-  async cancelOrder(@Param('id') id: string) {
-    return this.ordersService.cancelOrder(id);
+  async cancelOrder(@Param('id') id: string, @Body() payload: cancelOrderType) {
+    return this.ordersService.cancelOrder(id, payload);
   }
 
   @Put('/complete/:id')

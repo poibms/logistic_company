@@ -45,6 +45,9 @@ export class Orders {
   @Column({ default: OrderStasus.NOT_ASSIGNED })
   status: OrderStasus;
 
+  @Column({ nullable: true })
+  err_message: string;
+
   @Column()
   @Generated('uuid')
   track_code: string;

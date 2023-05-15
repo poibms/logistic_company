@@ -1,3 +1,4 @@
+import { cancelOrderType } from './../types/order.types';
 import { Drivers } from 'src/drivers/drivers.entity';
 import { User } from './../users/users.entity';
 import { FileType } from 'src/types/files.types';
@@ -45,7 +46,11 @@ export class OrdersService {
   }
 
   async getOrderByTrackCode(track_code: string): Promise<Orders> {
-    return await this.ordersRepository.getOrderByTrackCode(track_code);
+    const res = await this.ordersRepository.getOrderByTrackCode(track_code);
+    if (!res) {
+      throw new BadRequestException('There is no order with such track code');
+    }
+    return res;
   }
 
   async getAuthUserOrders(user: User): Promise<Orders[]> {
@@ -66,7 +71,7 @@ export class OrdersService {
     return order;
   }
 
-  async cancelOrder(id: string) {
+  async cancelOrder(id: string, payload: any) {
     const order = await this.ordersRepository.getOrderById(id);
     if (!order) {
       throw new BadRequestException('There is no order with such id');
@@ -76,7 +81,7 @@ export class OrdersService {
     ) {
       throw new BadRequestException('You cannot cancel this order');
     }
-    return await this.ordersRepository.cancelOrder(id);
+    return await this.ordersRepository.cancelOrder(id, payload);
   }
 
   async completeOrder(id: string, payload: any) {

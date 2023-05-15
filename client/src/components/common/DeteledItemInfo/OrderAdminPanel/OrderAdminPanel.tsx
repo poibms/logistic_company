@@ -3,6 +3,9 @@ import { OrderType } from "../../../../types/types";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useAppDispatch } from "../../../../store";
 import { cancelOrder } from "../../../../store/orders";
+import BasicModal from "../../../ui/Modal/Modal";
+import CancelOrderModal from "../../../ui/CancelOrderModal/CancelOrderModal";
+import { useNavigate } from "react-router-dom";
 
 type OrderPanel = {
   order: OrderType;
@@ -10,9 +13,17 @@ type OrderPanel = {
 };
 
 const OrderAdminPanel: React.FC<OrderPanel> = ({ order, handleClosePanel }) => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const driverUi = () => {
-    console.log(order.driverId);
     if (order.driverId) {
       return (
         <div>
@@ -33,11 +44,12 @@ const OrderAdminPanel: React.FC<OrderPanel> = ({ order, handleClosePanel }) => {
     }
   };
 
-  const canselOrder = () => {
-    dispatch(cancelOrder(order.id));
-  };
-
   const driverInfo = driverUi();
+
+  const canselOrder = (e: React.FormEvent<HTMLButtonElement>, err_message: string) => {
+    e.preventDefault();
+    dispatch(cancelOrder(order.id, err_message, () => navigate('/adminpanel?filter=trucks')));
+  };
 
   return (
     <div className="orderpanel">
@@ -98,12 +110,15 @@ const OrderAdminPanel: React.FC<OrderPanel> = ({ order, handleClosePanel }) => {
         <div className="orderpanel_driver">{driverInfo}</div>
         <div className="orderpanel_buttons">
           {order.status === "not_assigned" ? (
-            <button className="button-cancel" onClick={canselOrder}>
+            <button className="button-cancel" onClick={() => setOpen(true)}>
               Cancel order
             </button>
           ) : null}
         </div>
       </div>
+      <BasicModal open={open} handleClose={handleClose}>
+        <div><CancelOrderModal handleCancel={canselOrder}/></div>
+      </BasicModal>
     </div>
   );
 };
