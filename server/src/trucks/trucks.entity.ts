@@ -39,5 +39,5 @@ export class Trucks {
 
   @OneToOne(() => Drivers, (drivers) => drivers.id)
   @JoinColumn()
-  driverId: string;
+  driverId: Drivers;
 }

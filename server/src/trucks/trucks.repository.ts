@@ -26,7 +26,7 @@ export class TrucksRepository extends Repository<Trucks> {
     return await this.find({ relations: ['driverId'] });
   }
 
-  async setTruckToDriver(payload: setTruckType) {
+  async setTruckToDriver(payload: any) {
     try {
       const { driverId, truckId } = payload;
       return this.update({ id: truckId }, { driverId: driverId });
