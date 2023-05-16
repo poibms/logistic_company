@@ -25,6 +25,9 @@ const validatorConfig: ConfigType = {
     },
     isMinYear: {
       message: 'The "Year" field must be exactly 4 characters long'
+    },
+    isMaxYear: {
+      message: 'Last year of release - 2023'
     }
   },
 

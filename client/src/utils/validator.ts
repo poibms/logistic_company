@@ -37,13 +37,27 @@ export function validator(data: { [key: string]: any }, validatorConfig: Validat
       }
 
       case 'isMinYear': {
-        console.log(fieldData.length)
-        statusValidate = fieldData.length === 4 ? false : true;
+        console.log(fieldData)
+        console.log(/^\d{4}$/.test(fieldData))
+        const yearRegExp = /^\d{4}$/;
+        statusValidate = !yearRegExp.test(fieldData);
+        break;
+      }
+
+      case 'isMaxYear': {
+        console.log(fieldData)
+        console.log(/^\d{4}$/.test(fieldData))
+        statusValidate = Number(fieldData) > 2023 ? true: false;
         break;
       }
       
       case 'isMax': {
         statusValidate = fieldData.length > 32 ? true : false;
+        break;
+      }
+
+      case 'isMinAge': {
+        statusValidate = Number(fieldData) < 24 ? true : false;
         break;
       }
 
