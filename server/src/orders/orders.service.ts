@@ -10,6 +10,7 @@ import { Orders } from './orders.entity';
 import { assignOrderType, OrderStasus } from 'src/types/order.types';
 import { DriversService } from 'src/drivers/drivers.service';
 import { MailService } from 'src/mail/mail.service';
+import { CompleteOrderDto } from './dto/orders-complete.dto';
 
 @Injectable()
 export class OrdersService {
@@ -84,7 +85,7 @@ export class OrdersService {
     return await this.ordersRepository.cancelOrder(id, payload);
   }
 
-  async completeOrder(id: string, payload: any) {
+  async completeOrder(id: string, payload: CompleteOrderDto) {
     const order = await this.ordersRepository.getOrderById(id);
     if (!order) {
       throw new BadRequestException('There is no order with such id');

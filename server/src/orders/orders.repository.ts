@@ -1,3 +1,4 @@
+import { CompleteOrderDto } from './dto/orders-complete.dto';
 import { cancelOrderType } from './../types/order.types';
 import { Drivers } from 'src/drivers/drivers.entity';
 import { User } from './../users/users.entity';
@@ -126,14 +127,15 @@ export class OrdersRepository extends Repository<Orders> {
     }
   }
 
-  async completeOrder(id: string, payload: any): Promise<Orders> {
+  async completeOrder(id: string, payload: CompleteOrderDto): Promise<Orders> {
     try {
       await this.update(
         { id: id },
         {
           status: OrderStasus.DONE,
-          price: payload.payload.price,
-          distance: payload.payload.distance,
+          price: payload.price,
+          distance: payload.distance,
+          fuel: payload.fuel,
         },
       );
       return this.getOrderById(id);
