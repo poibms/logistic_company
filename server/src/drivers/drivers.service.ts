@@ -44,7 +44,11 @@ export class DriversService {
   }
 
   async getDriverById(id: string): Promise<Drivers> {
-    return await this.dirversRepository.getDriverById(id);
+    const driver = await this.dirversRepository.getDriverById(id);
+    if (!driver) {
+      throw new BadRequestException('There is no driver with such id');
+    }
+    return driver;
   }
 
   async deleteDriverById(id: string): Promise<{ message: string }> {
@@ -68,10 +72,29 @@ export class DriversService {
   }
 
   async updateDriver(payload: any): Promise<Drivers> {
+    if (!payload.id) {
+      throw new BadRequestException('Please set driver id ');
+    }
+    const candidate = await this.dirversRepository.getDriverById(payload.id);
+    if (!candidate) {
+      throw new BadRequestException('There is no driver with such id');
+    }
     return await this.dirversRepository.updateDriver(payload);
   }
 
   async setDriverToTruck(payload: setTruckType) {
+    const { driverId, truckId } = payload;
+    const candidate = await this.dirversRepository.getDriverById(driverId);
+    if (!candidate) {
+      throw new BadRequestException('There is no driver with such id');
+    }
+    if (candidate.truckId) {
+      throw new BadRequestException('This driver already has a truck');
+    }
+    const checkTruck = await this.trucksRepository.getTruckById(truckId);
+    if (!checkTruck) {
+      throw new BadRequestException('There is no truck with such id');
+    }
     const driver = await this.dirversRepository.setDriverToTruck(payload);
     await this.trucksRepository.setTruckToDriver(payload);
     return driver;
