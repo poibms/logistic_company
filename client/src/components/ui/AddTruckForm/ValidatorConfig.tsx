@@ -23,6 +23,12 @@ const validatorConfig: ConfigType = {
     inNum: {
       message: 'Data must be a number'
     },
+    isMinYear: {
+      message: 'The "Year" field must be exactly 4 characters long'
+    },
+    isMaxYear: {
+      message: 'Last year of release - 2023'
+    }
   },
   loadCapacity: {
     isRequired: {

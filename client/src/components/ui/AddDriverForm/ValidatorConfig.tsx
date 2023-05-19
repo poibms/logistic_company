@@ -42,6 +42,9 @@ const validatorConfig: ConfigType = {
     inNum: {
       message: 'Data must be a number'
     },
+    isMinAge: {
+      message: 'Minimum age - 24'
+    },
   },
 };
 
