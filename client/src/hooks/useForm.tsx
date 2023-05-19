@@ -57,6 +57,7 @@ type FormType = {
   };
   children?: React.ReactNode;
   handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  className?: any;
 };
 
 type FormItemProps = {
@@ -67,6 +68,7 @@ type FormItemProps = {
   value?: string;
   error?: string;
   type?: string;
+  className?: string;
   props?: {
     [key: string]: any;
   };
@@ -74,7 +76,7 @@ type FormItemProps = {
   onKeyDown?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-function Form({ children, handleChange, data, errors, ...rest }: FormType) {
+function Form({ children, handleChange, data, errors, className, ...rest }: FormType) {
   const clonedElements = React.Children.map(children, child => {
     const item = child as ReactElement<PropsWithChildren<FormItemProps>>;
     const childType = typeof item;
@@ -93,8 +95,9 @@ function Form({ children, handleChange, data, errors, ...rest }: FormType) {
     }
     return React.cloneElement(item, config);
   });
+  const styles = className ? className : 'form';
   return (
-    <form className='form' {...rest}>
+    <form className={styles} {...rest}>
       {clonedElements}
     </form>
   );
