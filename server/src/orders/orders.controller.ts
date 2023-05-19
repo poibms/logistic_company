@@ -1,3 +1,4 @@
+import { CompleteOrderDto } from './dto/orders-complete.dto';
 import { Drivers } from 'src/drivers/drivers.entity';
 import { UserRole } from './../types/user.types';
 import { NewUserOrderDto } from './dto/orders-create.dto';
@@ -82,7 +83,10 @@ export class OrdersController {
 
   @Put('/complete/:id')
   @UseGuards(AuthGuard(), RoleGuard(UserRole.DRIVER))
-  async completeOrder(@Param('id') id: string, @Body() payload: any) {
+  async completeOrder(
+    @Param('id') id: string,
+    @Body() payload: CompleteOrderDto,
+  ) {
     return this.ordersService.completeOrder(id, payload);
   }
 }

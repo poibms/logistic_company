@@ -42,6 +42,9 @@ export class Orders {
   @Column()
   volume: number;
 
+  @Column({ default: 0 })
+  fuel: number;
+
   @Column({ default: OrderStasus.NOT_ASSIGNED })
   status: OrderStasus;
 
