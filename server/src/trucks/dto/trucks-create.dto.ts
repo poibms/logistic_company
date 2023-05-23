@@ -29,6 +29,9 @@ export class CreateTruckDto {
   @IsString()
   vin: string;
 
+  @IsString()
+  trailer_vin: string;
+
   @IsOptional()
   docs_img?: string;
 

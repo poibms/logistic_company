@@ -18,7 +18,7 @@ export class TrucksService {
   async createTruck(
     payload: CreateTruckDto,
     photo: any,
-    doc_img: any,
+    docs_img: any,
   ): Promise<Trucks> {
     const truckImage = await this.filesService.createFile(
       FileType.TRUCKS,
@@ -27,7 +27,7 @@ export class TrucksService {
 
     const truckPts = await this.filesService.createFile(
       FileType.TRUCK_DOC,
-      doc_img,
+      docs_img,
     );
     return await this.trucksRepository.createTruck({
       year: +payload.year,

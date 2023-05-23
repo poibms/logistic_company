@@ -1,4 +1,4 @@
-import { Paper } from "@mui/material";
+import { FormControl, FormHelperText, Paper } from "@mui/material";
 import React, { useState } from "react";
 import { Form, useForm } from "../../../hooks/useForm";
 import {
@@ -17,18 +17,26 @@ import {
 } from "../../../store/drivers";
 import { useSelector } from "react-redux";
 import { getTruckErrors, updateTruck } from "../../../store/trucks";
+import SelectInput from "../SelectInput/SelectInput";
+import { cargoTypeValue } from "../CreateOrderForm/CreateOrder";
 
 type UpdateTruckPropsType = {
   truck: TruckType;
   handleClose: any;
 };
 
+interface FileState {
+  [key: string]: File | undefined;
+}
+
 const UpdateTruckForm: React.FC<UpdateTruckPropsType> = ({
   truck,
   handleClose,
 }) => {
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = React.useState<FileState>({});
   const [fileError, setFileError] = useState(false);
+  const [cargoType, setCargoType] = React.useState(String(truck.truck_type));
+  const [cargoTypeErrors, setCargoTypeErrors] = React.useState("");
   const trucksErrors = useSelector(getTruckErrors());
 
   const initialData: TruckUpdateType = {
@@ -36,10 +44,15 @@ const UpdateTruckForm: React.FC<UpdateTruckPropsType> = ({
     model: truck.model,
     year: truck.year,
     loadCapacity: truck.loadCapacity,
+    trailer_vin: truck.trailer_vin,
+    plate: truck.plate,
+    fuel_consumption: truck.fuel_consumption
   };
 
-  const handleFileSelect = (event: any) => {
-    setSelectedFile(event.target.files[0]);
+  const handleFileSelect = (event: any, name: string) => {
+    console.log(event.target.name)
+    const selectedFile = event.target.files?.[0];
+    setSelectedFile((prevFiles) => ({ ...prevFiles, [name]: selectedFile }));
     setFileError(false);
   };
 
@@ -64,14 +77,27 @@ const UpdateTruckForm: React.FC<UpdateTruckPropsType> = ({
       formData.append("model", data.model);
       formData.append("year", data.year);
       formData.append("loadCapacity", data.loadCapacity);
-      if (selectedFile) {
-        formData.append("photo", selectedFile!);
+      formData.append("fuel_consumption", data.fuel_consumption);
+      formData.append("plate", data.plate);
+      formData.append("trailer_vin", data.trailer_vin);
+      formData.append("truck_type", cargoType);
+      if (selectedFile.img) {
+        formData.append("photo", selectedFile.img!);
+      }
+      if (selectedFile.doc) {
+        formData.append("docs_img", selectedFile.doc!);
       }
       if(!trucksErrors) {
       dispatch(updateTruck(formData, () => handleClose()));
         handleResetForm(e);
       }
     }
+  };
+
+  const handleChangeCargoType = (
+    event: React.ChangeEvent<{ name: string; value: string }>
+  ) => {
+    setCargoType(event.target.value);
   };
 
   return (
@@ -83,8 +109,24 @@ const UpdateTruckForm: React.FC<UpdateTruckPropsType> = ({
           <InputField name="model" label="Model" />
           <InputField name="year" label="Year" />
           <InputField name="loadCapacity" label="LoadCapacity" />
-
-          <input className="mt-10" type="file" onInput={handleFileSelect} />
+          <InputField name="fuel_consumption" label="Fuel Consumption (litters/per 100 km)" />
+          <InputField name="plate" label="Plate" placeholder="3007 AB-7"/>
+          <InputField name="trailer_vin" label="Trailer Vin" placeholder="WF0PXXGCHPJA77397" />
+          <FormControl error={!!errors[2]} fullWidth key={2}>
+            <SelectInput
+              label="Cargo Type"
+              name="cargo_type"
+              value={cargoType}
+              items={cargoTypeValue}
+              error={cargoTypeErrors}
+              onChange={(event: any) => handleChangeCargoType(event)}
+            />
+            {cargoTypeErrors && (
+              <FormHelperText>{cargoTypeErrors}</FormHelperText>
+            )}
+          </FormControl>
+          <input className="mt-10" type="file" onInput={(event) => handleFileSelect(event, 'img')} />
+          <input className="mt-10" type="file" onInput={(event) => handleFileSelect(event, 'doc')}/>
           <button
             className="button_outline button_modal"
             type="submit"
@@ -94,6 +136,7 @@ const UpdateTruckForm: React.FC<UpdateTruckPropsType> = ({
             Update Truck
           </button>
         </Form>
+        {fileError && <p className="form_error">{fileError}</p>}
         {trucksErrors && <p className="form_error">{trucksErrors}</p>}
       </Paper>
     </div>
