@@ -62,10 +62,12 @@ export class DriversService {
     if (driverOrders.length > 0) {
       throw new BadRequestException('Cannot delete this driver');
     }
-    await this.trucksRepository.updateTruck({
-      id: driver.truckId.id,
-      driverId: null,
-    });
+    if (driver.truckId) {
+      await this.trucksRepository.updateTruck({
+        id: driver.truckId.id,
+        driverId: null,
+      });
+    }
     const res = await this.dirversRepository.deleteDriverById(id);
 
     return res;
