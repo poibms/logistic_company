@@ -57,6 +57,7 @@ export type OrderCreds = {
   distance: number, 
   volume: string,
   image: any,
+  delivery_date: Date;
 }
 
 export type OrderType = {
@@ -69,6 +70,10 @@ export type OrderType = {
   volume: string,
   cargo_type: string,
   distance: number,
+  date_of_the_order: string;
+  expected_delivery_date: string;
+  actual_delivery_date: string | null;
+  fuel: number;
   price: number,
   status: OrderStatus,
   err_message: string;
@@ -124,6 +129,9 @@ export type TruckType = {
   busy_weight: number,
   photo: string,
   fuel_consumption: number;
+  plate: string,
+  vin: string,
+  doc_img: string;
   trailer_volume: string,
   truck_type: CargoType,
   driverId: DriverType,
@@ -137,6 +145,9 @@ export type TruckCreds = {
   trailer_volume: string,
   truck_type: string,
   fuel_consumption: string,
+  plate: string,
+  vin: string,
+  doc_img: string;
   photo: string;
 }
 

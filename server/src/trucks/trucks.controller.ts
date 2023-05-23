@@ -30,13 +30,24 @@ export class TrucksController {
 
   @Post('/')
   @UseGuards(RoleGuard(UserRole.ADMIN))
-  @UseInterceptors(FileFieldsInterceptor([{ name: 'photo', maxCount: 1 }]))
+  @UseInterceptors(
+    FileFieldsInterceptor([
+      { name: 'photo', maxCount: 1 },
+      { name: 'doc_img', maxCount: 1 },
+    ]),
+  )
   async createDriver(
     @Body() createTruckrDto: CreateTruckDto,
     @UploadedFiles() files,
   ): Promise<Trucks> {
-    const { photo } = files;
-    return await this.trucksService.createTruck(createTruckrDto, photo[0]);
+    const { photo, doc_img } = files;
+    console.log(photo);
+    console.log(doc_img);
+    return await this.trucksService.createTruck(
+      createTruckrDto,
+      photo[0],
+      doc_img[0],
+    );
   }
 
   @Get('/')

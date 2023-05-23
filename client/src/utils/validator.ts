@@ -15,6 +15,7 @@ export function validator(data: { [key: string]: any }, validatorConfig: Validat
   const errors: { [key: string]: string } = {};
 
   function validate(validateMethod: string, fieldData: string, config: ConfigFieldNameType) {
+    console.log(validateMethod)
     let statusValidate;
     switch (validateMethod) {
       case 'isRequired': {
@@ -66,6 +67,18 @@ export function validator(data: { [key: string]: any }, validatorConfig: Validat
         statusValidate = !numRegExp.test(fieldData);
         break;
       }
+      case 'plateRules': {
+        const plateRegExp = /^[0-9]{4}\s[A-Z]{2}-[0-7]{1}$/;
+        statusValidate = !plateRegExp.test(fieldData.toUpperCase());
+        break;
+      }
+
+      case 'vinRules': {
+        statusValidate = fieldData.length === 17 ? false : true;
+        break;
+      }
+
+      
       default:
         break;
     }

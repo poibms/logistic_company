@@ -15,16 +15,26 @@ export class TrucksService {
     private filesService: FilesService,
   ) {}
 
-  async createTruck(payload: CreateTruckDto, photo: any): Promise<Trucks> {
+  async createTruck(
+    payload: CreateTruckDto,
+    photo: any,
+    doc_img: any,
+  ): Promise<Trucks> {
     const truckImage = await this.filesService.createFile(
       FileType.TRUCKS,
       photo,
+    );
+
+    const truckPts = await this.filesService.createFile(
+      FileType.TRUCK_DOC,
+      doc_img,
     );
     return await this.trucksRepository.createTruck({
       year: +payload.year,
       loadCapacity: +payload.loadCapacity,
       ...payload,
       photo: truckImage,
+      docs_img: truckPts,
     });
   }
 
