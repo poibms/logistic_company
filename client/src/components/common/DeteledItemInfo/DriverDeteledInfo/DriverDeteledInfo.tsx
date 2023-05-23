@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAppDispatch } from "../../../../store";
 import { deleteDriverById, getDriverById, unSetDriverToTruck } from "../../../../store/drivers";
 import { DriverType } from "../../../../types/types";
@@ -20,6 +20,8 @@ const DriverDeteledInfo: React.FC<DriverInfoPropsType> = ({
 
   const driverId = searchParams.get("id");
   const driver = useSelector(getDriverById(+driverId!));
+
+  const navigate = useNavigate();
 
   const handleOpen = () => {
     setOpen(true);
@@ -91,6 +93,7 @@ const DriverDeteledInfo: React.FC<DriverInfoPropsType> = ({
                   <img
                     src={`http://localhost:3007/${driver.truckId.photo}`}
                     alt="driver img"
+                    onClick={() => navigate(`/adminpanel?filter=trucks&id=${driver.truckId!.id}`)}
                   />
                   <div className="driverInfo_description flex flex_column justify-center">
                     <h3>
