@@ -40,13 +40,13 @@ export class TrucksController {
     @Body() createTruckrDto: CreateTruckDto,
     @UploadedFiles() files,
   ): Promise<Trucks> {
-    const { photo, doc_img } = files;
+    const { photo, docs_img } = files;
     console.log(photo);
-    console.log(doc_img);
+    console.log(docs_img);
     return await this.trucksService.createTruck(
       createTruckrDto,
       photo[0],
-      doc_img[0],
+      docs_img[0],
     );
   }
 
