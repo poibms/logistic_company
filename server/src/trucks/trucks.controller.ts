@@ -73,8 +73,6 @@ export class TrucksController {
     @Body() payload: any,
     @UploadedFiles() files,
   ): Promise<Trucks> {
-    console.log(payload);
-    console.log(files);
     const { photo, docs_img } = files;
     if (photo && docs_img) {
       const trucksImg = await this.filesService.createFile(

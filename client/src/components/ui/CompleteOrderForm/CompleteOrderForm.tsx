@@ -32,7 +32,7 @@ const CompleteOrderForm:React.FC<CompleteOrderPropsType> = ({order, driver}) => 
   const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if(validate(data)) {
-      const price = calculateShippingCost(data.distance, order.cargo_type, +order.weight, +order.volume, driver.truckId?.fuel_consumption)
+      const price = calculateShippingCost(data.distance, order.cargo_type, +order.weight, +order.volume, +!driver.truckId?.fuel_consumption)
       dispatch(completeOrder({id: order.id, distance: data.distance, price: Math.floor(price)}, () => navigate('/profile')))
     }
   }
