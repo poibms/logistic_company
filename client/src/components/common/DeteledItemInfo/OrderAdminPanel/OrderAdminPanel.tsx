@@ -46,9 +46,16 @@ const OrderAdminPanel: React.FC<OrderPanel> = ({ order, handleClosePanel }) => {
 
   const driverInfo = driverUi();
 
-  const canselOrder = (e: React.FormEvent<HTMLButtonElement>, err_message: string) => {
+  const canselOrder = (
+    e: React.FormEvent<HTMLButtonElement>,
+    err_message: string
+  ) => {
     e.preventDefault();
-    dispatch(cancelOrder(order.id, err_message, () => navigate('/adminpanel?filter=orders')));
+    dispatch(
+      cancelOrder(order.id, err_message, () =>
+        navigate("/adminpanel?filter=orders")
+      )
+    );
   };
 
   return (
@@ -94,6 +101,23 @@ const OrderAdminPanel: React.FC<OrderPanel> = ({ order, handleClosePanel }) => {
             <div>
               <strong>Price</strong> {order.price} BYN
             </div>
+            <div>
+              <strong>Date of the Order</strong> {order.date_of_the_order}
+            </div>
+            <div>
+              <strong>Expected delivery date</strong> {order.expected_delivery_date}
+            </div>
+            {order.actual_delivery_date ? (
+              <div>
+                <strong>Actual delivery date</strong>{" "}
+                {order.actual_delivery_date}
+              </div>
+            ) : (
+              <></>
+            )}
+            <div>
+              <strong>Fuel</strong> {order.fuel} liters
+            </div>
             <div className="flex orderpanel_owner align_center">
               <div className="orderpanel_owner-title">
                 <strong>Owner</strong>
@@ -109,7 +133,7 @@ const OrderAdminPanel: React.FC<OrderPanel> = ({ order, handleClosePanel }) => {
         </div>
         <div className="orderpanel_driver">{driverInfo}</div>
         <div className="orderpanel_buttons">
-          {order.status === "not_assigned" ? (
+          {order.status !== "done" ? (
             <button className="button-cancel" onClick={() => setOpen(true)}>
               Cancel order
             </button>
@@ -117,7 +141,9 @@ const OrderAdminPanel: React.FC<OrderPanel> = ({ order, handleClosePanel }) => {
         </div>
       </div>
       <BasicModal open={open} handleClose={handleClose}>
-        <div><CancelOrderModal handleCancel={canselOrder}/></div>
+        <div>
+          <CancelOrderModal handleCancel={canselOrder} />
+        </div>
       </BasicModal>
     </div>
   );
