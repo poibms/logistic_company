@@ -33,7 +33,7 @@ export class TrucksController {
   @UseInterceptors(
     FileFieldsInterceptor([
       { name: 'photo', maxCount: 1 },
-      { name: 'doc_img', maxCount: 1 },
+      { name: 'docs_img', maxCount: 1 },
     ]),
   )
   async createDriver(

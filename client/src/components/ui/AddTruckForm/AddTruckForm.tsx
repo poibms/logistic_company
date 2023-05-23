@@ -20,7 +20,7 @@ const initialData: TruckCreds = {
   fuel_consumption: "",
   plate: "",
   vin: "",
-  doc_img: "",
+  docs_img: "",
   photo: "",
 };
 
@@ -83,7 +83,7 @@ const AddTuckForm: React.FC<AddTcuckPropsType> = ({ handleClose }) => {
       formData.append("vin", data.vin);
       formData.append("truck_type", cargoType);
       formData.append("photo", selectedFile.img!);
-      formData.append("doc_img", selectedFile.doc!);
+      formData.append("docs_img", selectedFile.doc!);
       if (selectedFile.img && selectedFile.doc) {
         dispatch(createTruck(formData, () => handleClose()));
         handleResetForm(e);

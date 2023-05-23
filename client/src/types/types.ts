@@ -131,7 +131,7 @@ export type TruckType = {
   fuel_consumption: number;
   plate: string,
   vin: string,
-  doc_img: string;
+  docs_img: string;
   trailer_volume: string,
   truck_type: CargoType,
   driverId: DriverType,
@@ -147,7 +147,7 @@ export type TruckCreds = {
   fuel_consumption: string,
   plate: string,
   vin: string,
-  doc_img: string;
+  docs_img: string;
   photo: string;
 }
 
