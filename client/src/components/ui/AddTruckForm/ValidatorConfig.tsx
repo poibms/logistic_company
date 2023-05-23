@@ -70,6 +70,15 @@ const validatorConfig: ConfigType = {
       message: "Length of the Vin code must be 17 symbols"
     }
   },
+
+  trailer_vin: {
+    isRequired: {
+      message: 'Field "Vin" is required',
+    },
+    vinRules: {
+      message: "Length of the Vin code must be 17 symbols"
+    }
+  },
 };
 
 export default validatorConfig;

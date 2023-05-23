@@ -79,6 +79,9 @@ const TruckDeteledInfo: React.FC = () => {
                 <p>
                   <b>VIN</b>: {truck.vin}
                 </p>
+                <p>
+                  <b>Triler VIN</b>: {truck.trailer_vin}
+                </p>
               </div>
               <div className="driverInfo_buttons flex justify-center">
                 {deleteButton}

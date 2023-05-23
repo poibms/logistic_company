@@ -21,6 +21,7 @@ const initialData: TruckCreds = {
   plate: "",
   vin: "",
   docs_img: "",
+  trailer_vin: "",
   photo: "",
 };
 
@@ -80,7 +81,8 @@ const AddTuckForm: React.FC<AddTcuckPropsType> = ({ handleClose }) => {
       formData.append("trailer_volume", data.trailer_volume);
       formData.append("fuel_consumption", data.fuel_consumption);
       formData.append("plate", data.plate);
-      formData.append("vin", data.vin);
+      formData.append("vin", data.vin.toUpperCase());
+      formData.append("trailer_vin", data.trailer_vin.toUpperCase());
       formData.append("truck_type", cargoType);
       formData.append("photo", selectedFile.img!);
       formData.append("docs_img", selectedFile.doc!);
@@ -112,7 +114,7 @@ const AddTuckForm: React.FC<AddTcuckPropsType> = ({ handleClose }) => {
           <InputField name="trailer_volume" label="Volume (м³)" />
           <InputField name="fuel_consumption" label="Fuel Consumption (litters/per 100 km)" />
           <InputField name="vin" label="Vin" placeholder="WF0PXXGCHPJA77397" />
-          <InputField name="plate" label="Plate" />
+          <InputField name="plate" label="Plate" placeholder="3007 AB-7"/>
           <FormControl error={!!errors[2]} fullWidth key={2}>
             <SelectInput
               label="Cargo Type"
@@ -126,6 +128,7 @@ const AddTuckForm: React.FC<AddTcuckPropsType> = ({ handleClose }) => {
               <FormHelperText>{cargoTypeErrors}</FormHelperText>
             )}
           </FormControl>
+          <InputField name="trailer_vin" label="Trailer Vin" placeholder="WF0PXXGCHPJA77397" />
           <input className="mt-10" type="file" onInput={(event) => handleFileSelect(event, 'img')} />
           <input className="mt-10" type="file" onInput={(event) => handleFileSelect(event, 'doc')}/>
           <button

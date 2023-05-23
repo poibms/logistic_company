@@ -93,7 +93,7 @@ export type DriverType = {
   password: string,
   name: string,
   surname: string,
-  age: string,
+  driving_experience: string,
   photo: string,
   truckId?: null | TruckType,
   orders: [] | OrderType[]
@@ -104,14 +104,14 @@ export type DriverCreds = {
   password: string,
   name: string,
   surname: string,
-  age: string,
+  driving_experience: string,
   photo?: any
 }
 export type DriverUpdateType = {
   id?: string,
   name: string,
   surname: string,
-  age: string,
+  driving_experience: string,
   photo?: any
 }
 
@@ -128,9 +128,10 @@ export type TruckType = {
   loadCapacity: string,
   busy_weight: number,
   photo: string,
-  fuel_consumption: number;
+  fuel_consumption: string;
   plate: string,
   vin: string,
+  trailer_vin: string,
   docs_img: string;
   trailer_volume: string,
   truck_type: CargoType,
@@ -147,6 +148,7 @@ export type TruckCreds = {
   fuel_consumption: string,
   plate: string,
   vin: string,
+  trailer_vin: string,
   docs_img: string;
   photo: string;
 }
@@ -157,5 +159,8 @@ export type TruckUpdateType = {
   model: string,
   year: string,
   loadCapacity: string,
+  fuel_consumption: string,
+  plate: string,
+  trailer_vin: string,
   photo?: any
 }
