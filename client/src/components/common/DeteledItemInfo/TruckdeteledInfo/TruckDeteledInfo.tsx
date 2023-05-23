@@ -50,6 +50,10 @@ const TruckDeteledInfo: React.FC = () => {
                 src={`http://localhost:3007/${truck.photo}`}
                 alt="driver img"
               />
+              <img
+                src={`http://localhost:3007/${truck.docs_img}`}
+                alt="driver img"
+              />
               <div className="driverInfo_description flex flex_column justify-center">
                 <h3>
                   Name: {truck.name} {truck.model}
@@ -68,6 +72,12 @@ const TruckDeteledInfo: React.FC = () => {
                 </p>
                 <p>
                   <b>Fuel Consumption</b>: {truck.fuel_consumption} litters/per 100 km
+                </p>
+                <p>
+                  <b>Plate</b>: {truck.plate}
+                </p>
+                <p>
+                  <b>VIN</b>: {truck.vin}
                 </p>
               </div>
               <div className="driverInfo_buttons flex justify-center">
