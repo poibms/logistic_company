@@ -76,11 +76,6 @@ export class OrdersService {
     const order = await this.ordersRepository.getOrderById(id);
     if (!order) {
       throw new BadRequestException('There is no order with such id');
-    } else if (
-      order.status === OrderStasus.IN_PROGRESS ||
-      order.status === OrderStasus.DONE
-    ) {
-      throw new BadRequestException('You cannot cancel this order');
     }
     return await this.ordersRepository.cancelOrder(id, payload);
   }

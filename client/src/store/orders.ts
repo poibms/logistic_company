@@ -49,6 +49,7 @@ export const createOrder = (payload: any): AppThunk => async (dispatch: any) => 
   try {
     const driver = await ordersService.createOrder(payload);
     dispatch(orderCreated(driver));
+    dispatch(ordersRequestFailed(''))
     toast.success('order successfylly created. Check ur email to get more information')
   } catch (error: any) {
     dispatch(ordersRequestFailed(error.response.data.message));
