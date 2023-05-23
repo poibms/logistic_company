@@ -1,4 +1,11 @@
-import { IsString, IsEmail, MinLength, MaxLength } from 'class-validator';
+import {
+  IsString,
+  IsEmail,
+  MinLength,
+  MaxLength,
+  IsOptional,
+  IsNumberString,
+} from 'class-validator';
 
 export class CreateDriverDto {
   @IsEmail()
@@ -15,9 +22,12 @@ export class CreateDriverDto {
   @IsString()
   surname: string;
 
-  @IsString()
-  age: string;
+  @IsNumberString()
+  driving_experience: string;
 
+  @IsOptional()
+  docs_img?: string;
+  @IsOptional()
   photo?: string;
 
   // truckId?: string;

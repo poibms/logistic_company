@@ -16,7 +16,7 @@ const DriversItem: React.FC<DriversItemPropsType> = ({ driver }) => {
           <p>{`${driver.name} ${driver.surname}`}</p>
         </div>
         <div className="item_text">
-          <p>Age: {driver.age}</p>
+          <p>Driving Experience: {driver.driving_experience}</p>
         </div>
         {driver.truckId ? 
           <div className="item_text">

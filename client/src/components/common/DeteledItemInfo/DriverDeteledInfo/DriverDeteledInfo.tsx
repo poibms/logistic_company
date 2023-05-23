@@ -55,6 +55,10 @@ const DriverDeteledInfo: React.FC<DriverInfoPropsType> = ({
               src={`http://localhost:3007/${driver.photo}`}
               alt="driver img"
             />
+            <img
+              src={`http://localhost:3007/${driver.docs_img}`}
+              alt="driver img"
+            />
             <div className="driverInfo_description flex flex_column justify-center">
               <h3>
                 {driver.name} {driver.surname}
@@ -63,7 +67,7 @@ const DriverDeteledInfo: React.FC<DriverInfoPropsType> = ({
                 <b>Email</b>: {driver.email}
               </p>
               <p>
-                <b>Age</b>: {driver.age} years old
+                <b>Driving Experience</b>: {driver.driving_experience} years
               </p>
             </div>
           </div>
@@ -96,7 +100,7 @@ const DriverDeteledInfo: React.FC<DriverInfoPropsType> = ({
                       <b>Year of issue</b>: {driver.truckId.year} years old
                     </p>
                     <p>
-                      <b>Load capacity</b>: {driver.truckId.loadCapacity} years
+                      <b>Load capacity</b>: {driver.truckId.loadCapacity} tons
                       old
                     </p>
                   </div>

@@ -57,8 +57,8 @@ export function validator(data: { [key: string]: any }, validatorConfig: Validat
         break;
       }
 
-      case 'isMinAge': {
-        statusValidate = Number(fieldData) < 24 ? true : false;
+      case 'isMinExperience': {
+        statusValidate = Number(fieldData) < 1 ? true : false;
         break;
       }
 

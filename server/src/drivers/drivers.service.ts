@@ -18,7 +18,11 @@ export class DriversService {
     private mailService: MailService,
   ) {}
 
-  async createDriver(payload: CreateDriverDto, photo: any): Promise<Drivers> {
+  async createDriver(
+    payload: CreateDriverDto,
+    photo: any,
+    docs_img: any,
+  ): Promise<Drivers> {
     const { password } = payload;
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -28,10 +32,16 @@ export class DriversService {
       photo,
     );
 
+    const driverDoc = await this.filesService.createFile(
+      FileType.DRIVER_DOC,
+      docs_img,
+    );
+
     const driver = await this.dirversRepository.createDriver({
       ...payload,
       password: hashedPassword,
       photo: driverPhoto,
+      docs_img: driverDoc,
     });
 
     await this.mailService.driverCredsNotification(driver, password);

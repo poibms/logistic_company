@@ -16,15 +16,15 @@ const validatorConfig: ConfigType = {
       message: 'Field "Surname" is required',
     },
   },
-  age: {
+  driving_experience: {
     isRequired: {
-      message: 'Field "Age" is required',
+      message: 'Field "Driving Experience" is required',
     },
     inNum: {
       message: 'Data must be a number'
     },
-    isMinAge: {
-      message: 'Minimum age - 24'
+    isMinExperience: {
+      message: 'Minimum driving experience - 1 year'
     },
   },
 };

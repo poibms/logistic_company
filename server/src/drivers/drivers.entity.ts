@@ -28,10 +28,13 @@ export class Drivers {
   surname: string;
 
   @Column()
-  age: string;
+  driving_experience: string;
 
   @Column()
   photo: string;
+
+  @Column()
+  docs_img: string;
 
   @Column({ default: UserRole.DRIVER })
   role: string;
