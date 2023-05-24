@@ -16,6 +16,7 @@ import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
 import SelectInput from "../SelectInput/SelectInput";
 import validatorConfig from "./ValidatorConfig";
 import CustomDatePicker from "../DatePickerField/DatePickerField";
+import transformDate from "../../../utils/TransformData";
 
 const initialData: OrderCreds = {
   name: "",
@@ -130,13 +131,7 @@ const CreateOrder: React.FC = () => {
     });
   };
 
-  const transformDate = (date: any) => {
-    return `${("0" + date.getDate()).slice(-2)}.${(
-      "0" +
-      (date.getMonth() + 1)
-    ).slice(-2)}.${date.getFullYear()}`
-  }
-
+ 
   const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const timestamp = Date.now();

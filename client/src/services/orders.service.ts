@@ -43,7 +43,7 @@ const ordersService = {
   },
 
   completeOder: async (payload: any) => {
-    const {data} = await $authHost.put(`orders/complete/${payload.id}`, {payload});
+    const {data} = await $authHost.put(`orders/complete/${payload.id}`, payload);
     return data
   }
 }

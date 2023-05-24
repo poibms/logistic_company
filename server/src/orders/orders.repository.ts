@@ -136,6 +136,7 @@ export class OrdersRepository extends Repository<Orders> {
           price: payload.price,
           distance: payload.distance,
           fuel: payload.fuel,
+          actual_delivery_date: payload.actual_delivery_date,
         },
       );
       return this.getOrderById(id);

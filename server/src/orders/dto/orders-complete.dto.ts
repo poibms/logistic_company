@@ -1,4 +1,4 @@
-import { IsNumber } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 
 export class CompleteOrderDto {
   @IsNumber()
@@ -9,4 +9,7 @@ export class CompleteOrderDto {
 
   @IsNumber()
   price: number;
+
+  @IsString()
+  actual_delivery_date: string;
 }
