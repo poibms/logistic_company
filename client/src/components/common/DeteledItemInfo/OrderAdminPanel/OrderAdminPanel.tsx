@@ -6,6 +6,7 @@ import { cancelOrder } from "../../../../store/orders";
 import BasicModal from "../../../ui/Modal/Modal";
 import CancelOrderModal from "../../../ui/CancelOrderModal/CancelOrderModal";
 import { useNavigate } from "react-router-dom";
+import ReAssignDriverForm from "../../../ui/ReAssignDriverForm /ReAssignDriverForm";
 
 type OrderPanel = {
   order: OrderType;
@@ -15,12 +16,22 @@ type OrderPanel = {
 const OrderAdminPanel: React.FC<OrderPanel> = ({ order, handleClosePanel }) => {
   const [open, setOpen] = React.useState(false);
 
+  const [openReAssgn, setOpenReAssgn] = React.useState(false);
+
   const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleOpenReAssgn = () => {
+    setOpen(true);
+  };
+  const handleCloseReAssgn = () => {
+    setOpen(false);
+  };
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const driverUi = () => {
@@ -134,16 +145,23 @@ const OrderAdminPanel: React.FC<OrderPanel> = ({ order, handleClosePanel }) => {
         <div className="orderpanel_driver">{driverInfo}</div>
         <div className="orderpanel_buttons">
           {order.status !== "done" ? (
+            <>
             <button className="button-cancel" onClick={() => setOpen(true)}>
               Cancel order
             </button>
+            
+            <button className="button-cancel" onClick={() => setOpenReAssgn(true)}>
+              ReAssgin driver
+            </button>
+            </>
           ) : null}
         </div>
       </div>
       <BasicModal open={open} handleClose={handleClose}>
-        <div>
           <CancelOrderModal handleCancel={canselOrder} />
-        </div>
+      </BasicModal>
+      <BasicModal open={openReAssgn} handleClose={handleCloseReAssgn}>
+          <ReAssignDriverForm data={order} handleClose={handleCloseReAssgn}/>
       </BasicModal>
     </div>
   );

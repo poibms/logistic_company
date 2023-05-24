@@ -40,6 +40,8 @@ const TruckDeteledInfo: React.FC = () => {
   };
 
   const deleteButton = genDeleteButon();
+
+
   return (
     <div className="deteledInfo">
       <div className="deteledInfo_wrapper flex flex_column">
