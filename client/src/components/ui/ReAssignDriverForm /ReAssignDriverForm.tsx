@@ -13,14 +13,12 @@ import { getAllDrivers } from "../../../store/drivers";
 import { getOrdersErrors, setOrderToDriver } from "../../../store/orders";
 import { OrderType } from "../../../types/types";
 
-type AssihnDriverPropsType = {
-  dataId: string;
+type ReAssihnDriverPropsType = {
   handleClose: any;
   data: OrderType,
 };
 
-const AssignDriverForm: React.FC<AssihnDriverPropsType> = ({
-  dataId,
+const ReAssignDriverForm: React.FC<ReAssihnDriverPropsType> = ({
   handleClose,
   data
 }) => {
@@ -38,7 +36,7 @@ const AssignDriverForm: React.FC<AssihnDriverPropsType> = ({
   };
 
   const genDriverMenuItems = () => {
-    const suitableDrivers = drivers.filter(driver => driver.truckId && driver.truckId.truck_type === data.cargo_type && data.volume <= driver.truckId.trailer_volume && data.weight <= driver.truckId.loadCapacity)
+    const suitableDrivers = drivers.filter(driver => driver.truckId && driver.truckId.truck_type === data.cargo_type && data.volume <= driver.truckId.trailer_volume && data.weight <= driver.truckId.loadCapacity && driver.id !== data.driverId?.id)
     console.log(drivers.filter(driver => driver.truckId && driver.truckId.truck_type === data.cargo_type))
     return suitableDrivers.map((driver) => (
       <MenuItem key={driver.id} value={driver.id}>
@@ -55,12 +53,12 @@ const AssignDriverForm: React.FC<AssihnDriverPropsType> = ({
     e.preventDefault();
     if (driver !== "") {
       dispatch(
-        setOrderToDriver({ orderId: dataId, driverId: driver }, () =>
+        setOrderToDriver({ orderId: String(data.id), driverId: driver }, () =>
           handleClose()
         )
       );
     } else {
-      setEnterError("Choose the truck");
+      setEnterError("Choose the driver");
     }
   };
 
@@ -96,7 +94,7 @@ const AssignDriverForm: React.FC<AssihnDriverPropsType> = ({
             onClick={handleSubmit}
             disabled={enterError ? true : false}
           >
-            Assign
+            ReAssign
           </button>
         </Form>
         {enterError && <p className="form_error">{enterError}</p>}
@@ -106,4 +104,4 @@ const AssignDriverForm: React.FC<AssihnDriverPropsType> = ({
   );
 };
 
-export default AssignDriverForm;
+export default ReAssignDriverForm;

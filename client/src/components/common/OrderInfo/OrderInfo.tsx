@@ -29,8 +29,10 @@ const OrderInfo: React.FC = () => {
       .then((res) => setOrder(res.data))
       .catch((res) => setError(res));
 
-    if(role === 'driver') {
-      driversService.getDriverById(authUser!.id).then((data) => setDriver(data))
+    if (role === "driver") {
+      driversService
+        .getDriverById(authUser!.id)
+        .then((data) => setDriver(data));
     }
   }, [trackCode, authUser, role]);
 
@@ -78,23 +80,40 @@ const OrderInfo: React.FC = () => {
               <div>
                 <strong>Status</strong>: {order.status}
               </div>
-              {order.status === OrderStatus.CANCELED ? 
-              <div>
-                <strong>Error message</strong>: {order.err_message}
-              </div> :
-              <></>}
+              {order.status === OrderStatus.CANCELED ? (
+                <div>
+                  <strong>Error message</strong>: {order.err_message}
+                </div>
+              ) : (
+                <></>
+              )}
               <div>
                 <strong>Price</strong>: {order.price} BYN
+              </div>
+              <div>
+                <strong>Date of the Order</strong> {order.date_of_the_order}
+              </div>
+              <div>
+                <strong>Expected delivery date</strong>{" "}
+                {order.expected_delivery_date}
+              </div>
+              {order.actual_delivery_date ? (
+                <div>
+                  <strong>Actual delivery date</strong>{" "}
+                  {order.actual_delivery_date}
+                </div>
+              ) : (
+                <></>
+              )}
+              <div>
+                <strong>Fuel</strong> {order.fuel} liters
               </div>
             </div>
             <div className="flex align_center">
               {isAuth ? (
                 role === "driver" ? (
                   order.status !== "done" ? (
-                    <button
-                      className="button"
-                      onClick={handleOpen}
-                    >
+                    <button className="button" onClick={handleOpen}>
                       Order complete
                     </button>
                   ) : null
@@ -126,7 +145,11 @@ const OrderInfo: React.FC = () => {
       </Container>
 
       <BasicModal open={open} handleClose={handleClose}>
-        {order && driver && role === "driver" ? <CompleteOrderForm order={order} driver={driver}/> : <></>}
+        {order && driver && role === "driver" ? (
+          <CompleteOrderForm order={order} driver={driver} />
+        ) : (
+          <></>
+        )}
       </BasicModal>
     </>
   );

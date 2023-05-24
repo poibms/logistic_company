@@ -15,6 +15,7 @@ export function validator(data: { [key: string]: any }, validatorConfig: Validat
   const errors: { [key: string]: string } = {};
 
   function validate(validateMethod: string, fieldData: string, config: ConfigFieldNameType) {
+    console.log(validateMethod)
     let statusValidate;
     switch (validateMethod) {
       case 'isRequired': {
@@ -37,8 +38,17 @@ export function validator(data: { [key: string]: any }, validatorConfig: Validat
       }
 
       case 'isMinYear': {
-        console.log(fieldData.length)
-        statusValidate = fieldData.length === 4 ? false : true;
+        console.log(fieldData)
+        console.log(/^\d{4}$/.test(fieldData))
+        const yearRegExp = /^\d{4}$/;
+        statusValidate = !yearRegExp.test(fieldData);
+        break;
+      }
+
+      case 'isMaxYear': {
+        console.log(fieldData)
+        console.log(/^\d{4}$/.test(fieldData))
+        statusValidate = Number(fieldData) > 2023 ? true: false;
         break;
       }
       
@@ -47,11 +57,28 @@ export function validator(data: { [key: string]: any }, validatorConfig: Validat
         break;
       }
 
+      case 'isMinExperience': {
+        statusValidate = Number(fieldData) < 1 ? true : false;
+        break;
+      }
+
       case 'inNum': {
         const numRegExp = /^\d+$/;
         statusValidate = !numRegExp.test(fieldData);
         break;
       }
+      case 'plateRules': {
+        const plateRegExp = /^[0-9]{4}\s[A-Z]{2}-[0-7]{1}$/;
+        statusValidate = !plateRegExp.test(fieldData.toUpperCase());
+        break;
+      }
+
+      case 'vinRules': {
+        statusValidate = fieldData.length === 17 ? false : true;
+        break;
+      }
+
+      
       default:
         break;
     }

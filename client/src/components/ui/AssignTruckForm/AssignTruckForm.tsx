@@ -32,6 +32,7 @@ const AssignTruckForm: React.FC<AssihnTruckPropsType> = ({
 
   const handleChange = (event: SelectChangeEvent) => {
     setTruck(event.target.value);
+    setEnterError("");
   };
 
   const genTruckMenuItems = () => {

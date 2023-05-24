@@ -44,13 +44,20 @@ export enum OrderStatus {
 export type OrderCreds = {
   name: string,
   weight: string,
-  from: string,
-  to: string,
+  fromCity: string,
+  fromStreet: string,
+  fromHouse: string,
+  fromBuilding: string,
+  toCity: string,
+  toStreet: string,
+  toHouse: string,
+  toBuilding: string,
   price: number,
   cargo_type: string,
   distance: number, 
   volume: string,
   image: any,
+  delivery_date: Date;
 }
 
 export type OrderType = {
@@ -63,6 +70,10 @@ export type OrderType = {
   volume: string,
   cargo_type: string,
   distance: number,
+  date_of_the_order: string;
+  expected_delivery_date: string;
+  actual_delivery_date: string | null;
+  fuel: number;
   price: number,
   status: OrderStatus,
   err_message: string;
@@ -82,7 +93,8 @@ export type DriverType = {
   password: string,
   name: string,
   surname: string,
-  age: string,
+  driving_experience: string,
+  docs_img: string,
   photo: string,
   truckId?: null | TruckType,
   orders: [] | OrderType[]
@@ -93,14 +105,14 @@ export type DriverCreds = {
   password: string,
   name: string,
   surname: string,
-  age: string,
+  driving_experience: string,
   photo?: any
 }
 export type DriverUpdateType = {
   id?: string,
   name: string,
   surname: string,
-  age: string,
+  driving_experience: string,
   photo?: any
 }
 
@@ -117,7 +129,11 @@ export type TruckType = {
   loadCapacity: string,
   busy_weight: number,
   photo: string,
-  fuel_consumption: number;
+  fuel_consumption: string;
+  plate: string,
+  vin: string,
+  trailer_vin: string,
+  docs_img: string;
   trailer_volume: string,
   truck_type: CargoType,
   driverId: DriverType,
@@ -131,6 +147,10 @@ export type TruckCreds = {
   trailer_volume: string,
   truck_type: string,
   fuel_consumption: string,
+  plate: string,
+  vin: string,
+  trailer_vin: string,
+  docs_img: string;
   photo: string;
 }
 
@@ -140,5 +160,8 @@ export type TruckUpdateType = {
   model: string,
   year: string,
   loadCapacity: string,
+  fuel_consumption: string,
+  plate: string,
+  trailer_vin: string,
   photo?: any
 }

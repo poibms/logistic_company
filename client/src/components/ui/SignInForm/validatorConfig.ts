@@ -8,21 +8,21 @@ type ConfigType = {
 const validatorConfig: ConfigType = {
   email: {
     isRequired: {
-      message: 'Электронная почта обязательна для заполнения',
+      message: 'Field "Email" is required',
     },
     isEmail: {
-      message: 'Поле "Email" введено не корректно',
+      message: 'The field "Email" is entered incorrectly',
     },
   },
   password: {
     isRequired: {
-      message: 'Поле "Пароль" обязательно для заполнения',
+      message: 'Field "Password" is required',
     },
     isMin: {
-      message: 'Длинна поля "Пароль" должно быть 7 или более символов ',
+      message: 'The length of the "Password" field must be 7 or more characters',
     },
     isMax: {
-      message: 'Длинна поля "Пароль" должно быть менее 32 символов ',
+      message: 'The length of the "Password" field must be less than 32 characters',
     },
   },
 };

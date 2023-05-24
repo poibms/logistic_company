@@ -26,7 +26,7 @@ export class TrucksRepository extends Repository<Trucks> {
     return await this.find({ relations: ['driverId'] });
   }
 
-  async setTruckToDriver(payload: setTruckType) {
+  async setTruckToDriver(payload: any) {
     try {
       const { driverId, truckId } = payload;
       return this.update({ id: truckId }, { driverId: driverId });
@@ -76,9 +76,7 @@ export class TrucksRepository extends Repository<Trucks> {
       await this.update({ id: id }, payload);
       return await this.getTruckById(id);
     } catch (e) {
-      throw new BadRequestException(
-        'something was wrong while updating driver',
-      );
+      throw new BadRequestException('something was wrong while updating truck');
     }
   }
 }

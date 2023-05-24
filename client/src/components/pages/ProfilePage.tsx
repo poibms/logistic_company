@@ -32,9 +32,9 @@ const ProfilePage = () => {
   };
 
   const genItems = () => {
-    if (value === 1) {
+    if (value === 2) {
       return <CreateOrder />;
-    } else if (value === 2) {
+    } else if (value === 1) {
       return <OrderList />;
     } else if (value === 0) {
       return <Profile/>;
@@ -58,7 +58,24 @@ const ProfilePage = () => {
           </div>
         </div>
         {role === "driver" ? (
-          <OrderList />
+           <>
+           <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
+             <Tabs
+               value={value}
+               onChange={handleChange}
+               // centered
+               variant="scrollable"
+               scrollButtons="auto"
+             >
+               <Tab label="Profile" onClick={() => navigate("/profile")} />
+               <Tab
+                 label="Order's list"
+                 onClick={() => navigate("/profile/create-order")}
+               />
+             </Tabs>
+           </Box>
+           {item}
+         </>
         ) : (
           <>
             <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
@@ -71,11 +88,11 @@ const ProfilePage = () => {
               >
                 <Tab label="Profile" onClick={() => navigate("/profile")} />
                 <Tab
-                  label="Create order"
+                  label="Order's history"
                   onClick={() => navigate("/profile/create-order")}
                 />
                 <Tab
-                  label="Order's history"
+                  label="Create order"
                   onClick={() => navigate("/profile/orders")}
                 />
               </Tabs>

@@ -31,13 +31,22 @@ export class DriversController {
 
   @Post('/')
   @UseGuards(RoleGuard(UserRole.ADMIN))
-  @UseInterceptors(FileFieldsInterceptor([{ name: 'photo', maxCount: 1 }]))
+  @UseInterceptors(
+    FileFieldsInterceptor([
+      { name: 'photo', maxCount: 1 },
+      { name: 'docs_img', maxCount: 1 },
+    ]),
+  )
   async createDriver(
     @Body() createDriverDto: CreateDriverDto,
     @UploadedFiles() files,
   ): Promise<Drivers> {
-    const { photo } = files;
-    return await this.driversService.createDriver(createDriverDto, photo[0]);
+    const { photo, docs_img } = files;
+    return await this.driversService.createDriver(
+      createDriverDto,
+      photo[0],
+      docs_img[0],
+    );
   }
 
   @Get('/')
@@ -71,22 +80,48 @@ export class DriversController {
 
   @Put('/driver')
   @UseGuards(RoleGuard(UserRole.ADMIN))
-  @UseInterceptors(FileFieldsInterceptor([{ name: 'photo', maxCount: 1 }]))
+  @UseInterceptors(
+    FileFieldsInterceptor([
+      { name: 'photo', maxCount: 1 },
+      { name: 'docs_img', maxCount: 1 },
+    ]),
+  )
   async updateDriver(
     @Body() payload: any,
     @UploadedFiles() files,
   ): Promise<Drivers> {
-    console.log(payload);
-    console.log(files);
-    const { photo } = files;
-    if (photo) {
-      const driverPhoto = await this.filesService.createFile(
+    const { photo, docs_img } = files;
+    if (photo && docs_img) {
+      const trucksImg = await this.filesService.createFile(
+        FileType.DRIVERS,
+        photo[0],
+      );
+      const trucksDocs = await this.filesService.createFile(
+        FileType.DRIVER_DOC,
+        docs_img[0],
+      );
+      return await this.driversService.updateDriver({
+        ...payload,
+        photo: trucksImg,
+        docs_img: trucksDocs,
+      });
+    } else if (photo) {
+      const trucksImg = await this.filesService.createFile(
         FileType.DRIVERS,
         photo[0],
       );
       return await this.driversService.updateDriver({
         ...payload,
-        photo: driverPhoto,
+        photo: trucksImg,
+      });
+    } else if (docs_img) {
+      const trucksDocs = await this.filesService.createFile(
+        FileType.DRIVER_DOC,
+        docs_img[0],
+      );
+      return await this.driversService.updateDriver({
+        ...payload,
+        docs_img: trucksDocs,
       });
     } else {
       return await this.driversService.updateDriver(payload);

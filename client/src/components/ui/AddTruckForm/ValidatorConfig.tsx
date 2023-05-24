@@ -23,6 +23,12 @@ const validatorConfig: ConfigType = {
     inNum: {
       message: 'Data must be a number'
     },
+    isMinYear: {
+      message: 'The "Year" field must be exactly 4 characters long'
+    },
+    isMaxYear: {
+      message: 'Last year of release - 2023'
+    }
   },
   loadCapacity: {
     isRequired: {
@@ -47,6 +53,31 @@ const validatorConfig: ConfigType = {
     inNum: {
       message: 'Data must be a number'
     },
+  },
+  plate: {
+    isRequired: {
+      message: 'Field "Plate" is required',
+    },
+    plateRules: {
+      message: "Plate must match example 3007 AB-7"
+    }
+  },
+  vin: {
+    isRequired: {
+      message: 'Field "Vin" is required',
+    },
+    vinRules: {
+      message: "Length of the Vin code must be 17 symbols"
+    }
+  },
+
+  trailer_vin: {
+    isRequired: {
+      message: 'Field "Vin" is required',
+    },
+    vinRules: {
+      message: "Length of the Vin code must be 17 symbols"
+    }
   },
 };
 

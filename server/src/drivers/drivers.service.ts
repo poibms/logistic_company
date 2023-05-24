@@ -18,7 +18,11 @@ export class DriversService {
     private mailService: MailService,
   ) {}
 
-  async createDriver(payload: CreateDriverDto, photo: any): Promise<Drivers> {
+  async createDriver(
+    payload: CreateDriverDto,
+    photo: any,
+    docs_img: any,
+  ): Promise<Drivers> {
     const { password } = payload;
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -28,10 +32,16 @@ export class DriversService {
       photo,
     );
 
+    const driverDoc = await this.filesService.createFile(
+      FileType.DRIVER_DOC,
+      docs_img,
+    );
+
     const driver = await this.dirversRepository.createDriver({
       ...payload,
       password: hashedPassword,
       photo: driverPhoto,
+      docs_img: driverDoc,
     });
 
     await this.mailService.driverCredsNotification(driver, password);
@@ -44,18 +54,59 @@ export class DriversService {
   }
 
   async getDriverById(id: string): Promise<Drivers> {
-    return await this.dirversRepository.getDriverById(id);
+    const driver = await this.dirversRepository.getDriverById(id);
+    if (!driver) {
+      throw new BadRequestException('There is no driver with such id');
+    }
+    return driver;
   }
 
   async deleteDriverById(id: string): Promise<{ message: string }> {
-    return await this.dirversRepository.deleteDriverById(id);
+    const driver = await this.dirversRepository.getDriverById(id);
+    if (!driver) {
+      throw new BadRequestException('There is no driver with such id');
+    }
+    const driverOrders = driver.orders.filter(
+      (order) => order.status === 'in_progress',
+    );
+    if (driverOrders.length > 0) {
+      throw new BadRequestException('Cannot delete this driver');
+    }
+    if (driver.truckId) {
+      await this.trucksRepository.updateTruck({
+        id: driver.truckId.id,
+        driverId: null,
+      });
+    }
+    const res = await this.dirversRepository.deleteDriverById(id);
+
+    return res;
   }
 
   async updateDriver(payload: any): Promise<Drivers> {
+    if (!payload.id) {
+      throw new BadRequestException('Please set driver id ');
+    }
+    const candidate = await this.dirversRepository.getDriverById(payload.id);
+    if (!candidate) {
+      throw new BadRequestException('There is no driver with such id');
+    }
     return await this.dirversRepository.updateDriver(payload);
   }
 
   async setDriverToTruck(payload: setTruckType) {
+    const { driverId, truckId } = payload;
+    const candidate = await this.dirversRepository.getDriverById(driverId);
+    if (!candidate) {
+      throw new BadRequestException('There is no driver with such id');
+    }
+    if (candidate.truckId) {
+      throw new BadRequestException('This driver already has a truck');
+    }
+    const checkTruck = await this.trucksRepository.getTruckById(truckId);
+    if (!checkTruck) {
+      throw new BadRequestException('There is no truck with such id');
+    }
     const driver = await this.dirversRepository.setDriverToTruck(payload);
     await this.trucksRepository.setTruckToDriver(payload);
     return driver;

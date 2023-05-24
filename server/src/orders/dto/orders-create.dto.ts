@@ -28,6 +28,12 @@ export class NewUserOrderDto {
   to: string;
 
   @IsString()
+  date_of_the_order: string;
+
+  @IsString()
+  expected_delivery_date: string;
+
+  @IsString()
   @IsOptional()
   image?: string;
 }

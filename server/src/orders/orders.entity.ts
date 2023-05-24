@@ -42,6 +42,18 @@ export class Orders {
   @Column()
   volume: number;
 
+  @Column({ default: 0 })
+  fuel: number;
+
+  @Column()
+  expected_delivery_date: string;
+
+  @Column({ nullable: true })
+  actual_delivery_date: string;
+
+  @Column()
+  date_of_the_order: string;
+
   @Column({ default: OrderStasus.NOT_ASSIGNED })
   status: OrderStasus;
 

@@ -18,6 +18,10 @@ const initialData: TruckCreds = {
   trailer_volume: "",
   truck_type: "",
   fuel_consumption: "",
+  plate: "",
+  vin: "",
+  docs_img: "",
+  trailer_vin: "",
   photo: "",
 };
 
@@ -25,8 +29,12 @@ type AddTcuckPropsType = {
   handleClose: any;
 };
 
+interface FileState {
+  [key: string]: File | undefined;
+}
+
 const AddTuckForm: React.FC<AddTcuckPropsType> = ({ handleClose }) => {
-  const [selectedFile, setSelectedFile] = React.useState(null);
+  const [selectedFile, setSelectedFile] = React.useState<FileState>({});
   const [fileError, setFileError] = React.useState(false);
   const [cargoType, setCargoType] = React.useState("");
   const [cargoTypeErrors, setCargoTypeErrors] = React.useState("");
@@ -43,8 +51,10 @@ const AddTuckForm: React.FC<AddTcuckPropsType> = ({ handleClose }) => {
     handleResetForm,
   } = useForm(initialData, false, validatorConfig);
 
-  const handleFileSelect = (event: any) => {
-    setSelectedFile(event.target.files[0]);
+  const handleFileSelect = (event: any, name: string) => {
+    console.log(event.target.name)
+    const selectedFile = event.target.files?.[0];
+    setSelectedFile((prevFiles) => ({ ...prevFiles, [name]: selectedFile }));
     setFileError(false);
   };
 
@@ -70,9 +80,13 @@ const AddTuckForm: React.FC<AddTcuckPropsType> = ({ handleClose }) => {
       formData.append("loadCapacity", data.loadCapacity);
       formData.append("trailer_volume", data.trailer_volume);
       formData.append("fuel_consumption", data.fuel_consumption);
+      formData.append("plate", data.plate);
+      formData.append("vin", data.vin.toUpperCase());
+      formData.append("trailer_vin", data.trailer_vin.toUpperCase());
       formData.append("truck_type", cargoType);
-      formData.append("photo", selectedFile!);
-      if (selectedFile) {
+      formData.append("photo", selectedFile.img!);
+      formData.append("docs_img", selectedFile.doc!);
+      if (selectedFile.img && selectedFile.doc) {
         dispatch(createTruck(formData, () => handleClose()));
         handleResetForm(e);
         setCargoType("")
@@ -99,6 +113,8 @@ const AddTuckForm: React.FC<AddTcuckPropsType> = ({ handleClose }) => {
           <InputField name="loadCapacity" label="Load Capacity (tons)" />
           <InputField name="trailer_volume" label="Volume (м³)" />
           <InputField name="fuel_consumption" label="Fuel Consumption (litters/per 100 km)" />
+          <InputField name="vin" label="Vin" placeholder="WF0PXXGCHPJA77397" />
+          <InputField name="plate" label="Plate" placeholder="3007 AB-7"/>
           <FormControl error={!!errors[2]} fullWidth key={2}>
             <SelectInput
               label="Cargo Type"
@@ -112,7 +128,9 @@ const AddTuckForm: React.FC<AddTcuckPropsType> = ({ handleClose }) => {
               <FormHelperText>{cargoTypeErrors}</FormHelperText>
             )}
           </FormControl>
-          <input className="mt-10" type="file" onInput={handleFileSelect} />
+          <InputField name="trailer_vin" label="Trailer Vin" placeholder="WF0PXXGCHPJA77397" />
+          <input className="mt-10" type="file" onInput={(event) => handleFileSelect(event, 'img')} />
+          <input className="mt-10" type="file" onInput={(event) => handleFileSelect(event, 'doc')}/>
           <button
             className="button_outline button_modal"
             type="submit"

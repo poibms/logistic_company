@@ -17,22 +17,28 @@ type AddDriverPropsType = {
   handleClose: any;
 };
 
+interface FileState {
+  [key: string]: File | undefined;
+}
+
 const UodateDriverForm: React.FC<AddDriverPropsType> = ({
   driver,
   handleClose,
 }) => {
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = React.useState<FileState>({});
   const [fileError, setFileError] = useState(false);
   const driverError = useSelector(getDriverErrors());
 
   const initialData: DriverUpdateType = {
     name: driver.name,
     surname: driver.surname,
-    age: driver.age,
+    driving_experience: driver.driving_experience,
   };
 
-  const handleFileSelect = (event: any) => {
-    setSelectedFile(event.target.files[0]);
+  const handleFileSelect = (event: any, name: string) => {
+    console.log(event.target.name)
+    const selectedFile = event.target.files?.[0];
+    setSelectedFile((prevFiles) => ({ ...prevFiles, [name]: selectedFile }));
     setFileError(false);
   };
 
@@ -55,9 +61,12 @@ const UodateDriverForm: React.FC<AddDriverPropsType> = ({
       formData.append("id", String(driver.id));
       formData.append("name", data.name);
       formData.append("surname", data.surname);
-      formData.append("age", data.age);
-      if (selectedFile) {
-        formData.append("photo", selectedFile!);
+      formData.append("driving_experience", data.driving_experience);
+      if (selectedFile.img) {
+        formData.append("photo", selectedFile.img!);
+      }
+      if (selectedFile.doc) {
+        formData.append("docs_img", selectedFile.doc!);
       }
       dispatch(updateDriver(formData, () => handleClose()));
       handleResetForm(e);
@@ -71,9 +80,10 @@ const UodateDriverForm: React.FC<AddDriverPropsType> = ({
         <Form data={data} errors={errors} handleChange={handleInputChange}>
           <InputField name="name" label="Name" autoFocus />
           <InputField name="surname" label="Surname" />
-          <InputField name="age" label="Age" />
+          <InputField name="driving_experience" label="Driving Experience" />
 
-          <input className="mt-10" type="file" onInput={handleFileSelect} />
+          <input className="mt-10" type="file" onInput={(event) => handleFileSelect(event, 'img')} />
+          <input className="mt-10" type="file" onInput={(event) => handleFileSelect(event, 'doc')}/>
           <button
             className="button_outline button_modal"
             type="submit"
@@ -84,7 +94,7 @@ const UodateDriverForm: React.FC<AddDriverPropsType> = ({
           </button>
         </Form>
         {driverError && <p className="form_error">{driverError}</p>}
-        {/* {fileError && <p className='form_error'>File is required</p>} */}
+        {fileError && <p className='form_error'>File is required</p>}
       </Paper>
     </div>
   );

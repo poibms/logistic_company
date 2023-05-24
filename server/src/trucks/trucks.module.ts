@@ -1,3 +1,4 @@
+import { DriversModule } from './../drivers/drivers.module';
 import { AuthModule } from 'src/auth/auth.module';
 import { FilesModule } from './../files/files.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -12,6 +13,7 @@ import { TrucksRepository } from './trucks.repository';
     TypeOrmModule.forFeature([Trucks]),
     FilesModule,
     forwardRef(() => AuthModule),
+    forwardRef(() => DriversModule),
   ],
   providers: [TrucksService, TrucksRepository],
   controllers: [TrucksController],

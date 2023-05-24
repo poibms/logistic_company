@@ -30,13 +30,24 @@ export class TrucksController {
 
   @Post('/')
   @UseGuards(RoleGuard(UserRole.ADMIN))
-  @UseInterceptors(FileFieldsInterceptor([{ name: 'photo', maxCount: 1 }]))
+  @UseInterceptors(
+    FileFieldsInterceptor([
+      { name: 'photo', maxCount: 1 },
+      { name: 'docs_img', maxCount: 1 },
+    ]),
+  )
   async createDriver(
     @Body() createTruckrDto: CreateTruckDto,
     @UploadedFiles() files,
   ): Promise<Trucks> {
-    const { photo } = files;
-    return await this.trucksService.createTruck(createTruckrDto, photo[0]);
+    const { photo, docs_img } = files;
+    console.log(photo);
+    console.log(docs_img);
+    return await this.trucksService.createTruck(
+      createTruckrDto,
+      photo[0],
+      docs_img[0],
+    );
   }
 
   @Get('/')
@@ -52,22 +63,48 @@ export class TrucksController {
 
   @Put('/')
   @UseGuards(RoleGuard(UserRole.ADMIN))
-  @UseInterceptors(FileFieldsInterceptor([{ name: 'photo', maxCount: 1 }]))
-  async updateDriver(
+  @UseInterceptors(
+    FileFieldsInterceptor([
+      { name: 'photo', maxCount: 1 },
+      { name: 'docs_img', maxCount: 1 },
+    ]),
+  )
+  async updateTruck(
     @Body() payload: any,
     @UploadedFiles() files,
   ): Promise<Trucks> {
-    console.log(payload);
-    console.log(files);
-    const { photo } = files;
-    if (photo) {
-      const driverPhoto = await this.filesService.createFile(
+    const { photo, docs_img } = files;
+    if (photo && docs_img) {
+      const trucksImg = await this.filesService.createFile(
+        FileType.TRUCKS,
+        photo[0],
+      );
+      const trucksDocs = await this.filesService.createFile(
+        FileType.TRUCK_DOC,
+        docs_img[0],
+      );
+      return await this.trucksService.updateTruck({
+        ...payload,
+        photo: trucksImg,
+        docs_img: trucksDocs,
+      });
+    } else if (photo) {
+      const trucksImg = await this.filesService.createFile(
         FileType.TRUCKS,
         photo[0],
       );
       return await this.trucksService.updateTruck({
         ...payload,
-        photo: driverPhoto,
+        photo: trucksImg,
+      });
+    } else if (docs_img) {
+      const trucksDocs = await this.filesService.createFile(
+        FileType.TRUCK_DOC,
+        docs_img[0],
+      );
+      return await this.trucksService.updateTruck({
+        ...payload,
+        docs_img: trucksDocs,
       });
     } else {
       return await this.trucksService.updateTruck(payload);

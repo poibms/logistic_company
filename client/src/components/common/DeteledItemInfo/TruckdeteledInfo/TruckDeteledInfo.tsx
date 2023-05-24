@@ -40,6 +40,8 @@ const TruckDeteledInfo: React.FC = () => {
   };
 
   const deleteButton = genDeleteButon();
+
+
   return (
     <div className="deteledInfo">
       <div className="deteledInfo_wrapper flex flex_column">
@@ -48,6 +50,10 @@ const TruckDeteledInfo: React.FC = () => {
             <div className="truckInfo_data">
               <img
                 src={`http://localhost:3007/${truck.photo}`}
+                alt="driver img"
+              />
+              <img
+                src={`http://localhost:3007/${truck.docs_img}`}
                 alt="driver img"
               />
               <div className="driverInfo_description flex flex_column justify-center">
@@ -68,6 +74,15 @@ const TruckDeteledInfo: React.FC = () => {
                 </p>
                 <p>
                   <b>Fuel Consumption</b>: {truck.fuel_consumption} litters/per 100 km
+                </p>
+                <p>
+                  <b>Plate</b>: {truck.plate}
+                </p>
+                <p>
+                  <b>VIN</b>: {truck.vin}
+                </p>
+                <p>
+                  <b>Triler VIN</b>: {truck.trailer_vin}
                 </p>
               </div>
               <div className="driverInfo_buttons flex justify-center">

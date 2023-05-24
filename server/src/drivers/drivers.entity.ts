@@ -28,10 +28,13 @@ export class Drivers {
   surname: string;
 
   @Column()
-  age: string;
+  driving_experience: string;
 
   @Column()
   photo: string;
+
+  @Column()
+  docs_img: string;
 
   @Column({ default: UserRole.DRIVER })
   role: string;
@@ -39,10 +42,10 @@ export class Drivers {
   @Column({ name: 'refreshTokenHash', nullable: true })
   rthash: string;
 
-  @OneToOne(() => Trucks, (truck) => truck.id, { onDelete: 'CASCADE' })
+  @OneToOne(() => Trucks, (truck) => truck.id)
   @JoinColumn()
-  truckId: string;
+  truckId: Trucks;
 
-  @OneToMany(() => Orders, (orders) => orders.driverId, { onDelete: 'CASCADE' })
+  @OneToMany(() => Orders, (orders) => orders.driverId)
   orders: Orders[];
 }

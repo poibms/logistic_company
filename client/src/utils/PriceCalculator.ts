@@ -39,8 +39,9 @@ function calculateShippingCost(distance: number, cargoType: string, weight: numb
   const fuelPrice = 2.26;
   const fuelNeeded = fuel_consumption / 100 * distance;
   const fuel_cost = fuelNeeded * fuelPrice;
+  
   const totalCost = weightCost + volumeCost + cargoTypeCost + Math.floor(fuel_cost);
-
+  
   const tax = (totalCost + (distance * 0.1)) * 0.24;
   return (totalCost + (distance * 0.1)) + tax;
 }

@@ -49,6 +49,14 @@
     margin-top: 20px;
     display: flex;
     justify-content: center;
+
+    button {
+      margin-right: 10px;
+    }
+
+    button:last-child {
+      background-color: rgb(146, 146, 9);;
+    }
   }
 }
 

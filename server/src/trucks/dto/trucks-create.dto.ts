@@ -23,6 +23,18 @@ export class CreateTruckDto {
   @IsNumberString()
   loadCapacity: number;
 
+  @IsString()
+  plate: string;
+
+  @IsString()
+  vin: string;
+
+  @IsString()
+  trailer_vin: string;
+
+  @IsOptional()
+  docs_img?: string;
+
   @IsOptional()
   photo?: string;
 }

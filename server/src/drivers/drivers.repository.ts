@@ -40,11 +40,13 @@ export class DriversRepository extends Repository<Drivers> {
       await this.delete({ id });
       return { message: 'driver was succesfully deleted ' };
     } catch (e) {
-      throw new BadRequestException('something was wrong');
+      throw new BadRequestException(
+        'something was wrong while deleting driver',
+      );
     }
   }
 
-  async setDriverToTruck(payload: setTruckType) {
+  async setDriverToTruck(payload: any) {
     try {
       const { driverId, truckId } = payload;
       await this.update({ id: driverId }, { truckId: truckId });
@@ -53,6 +55,16 @@ export class DriversRepository extends Repository<Drivers> {
       throw new BadRequestException(
         'something was wrong while updating driver',
       );
+    }
+  }
+
+  async logout(userId: string): Promise<boolean> {
+    try {
+      await this.update({ id: userId }, { rthash: null });
+      console.log(await this.getDriverById(userId));
+      return true;
+    } catch {
+      throw new BadRequestException('Something was wrong');
     }
   }
 

@@ -14,21 +14,27 @@ const initialData: DriverCreds = {
   password: "",
   name: "",
   surname: "",
-  age: "",
+  driving_experience: "",
 };
 
 type AddDriverPropsType = {
   handleClose: any
 }
 
+interface FileState {
+  [key: string]: File | undefined;
+}
+
 const AddDriverForm: React.FC<AddDriverPropsType> = ({handleClose}) => {
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = React.useState<FileState>({});
   const [fileError, setFileError] = useState(false);
   const driverError = useSelector(getDriverErrors());
 
-  const handleFileSelect = (event: any) => {
-    setSelectedFile(event.target.files[0]);
-    setFileError(false)
+  const handleFileSelect = (event: any, name: string) => {
+    console.log(event.target.name)
+    const selectedFile = event.target.files?.[0];
+    setSelectedFile((prevFiles) => ({ ...prevFiles, [name]: selectedFile }));
+    setFileError(false);
   };
 
   const {
@@ -50,9 +56,10 @@ const AddDriverForm: React.FC<AddDriverPropsType> = ({handleClose}) => {
       formData.append("password", data.password);
       formData.append("name", data.name);
       formData.append("surname", data.surname);
-      formData.append("age", data.age);
-      formData.append("photo", selectedFile!);
-      if(selectedFile) {
+      formData.append("driving_experience", data.driving_experience);
+      formData.append("photo", selectedFile.img!);
+      formData.append("docs_img", selectedFile.doc!);
+      if(selectedFile.img && selectedFile.doc) {
         dispatch(createDriver(formData, () => handleClose()));
         handleResetForm(e);
       } else {
@@ -72,9 +79,10 @@ const AddDriverForm: React.FC<AddDriverPropsType> = ({handleClose}) => {
           <InputWithPassword name="password" label="Password" type="password" />
           <InputField name="name" label="Name" autoFocus />
           <InputField name="surname" label="Surname" />
-          <InputField name="age" label="Age" />
+          <InputField name="driving_experience" label="Driving Experience" />
 
-          <input className="mt-10" type="file" onInput={handleFileSelect} />
+          <input className="mt-10" type="file" onInput={(event) => handleFileSelect(event, 'img')} />
+          <input className="mt-10" type="file" onInput={(event) => handleFileSelect(event, 'doc')}/>
           <button
             className="button_outline button_modal"
             type="submit"
