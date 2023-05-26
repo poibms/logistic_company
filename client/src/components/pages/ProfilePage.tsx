@@ -19,9 +19,9 @@ const ProfilePage = () => {
 
   React.useEffect(() => {
     if (currPath === "create-order") {
-      setValue(1);
-    } else if (currPath === "orders") {
       setValue(2);
+    } else if (currPath === "orders") {
+      setValue(1);
     } else {
       setValue(0);
     }
