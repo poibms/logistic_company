@@ -62,11 +62,10 @@ const Profile = () => {
                       Name: {driver.truckId.name} {driver.truckId.model}
                     </h3>
                     <p>
-                      <b>Year of issue</b>: {driver.truckId.year} years old
+                      <b>Year of issue</b>: {driver.truckId.year}
                     </p>
                     <p>
                       <b>Load capacity</b>: {driver.truckId.loadCapacity} tons
-                      old
                     </p>
                   </div>
                 </div>

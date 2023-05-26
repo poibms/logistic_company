@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { getAllDrivers } from "../../../store/drivers";
 import { getAllOrders } from "../../../store/orders";
 import { getAllTrucks } from "../../../store/trucks";
+import ExportExcelButton from "../../ui/ExportExcelButton/ExportExcelButton";
 import DataTable from "../../ui/Table/Table";
 
 type AdminProfileProps = {
@@ -30,7 +31,10 @@ const AdminProfile: React.FC<AdminProfileProps> = ({ searchHandler }) => {
           <div className="adminprofile_info-creds"></div>
         </div>
         <div className="adminprofile_info-data">
-          <h2>Orders</h2>
+          <div className="flex justify-between mg-btm-20">
+            <h2>Orders</h2>
+            <ExportExcelButton orders={orders} />
+          </div>
           <DataTable
             dataType={"orders"}
             rows={orders}
