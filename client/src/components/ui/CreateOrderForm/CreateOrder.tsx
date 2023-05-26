@@ -190,8 +190,6 @@ const CreateOrder: React.FC = () => {
     setDistanceError("");
     const from = `${data.fromCity}, ${data.fromStreet} , ${data.fromHouse} ${data.fromBuilding}`;
     const to = `${data.toCity} ${data.toStreet} ${data.toHouse} ${data.toBuilding}`;
-    console.log(data.fromCity === "");
-    console.log(to);
     if (
       data.fromCity === "" ||
       data.fromStreet === "" ||
