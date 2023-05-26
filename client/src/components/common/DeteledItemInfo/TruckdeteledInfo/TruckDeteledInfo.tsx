@@ -61,7 +61,7 @@ const TruckDeteledInfo: React.FC = () => {
                   Name: {truck.name} {truck.model}
                 </h3>
                 <p>
-                  <b>Year of issue</b>: {truck.year} years old
+                  <b>Year of issue</b>: {truck.year} 
                 </p>
                 <p>
                   <b>Load capacity</b>: {truck.loadCapacity} tons
