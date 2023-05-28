@@ -70,6 +70,15 @@ const TruckDeteledInfo: React.FC = () => {
                   <b>Volume</b>: {truck.trailer_volume} cm^3
                 </p>
                 <p>
+                  <b>Trailer height </b>: {truck.trailer_height} m
+                </p>
+                <p>
+                  <b>Trailer width</b>: {truck.trailer_width} m
+                </p>
+                <p>
+                  <b>Trailer Long</b>: {truck.trailer_long} m
+                </p>
+                <p>
                   <b>Trailer type</b>: {truck.truck_type}
                 </p>
                 <p>

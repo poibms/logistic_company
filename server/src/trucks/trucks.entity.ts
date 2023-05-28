@@ -47,6 +47,15 @@ export class Trucks {
   trailer_vin: string;
 
   @Column()
+  trailer_height: string;
+
+  @Column()
+  trailer_width: string;
+
+  @Column()
+  trailer_long: string;
+
+  @Column()
   docs_img: string;
 
   @OneToOne(() => Drivers, (drivers) => drivers.id)

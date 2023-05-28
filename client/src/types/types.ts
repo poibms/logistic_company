@@ -139,6 +139,9 @@ export type TruckType = {
   plate: string,
   vin: string,
   trailer_vin: string,
+  trailer_height: string,
+  trailer_width: string,
+  trailer_long: string,
   docs_img: string;
   trailer_volume: string,
   truck_type: CargoType,
@@ -156,18 +159,22 @@ export type TruckCreds = {
   plate: string,
   vin: string,
   trailer_vin: string,
+  trailer_height: string,
+  trailer_width: string,
+  trailer_long: string,
   docs_img: string;
   photo: string;
 }
 
 export type TruckUpdateType = {
   id?: string,
-  name: string,
-  model: string,
-  year: string,
+  trailer_volume: string,
   loadCapacity: string,
   fuel_consumption: string,
   plate: string,
   trailer_vin: string,
+  trailer_height: string,
+  trailer_width: string,
+  trailer_long: string,
   photo?: any
 }

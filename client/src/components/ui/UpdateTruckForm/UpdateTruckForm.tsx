@@ -40,13 +40,14 @@ const UpdateTruckForm: React.FC<UpdateTruckPropsType> = ({
   const trucksErrors = useSelector(getTruckErrors());
 
   const initialData: TruckUpdateType = {
-    name: truck.name,
-    model: truck.model,
-    year: truck.year,
+    trailer_volume: truck.trailer_volume,
     loadCapacity: truck.loadCapacity,
     trailer_vin: truck.trailer_vin,
     plate: truck.plate,
-    fuel_consumption: truck.fuel_consumption
+    fuel_consumption: truck.fuel_consumption,
+    trailer_height: truck.trailer_height,
+    trailer_width: truck.trailer_width,
+    trailer_long: truck.trailer_long,
   };
 
   const handleFileSelect = (event: any, name: string) => {
@@ -73,13 +74,13 @@ const UpdateTruckForm: React.FC<UpdateTruckPropsType> = ({
       console.log("validate");
       const formData = new FormData();
       formData.append("id", String(truck.id));
-      formData.append("name", data.name);
-      formData.append("model", data.model);
-      formData.append("year", data.year);
       formData.append("loadCapacity", data.loadCapacity);
       formData.append("fuel_consumption", data.fuel_consumption);
       formData.append("plate", data.plate);
       formData.append("trailer_vin", data.trailer_vin);
+      formData.append("trailer_height", data.trailer_height);
+      formData.append("trailer_width", data.trailer_width);
+      formData.append("trailer_long", data.trailer_long);
       formData.append("truck_type", cargoType);
       if (selectedFile.img) {
         formData.append("photo", selectedFile.img!);
@@ -105,10 +106,10 @@ const UpdateTruckForm: React.FC<UpdateTruckPropsType> = ({
       <Paper elevation={3} className="login_form-card form_card">
         <h2>Update Truck</h2>
         <Form data={data} errors={errors} handleChange={handleInputChange}>
-          <InputField name="name" label="Name" autoFocus />
-          <InputField name="model" label="Model" />
-          <InputField name="year" label="Year" />
           <InputField name="loadCapacity" label="LoadCapacity" />
+          <InputField name="trailer_volume" label="Volume (м³)" />
+          <InputField name="trailer_height" label="Trailer Height (м)" />
+          <InputField name="trailer_width" label="Trailer Width (м)" />
           <InputField name="fuel_consumption" label="Fuel Consumption (litters/per 100 km)" />
           <InputField name="plate" label="Plate" placeholder="3007 AB-7"/>
           <InputField name="trailer_vin" label="Trailer Vin" placeholder="WF0PXXGCHPJA77397" />

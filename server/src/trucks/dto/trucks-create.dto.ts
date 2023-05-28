@@ -32,6 +32,15 @@ export class CreateTruckDto {
   @IsString()
   trailer_vin: string;
 
+  @IsString()
+  trailer_height: string;
+
+  @IsString()
+  trailer_width: string;
+
+  @IsString()
+  trailer_long: string;
+
   @IsOptional()
   docs_img?: string;
 
