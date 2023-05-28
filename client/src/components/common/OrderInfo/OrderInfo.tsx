@@ -75,6 +75,15 @@ const OrderInfo: React.FC = () => {
                 <strong>Volume</strong>: {order.volume} tons
               </div>
               <div>
+                <strong>Height</strong> {order.height} m
+              </div>
+              <div>
+                <strong>Width</strong> {order.width} m
+              </div>
+              <div>
+                <strong>Long</strong> {order.long} m
+              </div>
+              <div>
                 <strong>Distance</strong>: {order.distance} km
               </div>
               <div>

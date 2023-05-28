@@ -56,6 +56,9 @@ export type OrderCreds = {
   cargo_type: string,
   distance: number, 
   volume: string,
+  height: string,
+  width: string,
+  long: string,
   image: any,
   delivery_date: Date;
 }
@@ -68,6 +71,9 @@ export type OrderType = {
   to: string,
   image: string,
   volume: string,
+  height: string,
+  width: string,
+  long: string,
   cargo_type: string,
   distance: number,
   date_of_the_order: string;

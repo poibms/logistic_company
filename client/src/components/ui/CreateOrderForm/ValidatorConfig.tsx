@@ -19,6 +19,30 @@ const validatorConfig: ConfigType = {
       message: 'Data must be a number'
     },
   },
+  height: {
+    isRequired: {
+      message: 'Field "Height" is required',
+    },
+    inNum: {
+      message: 'Data must be a number'
+    },
+  },
+  width: {
+    isRequired: {
+      message: 'Field "Width" is required',
+    },
+    inNum: {
+      message: 'Data must be a number'
+    },
+  },
+  long: {
+    isRequired: {
+      message: 'Field "Long" is required',
+    },
+    inNum: {
+      message: 'Data must be a number'
+    },
+  },
   volume: {
     isRequired: {
       message: 'Field "Volume" is required',

@@ -42,6 +42,15 @@ export class Orders {
   @Column()
   volume: number;
 
+  @Column()
+  height: string;
+
+  @Column()
+  width: string;
+
+  @Column()
+  long: string;
+
   @Column({ default: 0 })
   fuel: number;
 

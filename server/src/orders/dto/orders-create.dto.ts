@@ -19,6 +19,15 @@ export class NewUserOrderDto {
   volume: number;
 
   @IsString()
+  height: string;
+
+  @IsString()
+  width: string;
+
+  @IsString()
+  long: string;
+
+  @IsString()
   cargo_type: CargoType;
 
   @IsString()

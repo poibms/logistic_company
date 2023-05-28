@@ -92,7 +92,16 @@ const OrderAdminPanel: React.FC<OrderPanel> = ({ order, handleClosePanel }) => {
               <strong>Weight</strong> {order.weight} tons
             </div>
             <div>
-              <strong>Volime</strong> {order.volume} cm3
+              <strong>Volume</strong> {order.volume} cm3
+            </div>
+            <div>
+              <strong>Height</strong> {order.height} m
+            </div>
+            <div>
+              <strong>Width</strong> {order.width} m
+            </div>
+            <div>
+              <strong>Long</strong> {order.long} m
             </div>
             <div>
               <strong>From</strong> {order.from}
