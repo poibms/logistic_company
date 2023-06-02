@@ -16,8 +16,9 @@ export class TrucksRepository extends Repository<Trucks> {
       await this.save(newTruck);
       return await this.getTruckById(newTruck.id);
     } catch (e) {
+      console.log(e);
       throw new BadRequestException(
-        'something was wrong while creating driver',
+        'something was wrong while creating driver, Plate & vin numbers must be uniq',
       );
     }
   }

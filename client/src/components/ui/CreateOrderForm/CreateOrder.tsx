@@ -21,6 +21,9 @@ import transformDate from "../../../utils/TransformData";
 const initialData: OrderCreds = {
   name: "",
   weight: "",
+  height: "",
+  width: '',
+  long: '',
   fromCity: "",
   fromStreet: "",
   fromHouse: "",
@@ -147,6 +150,9 @@ const CreateOrder: React.FC = () => {
         const formData = new FormData();
         formData.append("name", data.name);
         formData.append("weight", data.weight);
+        formData.append("height", data.height);
+        formData.append("width", data.width);
+        formData.append("long", data.long);
         formData.append("volume", String(data.volume));
         formData.append(
           "from",
@@ -190,8 +196,6 @@ const CreateOrder: React.FC = () => {
     setDistanceError("");
     const from = `${data.fromCity}, ${data.fromStreet} , ${data.fromHouse} ${data.fromBuilding}`;
     const to = `${data.toCity} ${data.toStreet} ${data.toHouse} ${data.toBuilding}`;
-    console.log(data.fromCity === "");
-    console.log(to);
     if (
       data.fromCity === "" ||
       data.fromStreet === "" ||
@@ -265,6 +269,21 @@ const CreateOrder: React.FC = () => {
           <InputField
             name="weight"
             label="Weight (tons)"
+            className="my-text-field"
+          />
+          <InputField
+            name="height"
+            label="Height (м)"
+            className="my-text-field"
+          />
+          <InputField
+            name="width"
+            label="Width (м)"
+            className="my-text-field"
+          />
+          <InputField
+            name="long"
+            label="Long (м)"
             className="my-text-field"
           />
           <InputField

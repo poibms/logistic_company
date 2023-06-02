@@ -17,7 +17,14 @@ type TypeCalculatorProps = {
 
 const initialData: any = {
   weight: "",
-  volume: "",
+  fromCity: "",
+  fromStreet: "",
+  fromHouse: "",
+  fromBuilding: "",
+  toCity: "",
+  toStreet: "",
+  toHouse: "",
+  toBuilding: "",
 };
 
 const CalculateOrder: React.FC<TypeCalculatorProps> = ({ cities }) => {
@@ -33,43 +40,39 @@ const CalculateOrder: React.FC<TypeCalculatorProps> = ({ cities }) => {
   const [price, setPrice] = React.useState(0);
   const [distanceError, setDistanceError] = React.useState("");
 
-  const {
-    data,
-    errors,
-    enterError,
-    handleInputChange,
-    validate,
-  } = useForm(initialData, false, validatorConfig);
+  const { data, errors, enterError, handleInputChange, validate } = useForm(
+    initialData,
+    false,
+    validatorConfig
+  );
 
   const validateForm = () => {
     const { to, from, cargo_type } = formState;
-    console.log(formState)
-    console.log(distance)
-    console.log(price)
-    validate(data)
+    console.log(formState);
+    console.log(distance);
+    console.log(price);
+    validate(data);
     if (!to || !from || !cargo_type) {
-      if(!to) {
-        setToErrors('Field "To" is required')
+      if (!to) {
+        setToErrors('Field "To" is required');
       } else {
-        setToErrors('')
+        setToErrors("");
       }
-      if(!from) {
-        setFromErrors('Field "From" is required')
+      if (!from) {
+        setFromErrors('Field "From" is required');
       } else {
-        setFromErrors('')
+        setFromErrors("");
       }
-      if(!cargo_type) {
-        console.log(formState.cargo_type)
-        setCargoTypeErrors('Field "Cargo Type" is required')
+      if (!cargo_type) {
+        console.log(formState.cargo_type);
+        setCargoTypeErrors('Field "Cargo Type" is required');
       } else {
-        setCargoTypeErrors('')
+        setCargoTypeErrors("");
       }
-      if(!cargo_type || !price) {
-        setDistanceError(
-          "Please callculate distance and price"
-        );
+      if (!cargo_type || !price) {
+        setDistanceError("Please callculate distance and price");
       } else {
-        setDistanceError('')
+        setDistanceError("");
       }
       return false;
     }
@@ -82,17 +85,39 @@ const CalculateOrder: React.FC<TypeCalculatorProps> = ({ cities }) => {
   ) => {
     e.preventDefault();
     setDistanceError("");
-    if (formState.from === "" || formState.to === "") {
+    const from = `${data.fromCity}, ${data.fromStreet} , ${data.fromHouse} ${data.fromBuilding}`;
+    const to = `${data.toCity} ${data.toStreet} ${data.toHouse} ${data.toBuilding}`;
+    if (
+      data.fromCity === "" ||
+      data.fromStreet === "" ||
+      data.fromHouse === "" ||
+      data.toCity === "" ||
+      data.toStreet === "" ||
+      data.toHouse === ""
+    ) {
       setDistanceError(
         "Something went wrong while calculating the distance, check the correctness of the filled fields"
       );
+    } else if (from === to) {
+      setDistanceError("You cannot choose the same adress");
     } else {
-      const distnce = await calculateDistance(formState.from, formState.to);
-      setDistance(Math.round(distnce))
-      if(validateForm()) {
-        const price = calculateShippingCost(Math.round(distnce), formState.cargo_type, +data.weight, +data.volume)
-        console.log(price)
-        setPrice(Math.round(price))
+      const distnce = await calculateDistance(from, to);
+      console.log("distnce ", distnce);
+      setDistance(Math.round(distnce));
+      if (
+        Math.round(distnce) !== 0 &&
+        formState.cargo_type !== "" &&
+        data.weight !== "" &&
+        data.volume !== ""
+      ) {
+        const price = calculateShippingCost(
+          Math.round(distnce),
+          formState.cargo_type,
+          +data.weight,
+          +data.volume
+        );
+        setPrice(Math.round(price));
+        return { distnce, price };
       } else {
         setDistanceError(
           "Something went wrong while calculating the price, check the correctness of the filled fields"
@@ -117,31 +142,51 @@ const CalculateOrder: React.FC<TypeCalculatorProps> = ({ cities }) => {
       <div className="calculator_inner flex">
         <Form data={data} errors={errors} handleChange={handleInputChange}>
           <div className="flex_column">
-            <div className="flex">
-              <FormControl fullWidth key={0}>
-                <SelectInput
-                  label="From"
-                  name="from"
-                  value={formState.from}
-                  items={cities}
-                  error={fromErrors}
-                  onChange={(event: any) => handleOptionChange(event)}
+            <div className="flex flex_column">
+              <div className="flex">
+                <InputField
+                  name="fromCity"
+                  className="my-text-field"
+                  label="City From"
                 />
-                {fromErrors && <FormHelperText>{fromErrors}</FormHelperText>}
-              </FormControl>
-
-              <FormControl fullWidth key={1}>
-                <SelectInput
-                  label="to"
-                  name="to"
-                  value={formState.to}
-                  items={cities}
-                  error={toErrors}
-                  onChange={(event: any) => handleOptionChange(event)}
+                <InputField
+                  name="fromStreet"
+                  className="my-text-field"
+                  label="Street From"
                 />
-                {toErrors && <FormHelperText>{toErrors}</FormHelperText>}
-              </FormControl>
-
+                <InputField
+                  name="fromHouse"
+                  className="my-text-field"
+                  label="House From"
+                />
+                <InputField
+                  name="fromBuilding"
+                  className="my-text-field"
+                  label="Building From"
+                />
+              </div>
+              <div className="flex">
+                <InputField
+                  name="toCity"
+                  label="To City"
+                  className="my-text-field"
+                />
+                <InputField
+                  name="toStreet"
+                  label="To Street"
+                  className="my-text-field"
+                />
+                <InputField
+                  name="toHouse"
+                  label="To House"
+                  className="my-text-field"
+                />
+                <InputField
+                  name="toBuilding"
+                  label="To Building"
+                  className="my-text-field"
+                />
+              </div>
               <FormControl fullWidth key={2}>
                 <SelectInput
                   label="Cargo Type"
@@ -156,7 +201,7 @@ const CalculateOrder: React.FC<TypeCalculatorProps> = ({ cities }) => {
                 )}
               </FormControl>
             </div>
-            <div className="flex align_center" >
+            <div className="flex align_center">
               <InputField name="weight" label="Weight (tons)" />
               <InputField name="volume" label="Volume (м³)" />
               <button
@@ -169,19 +214,22 @@ const CalculateOrder: React.FC<TypeCalculatorProps> = ({ cities }) => {
               </button>
             </div>
             {distance !== 0 ? (
+              <h4>
+                Distance between cities: {distance} km and approximate cost are{" "}
+                {price}
+              </h4>
+            ) : (
+              <div className=" calculate_desc flex flex_column">
                 <h4>
-                  Distance between cities: {distance} km and approximate cost
-                  are {price}
+                  Fill the From & To fields and press the callculate button
                 </h4>
-              ) : (
-                <div className=" calculate_desc flex flex_column">
-                  <h4>
-                    Fill the From & To fields and press the callculate button
-                  </h4>
-                  <p>This is a preliminary price, the final price will be calculated after the completion of the order</p>
-                </div>
-              )}
-              {distanceError && <p className="form_error">{distanceError}</p>}
+                <p>
+                  This is a preliminary price, the final price will be
+                  calculated after the completion of the order
+                </p>
+              </div>
+            )}
+            {distanceError && <p className="form_error">{distanceError}</p>}
           </div>
         </Form>
       </div>

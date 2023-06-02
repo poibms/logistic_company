@@ -22,6 +22,9 @@ const initialData: TruckCreds = {
   vin: "",
   docs_img: "",
   trailer_vin: "",
+  trailer_height: "",
+  trailer_width: "",
+  trailer_long: "",
   photo: "",
 };
 
@@ -83,6 +86,9 @@ const AddTuckForm: React.FC<AddTcuckPropsType> = ({ handleClose }) => {
       formData.append("plate", data.plate);
       formData.append("vin", data.vin.toUpperCase());
       formData.append("trailer_vin", data.trailer_vin.toUpperCase());
+      formData.append("trailer_height", data.trailer_height);
+      formData.append("trailer_width", data.trailer_width);
+      formData.append("trailer_long", data.trailer_long);
       formData.append("truck_type", cargoType);
       formData.append("photo", selectedFile.img!);
       formData.append("docs_img", selectedFile.doc!);
@@ -106,10 +112,13 @@ const AddTuckForm: React.FC<AddTcuckPropsType> = ({ handleClose }) => {
     <div className="sign_form-wrapper">
       <Paper elevation={3} className="login_form-card form_card">
         <h2>Add Truck</h2>
-        <Form data={data} errors={errors} handleChange={handleInputChange}>
+        <Form data={data} errors={errors} handleChange={handleInputChange} className="my-form ">
           <InputField name="name" label="name" autoFocus />
           <InputField name="model" label="model" />
-          <InputField name="year" label="year" />
+          <InputField name="trailer_height" label="Trailer Height (м)" className="my-text-field"/>
+          <InputField name="trailer_width" label="Trailer Width (м)" className="my-text-field"/>
+          <InputField name="trailer_long" label="Trailer Long (м)" className="my-text-field"/>
+          <InputField name="year" label="year"  />
           <InputField name="loadCapacity" label="Load Capacity (tons)" />
           <InputField name="trailer_volume" label="Volume (м³)" />
           <InputField name="fuel_consumption" label="Fuel Consumption (litters/per 100 km)" />

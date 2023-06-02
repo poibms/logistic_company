@@ -1,9 +1,8 @@
-import * as React from 'react';
-import { useSelector } from 'react-redux';
-import { getAuthUser, getRole } from '../../../store/user';
+import * as React from "react";
+import { useSelector } from "react-redux";
+import { getAuthUser, getRole } from "../../../store/user";
 import driversService from "../../../services/drivers.service";
-import { DriverType } from '../../../types/types';
-
+import { DriverType } from "../../../types/types";
 
 const Profile = () => {
   const authUser = useSelector(getAuthUser());
@@ -11,14 +10,15 @@ const Profile = () => {
   const [driver, setDriver] = React.useState({} as DriverType | null);
 
   React.useEffect(() => {
-    if(role === 'driver') {
-      driversService.getDriverById(authUser!?.id)
-      .then((data) => setDriver(data))
+    if (role === "driver") {
+      driversService
+        .getDriverById(authUser!?.id)
+        .then((data) => setDriver(data));
     }
-  }, [authUser, role])
+  }, [authUser, role]);
 
   const genDriverInfo = () => {
-    if(driver) {
+    if (driver) {
       return (
         <div className="driverInfo">
           <div className="driverInfo_data">
@@ -62,11 +62,10 @@ const Profile = () => {
                       Name: {driver.truckId.name} {driver.truckId.model}
                     </h3>
                     <p>
-                      <b>Year of issue</b>: {driver.truckId.year} years old
+                      <b>Year of issue</b>: {driver.truckId.year}
                     </p>
                     <p>
                       <b>Load capacity</b>: {driver.truckId.loadCapacity} tons
-                      old
                     </p>
                   </div>
                 </div>
@@ -74,28 +73,35 @@ const Profile = () => {
             )}
           </div>
         </div>
-      )
+      );
     }
-  }
+  };
 
   const driverInfo = genDriverInfo();
+  console.log(role)
 
   return (
-  <div className='flex flex_column justify-center align_center mt-30'>
-    <h2 className='mg-btm-20'>Welcome to your profile page</h2>
+    <div className="flex flex_column justify-center align_center mt-30">
+      <h2 className="mg-btm-20">Welcome to your profile page</h2>
 
-    {/* <div className='flex align_center'>
-      <p>
-        <b>Email</b> {authUser?.email}
-      </p>
+      {role === "driver" ? (
+        driverInfo
+      ) : (
+        <>
+          <div className="flex align_center">
+            <p>
+              <b>Email</b> {authUser?.email}
+            </p>
+          </div>
+          <div className="flex align_center">
+            <p>
+              <b>Role</b> {authUser?.role}
+            </p>
+          </div>
+        </>
+      )}
     </div>
-    <div className='flex align_center'>
-      <p>
-        <b>Role</b> {authUser?.role}
-      </p>
-    </div> */}
-    {driverInfo}
-  </div>);
-}
- 
+  );
+};
+
 export default Profile;

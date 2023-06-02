@@ -122,19 +122,27 @@ input[type="file"]::file-selector-button:hover {
     margin-bottom: 10px; // Отступ между полями
   }
 
+  .my-text-field:nth-child(3),
   .my-text-field:nth-child(4),
-  .my-text-field:nth-child(5),
-  .my-text-field:nth-child(6),
-  .my-text-field:nth-child(7) {
+  .my-text-field:nth-child(5) {
+    flex-basis: 33%; // Ширина полей с 4 по 6
+    // margin-right: 10px; // Отступ между полями
+    margin-bottom: 10px; // Убираем отступ снизу для полей с 4 по 6
+  }
+
+  .my-text-field:nth-child(7),
+  .my-text-field:nth-child(8),
+  .my-text-field:nth-child(9),
+  .my-text-field:nth-child(10) {
     flex-basis: 25%; // Ширина полей с 4 по 6
     // margin-right: 10px; // Отступ между полями
     margin-bottom: 10px; // Убираем отступ снизу для полей с 4 по 6
   }
 
-  .my-text-field:nth-child(8),
-  .my-text-field:nth-child(9),
-  .my-text-field:nth-child(10),
-  .my-text-field:nth-child(11) {
+  .my-text-field:nth-child(11),
+  .my-text-field:nth-child(12),
+  .my-text-field:nth-child(13),
+  .my-text-field:nth-child(14) {
     flex-basis: 25%; // Ширина полей с 8 по 11
     // margin-right: 10px; // Отступ между полями
     margin-bottom: 10px; // Убираем отступ снизу для полей с 8 по 11
@@ -155,3 +163,8 @@ input[type="file"]::file-selector-button:hover {
 .react-datepicker-popper {
   z-index: 1000 !important;
 }
+
+.css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
+  width: 100%;
+}
+

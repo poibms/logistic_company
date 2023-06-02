@@ -56,6 +56,9 @@ export type OrderCreds = {
   cargo_type: string,
   distance: number, 
   volume: string,
+  height: string,
+  width: string,
+  long: string,
   image: any,
   delivery_date: Date;
 }
@@ -68,6 +71,9 @@ export type OrderType = {
   to: string,
   image: string,
   volume: string,
+  height: string,
+  width: string,
+  long: string,
   cargo_type: string,
   distance: number,
   date_of_the_order: string;
@@ -133,6 +139,9 @@ export type TruckType = {
   plate: string,
   vin: string,
   trailer_vin: string,
+  trailer_height: string,
+  trailer_width: string,
+  trailer_long: string,
   docs_img: string;
   trailer_volume: string,
   truck_type: CargoType,
@@ -150,18 +159,22 @@ export type TruckCreds = {
   plate: string,
   vin: string,
   trailer_vin: string,
+  trailer_height: string,
+  trailer_width: string,
+  trailer_long: string,
   docs_img: string;
   photo: string;
 }
 
 export type TruckUpdateType = {
   id?: string,
-  name: string,
-  model: string,
-  year: string,
+  trailer_volume: string,
   loadCapacity: string,
   fuel_consumption: string,
   plate: string,
   trailer_vin: string,
+  trailer_height: string,
+  trailer_width: string,
+  trailer_long: string,
   photo?: any
 }

@@ -38,6 +38,30 @@ const validatorConfig: ConfigType = {
       message: 'Data must be a number'
     },
   },
+  trailer_height: {
+    isRequired: {
+      message: 'Field "Trailer Height" is required',
+    },
+    inNum: {
+      message: 'Data must be a number'
+    },
+  },
+  trailer_width: {
+    isRequired: {
+      message: 'Field "Trailer Width" is required',
+    },
+    inNum: {
+      message: 'Data must be a number'
+    },
+  },
+  trailer_long: {
+    isRequired: {
+      message: 'Field "Trailer Long" is required',
+    },
+    inNum: {
+      message: 'Data must be a number'
+    },
+  },
   fuel_consumption: {
     isRequired: {
       message: 'Field "Fuel consumption" is required',

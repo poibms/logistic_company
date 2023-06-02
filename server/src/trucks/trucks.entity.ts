@@ -37,14 +37,23 @@ export class Trucks {
   @Column()
   photo: string;
 
-  @Column()
+  @Column({ unique: true })
   plate: string;
 
-  @Column()
+  @Column({ unique: true })
   vin: string;
 
-  @Column()
+  @Column({ unique: true })
   trailer_vin: string;
+
+  @Column()
+  trailer_height: string;
+
+  @Column()
+  trailer_width: string;
+
+  @Column()
+  trailer_long: string;
 
   @Column()
   docs_img: string;
