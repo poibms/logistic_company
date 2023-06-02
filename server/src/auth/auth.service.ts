@@ -86,37 +86,45 @@ export class AuthService {
     }
   }
 
-  async refreshToken(
-    userId: string,
-    refreshToken: string,
-    role: string,
-  ): Promise<TokensType> {
-    if (role === 'driver') {
-      const driver = await this.driversRepository.getDriverById(userId);
-      if (!driver || !driver.rthash)
-        throw new BadRequestException('Access denied');
+  async refreshToken(refreshToken: string): Promise<TokensType> {
+    const decodedToken = this.jwtService.verify(refreshToken, {
+      secret: this.config.get<string>('JWT_REFRESH_SECRET'),
+    });
+    const { id, role } = decodedToken;
 
-      const isRefreshMatch = await bcrypt.compare(refreshToken, driver.rthash);
-      if (!isRefreshMatch) throw new ForbiddenException('Access Denied');
-
-      const tokens = await this.genAccesToken(driver);
-      await this.userRepository.updateUserRefreshToken(
-        driver.id,
-        tokens.refresh_token,
-      );
-      return tokens;
+    if (!id || !role) {
+      throw new BadRequestException('Invalid refresh token');
     }
-    const user = await this.userRepository.getUserById(userId);
-    if (!user || !user.rthash) throw new BadRequestException('Access denied');
+
+    let user;
+    if (role === 'driver') {
+      user = await this.driversRepository.getDriverById(id);
+    } else {
+      user = await this.userRepository.getUserById(id);
+    }
+
+    if (!user || !user.rthash) {
+      throw new BadRequestException('Access denied');
+    }
 
     const isRefreshMatch = await bcrypt.compare(refreshToken, user.rthash);
-    if (!isRefreshMatch) throw new ForbiddenException('Access Denied');
+    if (!isRefreshMatch) {
+      throw new ForbiddenException('Access Denied');
+    }
 
     const tokens = await this.genAccesToken(user);
-    await this.driversRepository.updateDriverRefreshToken(
-      user.id,
-      tokens.refresh_token,
-    );
+
+    if (role === 'driver') {
+      await this.userRepository.updateUserRefreshToken(
+        user.id,
+        tokens.refresh_token,
+      );
+    } else {
+      await this.driversRepository.updateDriverRefreshToken(
+        user.id,
+        tokens.refresh_token,
+      );
+    }
 
     return tokens;
   }

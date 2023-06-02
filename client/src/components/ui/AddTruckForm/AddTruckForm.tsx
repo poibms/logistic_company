@@ -112,15 +112,15 @@ const AddTuckForm: React.FC<AddTcuckPropsType> = ({ handleClose }) => {
     <div className="sign_form-wrapper">
       <Paper elevation={3} className="login_form-card form_card">
         <h2>Add Truck</h2>
-        <Form data={data} errors={errors} handleChange={handleInputChange}>
+        <Form data={data} errors={errors} handleChange={handleInputChange} className="my-form ">
           <InputField name="name" label="name" autoFocus />
           <InputField name="model" label="model" />
-          <InputField name="year" label="year" />
+          <InputField name="trailer_height" label="Trailer Height (м)" className="my-text-field"/>
+          <InputField name="trailer_width" label="Trailer Width (м)" className="my-text-field"/>
+          <InputField name="trailer_long" label="Trailer Long (м)" className="my-text-field"/>
+          <InputField name="year" label="year"  />
           <InputField name="loadCapacity" label="Load Capacity (tons)" />
           <InputField name="trailer_volume" label="Volume (м³)" />
-          <InputField name="trailer_height" label="Trailer Height (м)" />
-          <InputField name="trailer_width" label="Trailer Width (м)" />
-          <InputField name="trailer_long" label="Trailer Long (м)" />
           <InputField name="fuel_consumption" label="Fuel Consumption (litters/per 100 km)" />
           <InputField name="vin" label="Vin" placeholder="WF0PXXGCHPJA77397" />
           <InputField name="plate" label="Plate" placeholder="3007 AB-7"/>

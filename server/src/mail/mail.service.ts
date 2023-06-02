@@ -13,7 +13,7 @@ export class MailService {
       await this.mailService.sendMail({
         to: driver.email,
         from: process.env.SMTP_USER,
-        subject: 'Create account',
+        subject: `Welcome ${driver.name}`,
         text: '',
         html: `<h1>Hi ${driver.name} ${driver.surname}</h1>
     <p>Your credentionals for log in in mobile app: </p>

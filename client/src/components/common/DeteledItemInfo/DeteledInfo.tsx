@@ -23,7 +23,6 @@ const DeteledInfo: React.FC<DeteledPropsType> = ({ dataType, data }) => {
   const handleClose = () => {
     setOpen(false);
   };
-
   const genDeteledComponent = () => {
     if (dataType.get("filter") === "drivers") {
       const info = <DriverDeteledInfo handleOpenModal={handleOpen} />;
